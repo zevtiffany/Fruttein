@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fruttein Juice Shop</title>
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      background: #DD0303;
+      color: #333;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    header {
+      background: #FEF3E2;
+      color: #DD0303;
+      height: 55px; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      flex: 1;
+    }
+    .logo {
+      width: 180px;
+      border-radius: 50%;
+      margin: 20px 0;
+    }
+    h2 {
+      margin: 20px 0;
+      color: #FEF3E2;
+    }
+
+    /* Menu Section */
+    .menu {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .menu-item {
+      flex: 0 1 220px;
+      background: #fff3e0;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .menu-item:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+    }
+    .menu-item img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .menu-item h3 {
+      margin-bottom: 5px;
+      color: #DD0303;
+    }
+    .price {
+      font-weight: bold;
+      color: #DD0303;
+      margin-bottom: 8px;
+    }
+    .order-link {
+      display: inline-block;
+      background: #25D366;
+      color: white;
+      padding: 8px 12px;
+      margin-top: 10px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    /* Promo Section */
+    .promo {
+      background: #FEF3E2;
+      margin: 30px auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      max-width: 600px;
+      font-weight: bold;
+      color: #DD0303;
+    }
+    .promo h3 {
+      margin-bottom: 10px;
+      font-size: 22px;
+    }
+    .promo p {
+      margin: 8px 0;
+    }
+
+    /* Video Campaign */
+    .video-campaign {
+      margin: 40px 0;
+    }
+    .video-campaign iframe,
+    .video-campaign video {
+      width: 100%;
+      max-width: 700px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    /* Gallery Section */
+    .gallery {
+      margin: 40px 0;
+    }
+    .gallery h2 {
+      color: #FEF3E2;
+      margin-bottom: 20px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .gallery-grid img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease;
+    }
+    .gallery-grid img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Location */
+    .location {
+      margin: 40px 0;
+    }
+    .location h2 {
+      color: #FEF3E2;
+      margin-bottom: 20px;
+    }
+    .location iframe {
+      width: 100%;
+      max-width: 700px;
+      height: 300px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+    }
+
+    footer {
+      background: #333;
+      color: white;
+      padding: 15px;
+    }
+
+    /* Floating Buttons */
+    .floating-buttons {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .floating-buttons a img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease;
+    }
+    .floating-buttons a img:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <header>Fruttein Juice Shop</header>
+  
+  <div class="container">
+    <!-- Logo -->
+    <img src="logo.jpg" alt="Fruttein Logo" class="logo">
+
+    <!-- Menu -->
+    <h2>Our Menu</h2>
+    <div class="menu">
+      <div class="menu-item">
+        <img src="mango.jpg" alt="Mango Juice">
+        <h3>Nampisga</h3>
+        <p class="price">Rp10.000</p>
+        <p>Kombinasi Buah Naga, Pisang, Mangga & Golden Nectar.</p>
+        <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Nampisga." class="order-link">Pesan via WhatsApp</a>
+      </div>
+      <div class="menu-item">
+        <img src="strawberry.jpg" alt="Strawberry Juice">
+        <h3>Stropis</h3>
+        <p class="price">Rp10.000</p>
+        <p>Kombinasi Strawberry, Pisang, Yoghurt & Golden Nectar.</p>
+        <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Stropis." class="order-link">Pesan via WhatsApp</a>
+      </div>
+      <div class="menu-item">
+        <img src="avocado.jpg" alt="Avocado Juice">
+        <h3>Alpisan</h3>
+        <p class="price">Rp10.000</p>
+        <p>Kombinasi Alpukat, Pisang, Fresh Milk & Golden Nectar.</p>
+        <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Alpisan." class="order-link">Pesan via WhatsApp</a>
+      </div>
+    </div>
+
+    <!-- Promo Section -->
+    <div class="promo">
+      <h3>Special Promo</h3>
+      <p>TGIF: Setiap Jumat 25K/3 Botol</p>
+      <p>Diskon 25% untuk pembelian di atas 40 pcs</p>
+    </div>
+
+    <!-- Location Section -->
+    <div class="location">
+      <h2>Location</h2>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.3943905957617!2d112.61615567422354!3d-7.078173969130822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7882cf6e2da2f5%3A0x3e0a2a9ff9e9ed0!2sJl.%20Kendal%20Sari%20No.43%2C%20Malang!5e0!3m2!1sen!2sid!4v1695892597393!5m2!1sen!2sid" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
+    <!-- Video Campaign Section -->
+    <div class="video-campaign">
+      <h2>🎬 Campaign Video</h2>
+      <video controls autoplay loop muted playsinline>
+        <source src="campaign.mp4" type="video/mp4">
+        Browser Anda tidak mendukung video.
+      </video>
+    </div>
+
+    <!-- Gallery Section -->
+    <div class="gallery">
+      <h2>Gallery</h2>
+      <div class="gallery-grid">
+        <img src="FrutteinGaleri1.jpg" alt="Gallery 1">
+        <img src="FrutteinGaleri2.jpg" alt="Gallery 2">
+        <img src="gallery3.jpg" alt="Gallery 3">
+        <img src="gallery4.jpg" alt="Gallery 4">
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Buttons -->
+  <div class="floating-buttons">
+    <a href="https://wa.me/6285204575882" target="_blank">
+      <img src="walogo.png" alt="WhatsApp">
+    </a>
+    <a href="https://www.instagram.com/fruttein" target="_blank">
+      <img src="instalogo.png" alt="Instagram">
+    </a>
+  </div>
+
+  <footer>
+    &copy; 2025 Fruttein Juice Shop. All rights reserved.
+  </footer>
+</body>
+</html>
