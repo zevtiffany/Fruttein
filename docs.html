@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fruttein Documentation Index</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    header {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    header h1 {
+      color: #DD0303;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    header p {
+      color: #666;
+      font-size: 16px;
+    }
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .doc-card {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    .doc-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+    .doc-card h3 {
+      color: #DD0303;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+    .doc-card p {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    .doc-card a {
+      display: inline-block;
+      background: #DD0303;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    .doc-card a:hover {
+      background: #bb0202;
+    }
+    .doc-card.primary {
+      border-top: 4px solid #DD0303;
+    }
+    .doc-card.secondary {
+      border-top: 4px solid #25D366;
+    }
+    .doc-card.info {
+      border-top: 4px solid #3498db;
+    }
+    .badge {
+      display: inline-block;
+      background: #25D366;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 10px;
+    }
+    .quick-start {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+    .quick-start h2 {
+      color: #DD0303;
+      margin-bottom: 20px;
+    }
+    .quick-start ol {
+      margin-left: 20px;
+      line-height: 2;
+    }
+    .quick-start li {
+      margin-bottom: 10px;
+      color: #555;
+    }
+    .quick-start code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      color: #DD0303;
+    }
+    .checklist {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    .checklist h2 {
+      color: #DD0303;
+      margin-bottom: 20px;
+    }
+    .checklist-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+      color: #555;
+    }
+    .checklist-item:last-child {
+      border-bottom: none;
+    }
+    .checklist-item input {
+      margin-right: 10px;
+    }
+    footer {
+      text-align: center;
+      color: white;
+      margin-top: 30px;
+      font-size: 14px;
+    }
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 24px;
+      }
+      .doc-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🍓 Fruttein Juice Shop</h1>
+      <p>Documentation & Quick Reference</p>
+    </header>
+
+    <div class="quick-start">
+      <h2>⚡ Quick Start - 3 Langkah Mudah</h2>
+      <ol>
+        <li>Buka file <code>index.html</code> di browser</li>
+        <li>Siapkan gambar di folder <code>assets/images/</code></li>
+        <li>Update info (nomor WhatsApp, alamat) di <code>index.html</code></li>
+      </ol>
+      <p style="margin-top: 20px; color: #666;">✅ Website siap digunakan!</p>
+    </div>
+
+    <h2 style="color: white; margin-bottom: 20px;">📚 Dokumentasi</h2>
+    <div class="doc-grid">
+      <div class="doc-card primary">
+        <span class="badge">MAIN</span>
+        <h3>🚀 index.html</h3>
+        <p>File utama website. Buka ini di browser untuk menggunakan aplikasi Fruttein Juice Shop.</p>
+        <a href="index.html" target="_blank">👉 Buka Website</a>
+      </div>
+
+      <div class="doc-card info">
+        <span class="badge">GUIDE</span>
+        <h3>📖 README.md</h3>
+        <p>Dokumentasi lengkap tentang fitur, struktur, cara menggunakan, dan kustomisasi website.</p>
+        <a href="README.md">Baca Dokumentasi</a>
+      </div>
+
+      <div class="doc-card secondary">
+        <span class="badge">ADMIN</span>
+        <h3>⚡ QUICKSTART.md</h3>
+        <p>Panduan cepat untuk admin. Cara menggunakan member system dan tips tricks.</p>
+        <a href="QUICKSTART.md">Baca Panduan</a>
+      </div>
+
+      <div class="doc-card info">
+        <span class="badge">TECHNICAL</span>
+        <h3>📊 STRUKTUR.md</h3>
+        <p>Penjelasan teknis struktur project, file breakdown, dan requirements.</p>
+        <a href="STRUKTUR.md">Baca Detail</a>
+      </div>
+
+      <div class="doc-card primary">
+        <span class="badge">CHECKLIST</span>
+        <h3>✅ CHECKLIST.md</h3>
+        <p>Daftar lengkap yang perlu dipersiapkan sebelum launching website.</p>
+        <a href="CHECKLIST.md">Lihat Checklist</a>
+      </div>
+
+      <div class="doc-card secondary">
+        <span class="badge">SUMMARY</span>
+        <h3>🎉 PROJECT_SUMMARY.md</h3>
+        <p>Ringkasan project, status, fitur, dan next steps untuk pengembangan.</p>
+        <a href="PROJECT_SUMMARY.md">Lihat Summary</a>
+      </div>
+
+      <div class="doc-card info">
+        <span class="badge">TESTING</span>
+        <h3>🧪 TESTING_DATA.html</h3>
+        <p>Data contoh untuk testing member system. Lihat file ini untuk contoh data.</p>
+        <a href="TESTING_DATA.html">Lihat Testing Data</a>
+      </div>
+
+      <div class="doc-card secondary">
+        <span class="badge">CONFIG</span>
+        <h3>⚙️ config.json</h3>
+        <p>File konfigurasi aplikasi berisi produk, promo, dan info kontak.</p>
+        <a href="config.json">Buka Config</a>
+      </div>
+
+      <div class="doc-card primary">
+        <span class="badge">CODE</span>
+        <h3>💻 css/styles.css</h3>
+        <p>File styling utama dengan 380+ baris CSS. Mudah dikustomisasi.</p>
+        <a href="css/styles.css">Lihat Kode</a>
+      </div>
+
+      <div class="doc-card secondary">
+        <span class="badge">CODE</span>
+        <h3>⚙️ js/script.js</h3>
+        <p>File JavaScript member management system dengan OOP class structure.</p>
+        <a href="js/script.js">Lihat Kode</a>
+      </div>
+    </div>
+
+    <div class="checklist">
+      <h2>📋 Pre-Launch Checklist</h2>
+      <div class="checklist-item">
+        <input type="checkbox"> Siapkan 9 gambar di <code>assets/images/</code>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox"> Letakkan video <code>campaign.mp4</code> di root
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox"> Update nomor WhatsApp di <code>index.html</code>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox"> Update alamat toko
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox"> Update link Instagram
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox"> Test member system (add, buy, claim, export)
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox"> Test di mobile, tablet, desktop
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox"> Siap untuk launch! 🚀
+      </div>
+    </div>
+
+    <div class="quick-start" style="margin-top: 30px;">
+      <h2>📞 Hubungi Kami</h2>
+      <p>WhatsApp: <strong>+62 852-0457-5882</strong></p>
+      <p style="margin-top: 10px; font-size: 14px; color: #666;">Butuh bantuan atau ada pertanyaan? Jangan ragu untuk hubungi!</p>
+    </div>
+
+    <footer>
+      <p>Fruttein Juice Shop | Dibuat dengan ❤️</p>
+      <p>22 November 2025</p>
+    </footer>
+  </div>
+</body>
+</html>

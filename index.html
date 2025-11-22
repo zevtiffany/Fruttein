@@ -1,276 +1,291 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fruttein Juice Shop</title>
-  <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-    body {
-      background: #DD0303;
-      color: #333;
-      text-align: center;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Header */
-    header {
-      background: #FEF3E2;
-      color: #DD0303;
-      height: 55px; 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-      flex: 1;
-    }
-    .logo {
-      width: 180px;
-      border-radius: 50%;
-      margin: 20px 0;
-    }
-    h2 {
-      margin: 20px 0;
-      color: #FEF3E2;
-    }
-
-    /* Menu Section */
-    .menu {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-    .menu-item {
-      flex: 0 1 220px;
-      background: #fff3e0;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      text-align: center;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .menu-item:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 6px 10px rgba(0,0,0,0.2);
-    }
-    .menu-item img {
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
-    .menu-item h3 {
-      margin-bottom: 5px;
-      color: #DD0303;
-    }
-    .price {
-      font-weight: bold;
-      color: #DD0303;
-      margin-bottom: 8px;
-    }
-    .order-link {
-      display: inline-block;
-      background: #25D366;
-      color: white;
-      padding: 8px 12px;
-      margin-top: 10px;
-      text-decoration: none;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: bold;
-    }
-
-    /* Promo Section */
-    .promo {
-      background: #FEF3E2;
-      margin: 30px auto;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      max-width: 600px;
-      font-weight: bold;
-      color: #DD0303;
-    }
-    .promo h3 {
-      margin-bottom: 10px;
-      font-size: 22px;
-    }
-    .promo p {
-      margin: 8px 0;
-    }
-
-    /* Video Campaign */
-    .video-campaign {
-      margin: 40px 0;
-    }
-    .video-campaign iframe,
-    .video-campaign video {
-      width: 100%;
-      max-width: 700px;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-
-    /* Gallery Section */
-    .gallery {
-      margin: 40px 0;
-    }
-    .gallery h2 {
-      color: #FEF3E2;
-      margin-bottom: 20px;
-    }
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-    }
-    .gallery-grid img {
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-      transition: transform 0.2s ease;
-    }
-    .gallery-grid img:hover {
-      transform: scale(1.05);
-    }
-
-    /* Location */
-    .location {
-      margin: 40px 0;
-    }
-    .location h2 {
-      color: #FEF3E2;
-      margin-bottom: 20px;
-    }
-    .location iframe {
-      width: 100%;
-      max-width: 700px;
-      height: 300px;
-      border: none;
-      border-radius: 10px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-    }
-
-    footer {
-      background: #333;
-      color: white;
-      padding: 15px;
-    }
-
-    /* Floating Buttons */
-    .floating-buttons {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .floating-buttons a img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-      transition: transform 0.2s ease;
-    }
-    .floating-buttons a img:hover {
-      transform: scale(1.1);
-    }
-  </style>
+  <meta name="description" content="Fruttein Juice Shop - Juice Premium Berkualitas Tinggi dengan Bahan-Bahan Pilihan Terbaik">
+  <meta name="author" content="Fruttein Juice Shop">
+  <meta name="theme-color" content="#DD0303">
+  <title>Fruttein Juice Shop - Premium Juice Kualitas Terbaik</title>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header>Fruttein Juice Shop</header>
-   
+  <!-- Navigation Header -->
+  <header>
+    <div class="header-content">
+      <h1>🍓 Fruttein Juice Shop</h1>
+      <ul class="nav-links">
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#members">Member</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#location">Lokasi</a></li>
+      </ul>
+    </div>
+  </header>
+    <div class="header-content">
+      <h1>🍓 Fruttein Juice Shop</h1>
+      <ul class="nav-links">
+        <li><a href="#home">Beranda</a></li>
+        <li><a href="#about">Tentang Kami</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#members">Member</a></li>
+        <li><a href="#gallery">Galeri</a></li>
+        <li><a href="#location">Lokasi</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <h2>Nikmati Kesegaran Premium Juice Fruttein</h2>
+    <p>Dibuat dari buah-buahan pilihan berkualitas tinggi dengan resep rahasia yang telah teruji</p>
+    <a href="#menu" class="cta-button">🛒 Lihat Menu Kami</a>
+  </section>
+
   <div class="container">
-    <!-- Logo -->
-    <img src="logo.jpg" alt="Fruttein Logo" class="logo">
+    <!-- About Us Section -->
+    <section id="about">
+      <h2>ℹ️ Tentang Fruttein</h2>
+      <div class="about-section">
+        <div class="about-content">
+          <div class="about-text">
+            <h3>Mengapa Fruttein Lahir?</h3>
+            <p>
+              Fruttein didirikan dengan misi untuk membawa inovasi dalam industri minuman sehat. Kami percaya bahwa setiap orang berhak menikmati juice yang tidak hanya lezat, tetapi juga berkualitas premium dan dibuat dengan penuh cinta.
+            </p>
+            <p>
+              Dimulai dari dapur sederhana dengan passion untuk kesehatan, Fruttein berkembang menjadi pilihan utama bagi ribuan pelanggan setia. Setiap botol yang kami hasilkan adalah hasil dari dedikasi, inovasi, dan standar kualitas tertinggi.
+            </p>
+            
+            <div class="about-highlight">
+              <strong>🎯 Visi Kami:</strong>
+              <p>Menjadi brand juice premium terpercaya yang menghadirkan kesegaran dan kebahagiaan dalam setiap tegukan.</p>
+            </div>
+          </div>
 
-    <!-- Menu -->
-    <h2>Our Menu</h2>
-    <div class="menu">
-      <div class="menu-item">
-        <img src="mango.jpg" alt="Mango Juice">
-        <h3>Nampisga</h3>
-        <p class="price">Rp10.000</p>
-        <p>Kombinasi Buah Naga, Pisang, Mangga & Golden Nectar.</p>
-        <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Nampisga." class="order-link">Pesan via WhatsApp</a>
-      </div>
-      <div class="menu-item">
-        <img src="strawberry.jpg" alt="Strawberry Juice">
-        <h3>Stropis</h3>
-        <p class="price">Rp10.000</p>
-        <p>Kombinasi Strawberry, Pisang, Yoghurt & Golden Nectar.</p>
-        <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Stropis." class="order-link">Pesan via WhatsApp</a>
-      </div>
-      <div class="menu-item">
-        <img src="avocado.jpg" alt="Avocado Juice">
-        <h3>Alpisan</h3>
-        <p class="price">Rp10.000</p>
-        <p>Kombinasi Alpukat, Pisang, Fresh Milk & Golden Nectar.</p>
-        <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Alpisan." class="order-link">Pesan via WhatsApp</a>
-      </div>
-    </div>
+          <div class="about-image">
+            🥤
+          </div>
+        </div>
 
-    <!-- Promo Section -->
-    <div class="promo">
-      <h3>Special Promo</h3>
-      <p>TGIF: Setiap Jumat 25K/3 Botol</p>
-      <p>Diskon 25% untuk pembelian di atas 40 pcs</p>
-    </div>
+        <div class="values-grid">
+          <div class="value-card">
+            <h4>🍎 Bahan Pilihan</h4>
+            <p>Menggunakan buah-buahan segar terbaik tanpa pengawet berbahaya</p>
+          </div>
+          <div class="value-card">
+            <h4>✨ Kualitas Premium</h4>
+            <p>Setiap produk melalui kontrol kualitas ketat untuk kepuasan Anda</p>
+          </div>
+          <div class="value-card">
+            <h4>💪 Nutrisi Lengkap</h4>
+            <p>Kaya akan vitamin, mineral, dan antioksidan untuk kesehatan optimal</p>
+          </div>
+          <div class="value-card">
+            <h4>🌱 Produksi Alami</h4>
+            <p>Proses produksi natural tanpa zat kimia tambahan</p>
+          </div>
+          <div class="value-card">
+            <h4>❤️ Dibuat dengan Cinta</h4>
+            <p>Setiap juice dibuat dengan dedikasi penuh untuk Anda</p>
+          </div>
+          <div class="value-card">
+            <h4>🤝 Kepercayaan Pelanggan</h4>
+            <p>Telah dipercaya oleh ribuan pelanggan setia Fruttein</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <!-- Location Section -->
-    <div class="location">
-      <h2>Location</h2>
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.3943905957617!2d112.61615567422354!3d-7.078173969130822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7882cf6e2da2f5%3A0x3e0a2a9ff9e9ed0!2sJl.%20Kendal%20Sari%20No.43%2C%20Malang!5e0!3m2!1sen!2sid!4v1695892597393!5m2!1sen!2sid" allowfullscreen="" loading="lazy"></iframe>
-    </div>
+    <!-- Menu Section -->
+    <section id="menu">
+      <h2>📋 Menu Unggulan Kami</h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <img src="assets/images/mango.jpg" alt="Nampisga">
+          <div class="menu-item-content">
+            <h3>Nampisga</h3>
+            <p>Kombinasi sempurna Buah Naga, Pisang, Mangga & Golden Nectar untuk rasa yang eksplosif.</p>
+            <p class="price">Rp10.000</p>
+            <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Nampisga." class="order-link">🛒 Pesan via WhatsApp</a>
+          </div>
+        </div>
+        <div class="menu-item">
+          <img src="assets/images/strawberry.jpg" alt="Stropis">
+          <div class="menu-item-content">
+            <h3>Stropis</h3>
+            <p>Manis dan lezat dari kombinasi Strawberry, Pisang, Yoghurt & Golden Nectar.</p>
+            <p class="price">Rp10.000</p>
+            <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Stropis." class="order-link">🛒 Pesan via WhatsApp</a>
+          </div>
+        </div>
+        <div class="menu-item">
+          <img src="assets/images/avocado.jpg" alt="Alpisan">
+          <div class="menu-item-content">
+            <h3>Alpisan</h3>
+            <p>Kaya nutrisi dari Alpukat, Pisang, Fresh Milk & Golden Nectar yang creamy.</p>
+            <p class="price">Rp10.000</p>
+            <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Alpisan." class="order-link">🛒 Pesan via WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Promo Banner -->
+      <div class="promo-banner">
+        <h3>✨ Promo & Penawaran Spesial</h3>
+        <div class="promo-item">🎉 <strong>TGIF:</strong> Setiap Jumat hanya Rp25.000/3 Botol</div>
+        <div class="promo-item">🎁 <strong>Pembelian Banyak:</strong> Diskon 25% untuk pembelian di atas 40 pcs</div>
+        <div class="promo-item">⭐ <strong>Member Rewards:</strong> Setiap 10 pembelian dapatkan hadiah gratis eksklusif!</div>
+      </div>
+    </section>
+
+    <!-- Members Section -->
+    <section id="members" class="members-section">
+      <h2>👥 Daftar Member & Sistem Poin</h2>
+      <p>Bergabunglah dengan member Fruttein dan dapatkan poin di setiap pembelian. Kumpulkan 10 poin untuk ditukarkan dengan hadiah menarik! 🎁</p>
+
+      <!-- Add Member Form -->
+      <div class="members-controls">
+        <div class="input-group">
+          <input type="text" id="memberName" placeholder="Nama Member" maxlength="50">
+          <input type="tel" id="memberPhone" placeholder="Nomor WhatsApp (cth: 0852-xxxx-xxxx)" maxlength="20">
+        </div>
+        <button class="btn btn-primary" onclick="addMember()">➕ Tambah Member</button>
+        <button class="btn btn-primary btn-export" onclick="exportMembers()" title="Export data ke CSV">📥 Export CSV</button>
+      </div>
+
+      <!-- Members List -->
+      <div class="members-table-wrapper">
+        <table class="members-table" id="membersTable">
+          <thead>
+            <tr>
+              <th style="width: 5%;">No</th>
+              <th style="width: 20%;">Nama Member</th>
+              <th style="width: 18%;">WhatsApp</th>
+              <th style="width: 12%;">Poin</th>
+              <th style="width: 13%;">Pembelian</th>
+              <th style="width: 18%;">Status Reward</th>
+              <th style="width: 14%;">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="membersBody">
+          </tbody>
+        </table>
+      </div>
+      <div id="emptyState" class="empty-state">
+        📭 Belum ada member terdaftar. Tambahkan member baru untuk memulai program loyalitas Fruttein!
+      </div>
+
+      <div class="members-actions">
+        <button class="btn btn-danger btn-reset" onclick="resetData()" title="Reset semua data member">🔄 Reset Data</button>
+      </div>
+    </section>
 
     <!-- Video Campaign Section -->
-    <div class="video-campaign">
-      <h2>🎬 Campaign Video</h2>
-      <video controls autoplay loop muted playsinline>
+    <section class="video-campaign">
+      <h2>🎬 Video Kampanye Kami</h2>
+      <video controls loop muted playsinline>
         <source src="campaign.mp4" type="video/mp4">
         Browser Anda tidak mendukung video.
       </video>
-    </div>
+    </section>
 
     <!-- Gallery Section -->
-    <div class="gallery">
-      <h2>Gallery</h2>
+    <section id="gallery">
+      <h2>🖼️ Galeri Fruttein</h2>
       <div class="gallery-grid">
-        <img src="FrutteinGaleri1.jpg" alt="Gallery 1">
-        <img src="FrutteinGaleri2.jpg" alt="Gallery 2">
-        <img src="gallery3.jpg" alt="Gallery 3">
-        <img src="gallery4.jpg" alt="Gallery 4">
+        <div class="gallery-item">
+          <img src="assets/images/FrutteinGaleri1.jpg" alt="Gallery 1">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/FrutteinGaleri2.jpg" alt="Gallery 2">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/gallery3.jpg" alt="Gallery 3">
+        </div>
+        <div class="gallery-item">
+          <img src="assets/images/gallery4.jpg" alt="Gallery 4">
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location" class="location">
+      <h2>📍 Lokasi & Kontak Kami</h2>
+      <div class="location-info">
+        <h3>Kunjungi Toko Kami</h3>
+        <div class="location-details">
+          <div class="location-detail">
+            <strong>📍 Alamat</strong>
+            <p>Jl. Kendal Sari No.43, Malang, Indonesia</p>
+          </div>
+          <div class="location-detail">
+            <strong>📞 Hubungi Kami</strong>
+            <p><a href="https://wa.me/6285204575882" class="location-whatsapp-link">WhatsApp: +62 852-0457-5882</a></p>
+          </div>
+          <div class="location-detail">
+            <strong>🕐 Jam Operasional</strong>
+            <p>Senin - Minggu: 08:00 - 19:00</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Google Maps -->
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.3943905957617!2d112.61615567422354!3d-7.078173969130822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7882cf6e2da2f5%3A0x3e0a2a9ff9e9ed0!2sJl.%20Kendal%20Sari%20No.43%2C%20Malang!5e0!3m2!1sen!2sid!4v1695892597393!5m2!1sen!2sid" allowfullscreen="" loading="lazy"></iframe>
+    </section>
   </div>
 
   <!-- Floating Buttons -->
   <div class="floating-buttons">
-    <a href="https://wa.me/6285204575882" target="_blank">
-      <img src="walogo.png" alt="WhatsApp">
+    <a href="https://wa.me/6285204575882" target="_blank" title="Hubungi Kami via WhatsApp">
+      <img src="assets/images/walogo.png" alt="WhatsApp" onerror="this.textContent='💬'">
     </a>
-    <a href="https://www.instagram.com/fruttein" target="_blank">
-      <img src="instalogo.png" alt="Instagram">
+    <a href="https://www.instagram.com/fruttein" target="_blank" title="Ikuti Instagram Kami">
+      <img src="assets/images/instalogo.png" alt="Instagram" onerror="this.textContent='📸'">
     </a>
   </div>
 
+  <!-- Footer -->
   <footer>
-    &copy; 2025 Fruttein Juice Shop. All rights reserved.
+    <div class="footer-content">
+      <h3>🍓 Fruttein Juice Shop</h3>
+      <p class="location-description">
+        Membawa kesegaran dan kualitas premium ke setiap tegukan.
+      </p>
+      
+      <div class="location-grid">
+        <div class="location-grid-item">
+          <strong>📍 Lokasi</strong>
+          <p>
+            Jl. Kendal Sari No.43<br>
+            Malang, Indonesia
+          </p>
+        </div>
+        <div class="location-grid-item">
+          <strong>📞 Hubungi Kami</strong>
+          <p>
+            WhatsApp: +62 852-0457-5882<br>
+            <a href="https://wa.me/6285204575882" class="location-contact-whatsapp">Chat via WhatsApp</a>
+          </p>
+        </div>
+        <div class="location-grid-item">
+          <strong>🔗 Ikuti Kami</strong>
+          <p>
+            <a href="https://www.instagram.com/fruttein" class="location-instagram-link">Instagram</a>
+            <a href="https://wa.me/6285204575882" class="location-contact-whatsapp">WhatsApp</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-divider">
+        <p>&copy; 2025 Fruttein Juice Shop. Semua hak dilindungi.</p>
+        <p>Dibuat dengan ❤️ untuk memberikan yang terbaik bagi Anda</p>
+      </div>
+    </div>
   </footer>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>

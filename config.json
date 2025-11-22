@@ -1,0 +1,52 @@
+{
+  "app_name": "Fruttein Juice Shop",
+  "version": "1.0.0",
+  "description": "Premium Juice Shop dengan Sistem Member Loyalty",
+  "contact": {
+    "whatsapp": "6285204575882",
+    "instagram": "fruttein",
+    "address": "Jl. Kendal Sari No.43, Malang, Indonesia"
+  },
+  "products": [
+    {
+      "id": 1,
+      "name": "Nampisga",
+      "price": 10000,
+      "description": "Kombinasi Buah Naga, Pisang, Mangga & Golden Nectar",
+      "image": "assets/images/mango.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Stropis",
+      "price": 10000,
+      "description": "Kombinasi Strawberry, Pisang, Yoghurt & Golden Nectar",
+      "image": "assets/images/strawberry.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Alpisan",
+      "price": 10000,
+      "description": "Kombinasi Alpukat, Pisang, Fresh Milk & Golden Nectar",
+      "image": "assets/images/avocado.jpg"
+    }
+  ],
+  "promos": [
+    {
+      "title": "TGIF",
+      "description": "Setiap Jumat hanya Rp25.000/3 Botol"
+    },
+    {
+      "title": "Pembelian Banyak",
+      "description": "Diskon 25% untuk pembelian di atas 40 pcs"
+    },
+    {
+      "title": "Member Rewards",
+      "description": "Setiap 10 pembelian dapatkan hadiah gratis eksklusif"
+    }
+  ],
+  "loyalty_program": {
+    "points_per_purchase": 1,
+    "points_to_reward": 10,
+    "reward_description": "Hadiah menarik eksklusif untuk member setia"
+  }
+}
