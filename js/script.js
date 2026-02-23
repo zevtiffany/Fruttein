@@ -71,7 +71,7 @@ class MemberManager {
       member.purchases += 1;
       this.saveMembers();
       this.render();
-      
+
       // Notifikasi untuk milestone
       if (member.points === LOYALTY_CONFIG.POINTS_FOR_REWARD) {
         alert(MESSAGES.MILESTONE_10(member.name));
@@ -133,7 +133,7 @@ class MemberManager {
     }
 
     let csv = 'No,Nama Member,WhatsApp,Poin,Total Pembelian,Total Reward,Tanggal Bergabung\n';
-    
+
     this.members.forEach((member, index) => {
       csv += `${index + 1},"${member.name}","${member.phone}",${member.points},${member.purchases},"${member.rewards || 0}","${member.joinDate}"\n`;
     });
@@ -178,7 +178,7 @@ class MemberManager {
 
       this.members.forEach((member, index) => {
         const isReady = member.points >= LOYALTY_CONFIG.POINTS_FOR_REWARD;
-        
+
         const row = document.createElement('tr');
         row.innerHTML = `
           <td>${index + 1}</td>
@@ -206,6 +206,9 @@ class MemberManager {
         tbody.appendChild(row);
       });
     }
+
+    // Update top members leaderboard on home page
+    renderTopMembers(this.members, 4);
   }
 }
 
@@ -214,7 +217,7 @@ class MemberManager {
  */
 let memberManager;
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   initializeApp();
   setupEventListeners();
 });
@@ -237,6 +240,16 @@ function setupEventListeners() {
     memberName.addEventListener('keypress', handleEnter);
     memberPhone.addEventListener('keypress', handleEnter);
   }
+
+  // Close modal on Escape key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.is-open').forEach(function (m) {
+        m.classList.remove('is-open');
+        document.body.style.overflow = '';
+      });
+    }
+  });
 }
 
 /**
@@ -246,7 +259,7 @@ function handleEnter(e) {
   if (e.key === 'Enter') {
     const memberName = document.querySelector(UI_SELECTORS.memberName);
     const memberPhone = document.querySelector(UI_SELECTORS.memberPhone);
-    
+
     if (e.target === memberName) {
       memberPhone.focus();
     } else if (e.target === memberPhone) {
@@ -281,4 +294,73 @@ function exportMembers() {
  */
 function resetData() {
   memberManager.resetAllData();
+}
+
+/* ============================================
+   MODAL FUNCTIONS
+   ============================================ */
+
+/**
+ * Buka modal berdasarkan ID
+ */
+function openModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+/**
+ * Tutup modal berdasarkan ID
+ */
+function closeModal(modalId) {
+  const modal = document.getElementById(modalId);
+  if (modal) {
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+}
+
+/**
+ * Tutup modal jika klik di luar konten (overlay)
+ */
+function handleOverlayClick(event, modalId) {
+  if (event.target === event.currentTarget) {
+    closeModal(modalId);
+  }
+}
+
+/* ============================================
+   TOP MEMBERS LEADERBOARD
+   ============================================ */
+
+const RANK_ICONS = ['🥇', '🥈', '🥉', '4️⃣'];
+
+/**
+ * Render top N members (by points) ke widget di homepage
+ */
+function renderTopMembers(members, limit) {
+  limit = limit || 4;
+  const container = document.getElementById('topMembersList');
+  if (!container) return;
+
+  if (!members || members.length === 0) {
+    container.innerHTML = '<div class="leaderboard-empty">Belum ada member terdaftar</div>';
+    return;
+  }
+
+  // Sort by points descending, take top N
+  const sorted = members.slice().sort(function (a, b) { return b.points - a.points; });
+  const top = sorted.slice(0, limit);
+
+  container.innerHTML = top.map(function (member, idx) {
+    return (
+      '<div class="leaderboard-row">' +
+      '<span class="leaderboard-rank">' + RANK_ICONS[idx] + '</span>' +
+      '<span class="leaderboard-name">' + member.name + '</span>' +
+      '<span class="leaderboard-pts">' + member.points + ' poin</span>' +
+      '</div>'
+    );
+  }).join('');
 }

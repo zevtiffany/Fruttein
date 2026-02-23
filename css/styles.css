@@ -1,29 +1,55 @@
-/* ============================================
-   FRUTTEIN JUICE SHOP - LEGO 2005 STYLE
-   ============================================ */
+/* ============================================================
+   FRUTTEIN — LEGO × NEO BRUTALISM × RETRO GAMING
+   Fonts: Bebas Neue (headings) · Bangers (hero) ·
+          Fredoka One (LEGO cards) · Space Mono (data) ·
+          Press Start 2P (game accents) · Nunito (body)
+   ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bangers&family=Fredoka+One&family=Space+Mono:wght@700&family=Press+Start+2P&family=Nunito:wght@700;800;900&display=swap');
 
+/* ============================================================
+   TOKENS
+   ============================================================ */
 :root {
-  --lego-red:     #CC0000;
-  --lego-red-dark:#990000;
-  --lego-yellow:  #FFD700;
-  --lego-yellow-dark: #E6B800;
-  --lego-blue:    #006DB6;
-  --lego-blue-dark: #004F8A;
-  --lego-green:   #009F4D;
-  --lego-green-dark: #007A3A;
-  --lego-orange:  #F47920;
-  --lego-black:   #1A1A1A;
-  --lego-white:   #FFFFFF;
-  --lego-light-gray: #F0F0F0;
-  --lego-dark-gray: #333333;
-  --stud-size: 28px;
-  --brick-shadow: 4px 4px 0px rgba(0,0,0,0.45);
-  --panel-radius: 6px;
+  --red: #E3000B;
+  --red-dk: #A3000A;
+  --yellow: #FFD700;
+  --yk: #B89500;
+  --blue: #006DB7;
+  --blue-dk: #004F8A;
+  --green: #007A2E;
+  --green-dk: #005220;
+  --orange: #F47B20;
+  --purple: #7B2FBE;
+  --black: #0D0D0D;
+  --white: #FFFFFF;
+  --paper: #F0EAD6;
+  --stud-bg: #E0D8C4;
+
+  /* Neo Brutalism: NO blur, hard offsets */
+  --sh: 6px 6px 0 var(--black);
+  --sh-sm: 3px 3px 0 var(--black);
+  --sh-lg: 8px 8px 0 var(--black);
+  --sh-xl: 12px 12px 0 var(--black);
+  --b: 3px solid var(--black);
+  --b4: 4px solid var(--black);
+  --b5: 5px solid var(--black);
+
+  /* Font stacks */
+  --font-hero: 'Bangers', Impact, sans-serif;
+  --font-title: 'Bebas Neue', Impact, sans-serif;
+  --font-lego: 'Fredoka One', Impact, sans-serif;
+  --font-game: 'Press Start 2P', monospace;
+  --font-data: 'Space Mono', monospace;
+  --font-body: 'Nunito', Arial, sans-serif;
 }
 
-* {
+/* ============================================================
+   RESET
+   ============================================================ */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -33,1093 +59,1095 @@ html {
   scroll-behavior: smooth;
 }
 
-/* ============================================
-   LEGO STUD BACKGROUND
-   ============================================ */
-
 body {
-  font-family: 'Nunito', Arial, sans-serif;
-  background-color: #E8E0D0;
+  font-family: var(--font-body);
+  font-weight: 700;
+  background-color: var(--stud-bg);
+  /* LEGO stud + 50s halftone combo */
   background-image:
-    radial-gradient(circle at 50% 50%, #D4C9B0 45%, transparent 46%),
-    radial-gradient(circle at 50% 50%, #C9BEA5 48%, transparent 49%);
-  background-size: var(--stud-size) var(--stud-size);
-  background-position: 0 0, 14px 14px;
-  color: var(--lego-black);
-  line-height: 1.5;
+    radial-gradient(circle, #BFBA9F 36%, transparent 37%),
+    radial-gradient(circle, rgba(0, 0, 0, 0.04) 30%, transparent 31%);
+  background-size: 22px 22px, 44px 44px;
+  background-position: 0 0, 11px 11px;
+  color: var(--black);
+  line-height: 1.55;
 }
 
-/* ============================================
-   HEADER / NAVIGATION
-   ============================================ */
-
+/* ============================================================
+   HEADER / NAV
+   ============================================================ */
 header {
-  background: var(--lego-red);
-  border-bottom: 5px solid var(--lego-red-dark);
+  background: var(--black);
+  border-bottom: var(--b5);
   position: sticky;
   top: 0;
   z-index: 200;
-  box-shadow: 0 4px 0 #660000, 0 6px 12px rgba(0,0,0,0.5);
+  box-shadow: 0 5px 0 var(--red);
 }
 
 header .header-content {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 16px;
-  height: 66px;
+  padding: 0 20px;
+  height: 64px;
+}
+
+.logo-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  background: var(--red);
+  border: var(--b4);
+  border-color: var(--yellow);
+  box-shadow: var(--sh-sm);
+  font-family: var(--font-hero);
+  font-size: 30px;
+  color: var(--yellow);
+  letter-spacing: -1px;
+  flex-shrink: 0;
 }
 
 header h1 {
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  font-size: 30px;
-  color: var(--lego-yellow);
-  text-shadow: 2px 2px 0 #994400, -1px -1px 0 #000;
-  letter-spacing: 1px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-family: var(--font-title);
+  font-size: 26px;
+  color: var(--red);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 var(--yellow), -1px -1px 0 rgba(0, 0, 0, 0.6);
 }
 
 .nav-links {
   display: flex;
-  gap: 4px;
+  gap: 5px;
   list-style: none;
   align-items: center;
 }
 
 .nav-links a {
   display: block;
-  background: var(--lego-yellow);
-  color: var(--lego-black);
+  background: var(--yellow);
+  color: var(--black);
   text-decoration: none;
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  font-size: 14px;
-  font-weight: 900;
-  padding: 8px 14px;
-  border-radius: 4px 4px 0 0;
-  border: 2px solid var(--lego-yellow-dark);
-  border-bottom: 4px solid var(--lego-yellow-dark);
-  transition: all 0.12s ease;
+  font-family: var(--font-title);
+  font-size: 16px;
+  letter-spacing: 1.5px;
+  padding: 7px 16px;
+  border: var(--b);
+  border-bottom: 5px solid var(--black);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  transition: transform 0.1s, box-shadow 0.1s;
+  box-shadow: var(--sh-sm);
 }
 
 .nav-links a:hover {
-  background: var(--lego-orange);
-  border-color: #C05000;
-  color: white;
-  transform: translateY(-2px);
+  background: var(--red);
+  color: var(--white);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--sh);
 }
 
-/* ============================================
-   PROMO TICKER
-   ============================================ */
+.nav-links a:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+  border-bottom-width: 3px;
+}
 
+/* ============================================================
+   PROMO TICKER — Press Start 2P for game feel
+   ============================================================ */
 .promo-ticker {
-  background: var(--lego-yellow);
-  border-bottom: 3px solid var(--lego-yellow-dark);
-  padding: 6px 0;
+  background: var(--yellow);
+  border-bottom: var(--b4);
+  padding: 8px 0;
   overflow: hidden;
   white-space: nowrap;
+  box-shadow: 0 4px 0 var(--black);
 }
 
 .promo-ticker-inner {
   display: inline-block;
-  animation: ticker-scroll 28s linear infinite;
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  font-size: 14px;
-  color: var(--lego-red);
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  animation: ticker 36s linear infinite;
+  font-family: var(--font-game);
+  font-size: 9px;
+  /* 90s arcade neon on yellow */
+  color: var(--black);
+  text-shadow: 1px 1px 0 rgba(255, 100, 0, 0.4);
+  line-height: 1.8;
 }
 
 .promo-ticker-inner span {
-  margin: 0 40px;
+  margin: 0 32px;
 }
 
-@keyframes ticker-scroll {
-  0%   { transform: translateX(100vw); }
-  100% { transform: translateX(-100%); }
+/* Pacman-style pip */
+.ticker-pip {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: var(--black);
+  border-radius: 50%;
+  vertical-align: middle;
+  margin: 0 8px !important;
 }
 
-/* ============================================
-   CONTAINER
-   ============================================ */
+@keyframes ticker {
+  0% {
+    transform: translateX(100vw);
+  }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 16px;
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
-section {
-  margin-bottom: 40px;
-}
-
-/* ============================================
-   LEGO SECTION TITLE
-   ============================================ */
-
-section h2 {
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  font-size: 32px;
-  color: var(--lego-white);
-  background: var(--lego-blue);
-  border-left: 10px solid var(--lego-yellow);
-  border-bottom: 5px solid var(--lego-blue-dark);
-  padding: 12px 24px;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: var(--panel-radius) var(--panel-radius) 0 0;
-  box-shadow: var(--brick-shadow);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* ============================================
-   LEGO BRICK DIVIDER
-   ============================================ */
-
-.lego-divider {
-  height: 20px;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--lego-red) 0px, var(--lego-red) 60px,
-    var(--lego-yellow) 60px, var(--lego-yellow) 120px,
-    var(--lego-blue) 120px, var(--lego-blue) 180px,
-    var(--lego-green) 180px, var(--lego-green) 240px
-  );
-  margin: 30px 0;
-  border-top: 3px solid rgba(0,0,0,0.3);
-  border-bottom: 3px solid rgba(0,0,0,0.3);
-}
-
-/* ============================================
-   LEGO BRICK PANEL (generic white card)
-   ============================================ */
-
-.lego-panel {
-  background: var(--lego-white);
-  border: 3px solid var(--lego-black);
-  border-radius: var(--panel-radius);
-  box-shadow: 6px 6px 0 rgba(0,0,0,0.4);
-  overflow: hidden;
-}
-
-/* ============================================
+/* ============================================================
    HERO SECTION
-   ============================================ */
-
+   ============================================================ */
 .hero {
-  background: var(--lego-red);
-  background-image:
-    radial-gradient(circle at 20% 50%, rgba(255,200,0,0.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 40%);
-  color: var(--lego-white);
-  padding: 50px 30px;
+  background: var(--red);
+  color: var(--white);
+  padding: 60px 40px;
   text-align: center;
-  border: 4px solid var(--lego-red-dark);
-  border-radius: var(--panel-radius);
-  box-shadow: 6px 6px 0 #660000, 0 0 0 6px var(--lego-yellow);
-  margin: 24px 16px 0;
+  border: var(--b5);
+  border-top: none;
+  box-shadow: var(--sh-xl);
+  margin: 20px 16px 0;
   position: relative;
   overflow: hidden;
 }
 
+/* LEGO stud pattern overlay */
+/* CRT scanline effect - 50s TV vibe */
 .hero::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  inset: 0;
   background-image:
-    radial-gradient(circle, rgba(255,255,255,0.12) 40%, transparent 41%);
-  background-size: 32px 32px;
+    repeating-linear-gradient(0deg,
+      rgba(0, 0, 0, 0.06) 0px, rgba(0, 0, 0, 0.06) 1px,
+      transparent 1px, transparent 4px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.07) 34%, transparent 35%);
+  background-size: 100% 4px, 26px 26px;
   pointer-events: none;
+  z-index: 0;
+}
+
+/* Mario-style brick stripe at bottom */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 16px;
+  background: repeating-linear-gradient(90deg,
+      var(--red-dk) 0, var(--red-dk) 48px,
+      rgba(0, 0, 0, 0.5) 48px, rgba(0, 0, 0, 0.5) 52px);
+  z-index: 1;
+}
+
+.hero>* {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-data);
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 12px;
+  text-transform: uppercase;
 }
 
 .hero h2 {
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  font-size: 44px;
-  color: var(--lego-yellow);
-  text-shadow: 3px 3px 0 #660000, -1px -1px 0 #000;
-  margin-bottom: 14px;
+  font-family: var(--font-hero);
+  font-size: 72px;
+  line-height: 1.0;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--white);
+  text-shadow: 4px 4px 0 var(--black);
+  margin-bottom: 16px;
+  /* Override section h2 styles */
   background: none;
   border: none;
   box-shadow: none;
   padding: 0;
   display: block;
-  border-radius: 0;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+}
+
+.hero-highlight {
+  color: var(--yellow);
+  display: inline-block;
+  -webkit-text-stroke: 2px var(--black);
+  text-shadow: 4px 4px 0 var(--black);
 }
 
 .hero p {
-  font-size: 18px;
-  margin-bottom: 24px;
-  opacity: 0.95;
-  font-weight: 700;
-  text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+  font-family: var(--font-data);
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 32px;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .cta-button {
   display: inline-block;
-  background: var(--lego-yellow);
-  color: var(--lego-black);
-  padding: 14px 36px;
-  border-radius: 6px;
+  background: var(--yellow);
+  color: var(--black);
+  padding: 16px 48px;
+  border: var(--b5);
+  border-bottom: 7px solid var(--black);
   text-decoration: none;
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  font-size: 18px;
-  font-weight: 900;
+  font-family: var(--font-title);
+  font-size: 22px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  border: 3px solid #997700;
-  border-bottom: 6px solid #775500;
-  transition: all 0.1s ease;
-  box-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+  box-shadow: var(--sh);
+  transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .cta-button:hover {
-  background: var(--lego-orange);
-  color: white;
-  border-color: #994400;
-  border-bottom-color: #772200;
-  transform: translateY(-2px);
+  background: var(--white);
+  transform: translate(-3px, -3px);
+  box-shadow: var(--sh-xl);
 }
 
 .cta-button:active {
-  transform: translateY(3px);
-  border-bottom-width: 2px;
+  transform: translate(4px, 5px);
+  box-shadow: none;
+  border-bottom-width: 4px;
 }
 
-/* ============================================
-   ABOUT SECTION
-   ============================================ */
+/* ============================================================
+   CONTAINER
+   ============================================================ */
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 28px 16px;
+}
 
+section {
+  margin-bottom: 44px;
+}
+
+/* ============================================================
+   SECTION TITLES — Bebas Neue
+   ============================================================ */
+section h2 {
+  font-family: var(--font-title);
+  font-size: 34px;
+  letter-spacing: 3px;
+  color: var(--white);
+  background: var(--blue);
+  border: var(--b4);
+  border-bottom: none;
+  padding: 14px 28px;
+  text-transform: uppercase;
+  box-shadow: var(--sh);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ============================================================
+   LEGO BRICK DIVIDER — Mario brick colors
+   ============================================================ */
+.lego-divider {
+  height: 20px;
+  background: repeating-linear-gradient(90deg,
+      var(--red) 0, var(--red) 58px,
+      var(--black) 58px, var(--black) 62px,
+      var(--yellow) 62px, var(--yellow) 120px,
+      var(--black) 120px, var(--black) 124px,
+      var(--blue) 124px, var(--blue) 182px,
+      var(--black) 182px, var(--black) 186px,
+      var(--green) 186px, var(--green) 244px,
+      var(--black) 244px, var(--black) 248px);
+  margin: 32px 0;
+  border-top: var(--b4);
+  border-bottom: var(--b4);
+}
+
+/* ============================================================
+   ABOUT SECTION
+   ============================================================ */
 .about-section {
-  background: var(--lego-white);
-  border: 3px solid var(--lego-black);
+  background: var(--white);
+  border: var(--b4);
   border-top: none;
-  border-radius: 0 0 var(--panel-radius) var(--panel-radius);
-  box-shadow: 6px 6px 0 rgba(0,0,0,0.35);
-  padding: 30px;
-  margin-bottom: 30px;
+  box-shadow: var(--sh-xl);
+  padding: 36px;
 }
 
 .about-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  align-items: center;
+  grid-template-columns: 1fr 260px;
+  gap: 36px;
+  align-items: start;
 }
 
 .about-text h3 {
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  color: var(--lego-red);
-  font-size: 22px;
-  margin-bottom: 12px;
+  font-family: var(--font-title);
+  color: var(--red);
+  font-size: 28px;
+  letter-spacing: 2px;
   text-transform: uppercase;
+  margin-bottom: 14px;
 }
 
 .about-text p {
-  color: #444;
+  color: #333;
   margin-bottom: 12px;
-  line-height: 1.7;
   font-size: 15px;
+  line-height: 1.7;
 }
 
 .about-highlight {
-  background: var(--lego-yellow);
-  padding: 16px;
-  border: 3px solid var(--lego-yellow-dark);
-  border-left: 6px solid var(--lego-red);
-  border-radius: var(--panel-radius);
-  margin-top: 16px;
-  box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+  background: var(--yellow);
+  padding: 18px;
+  border: var(--b4);
+  border-left: 8px solid var(--red);
+  box-shadow: var(--sh-sm);
+  margin-top: 20px;
 }
 
 .about-highlight strong {
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  font-size: 16px;
-  color: var(--lego-red);
+  font-family: var(--font-title);
+  font-size: 17px;
+  letter-spacing: 2px;
+  color: var(--red);
+  display: block;
+  margin-bottom: 6px;
 }
 
 .about-highlight p {
-  margin: 6px 0 0;
-  color: var(--lego-black);
-  font-weight: 700;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.about-image {
+  background: var(--yellow);
+  border: var(--b4);
+  box-shadow: var(--sh);
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-emoji-big {
+  font-size: 100px;
 }
 
 .values-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-top: 30px;
+  gap: 12px;
+  margin-top: 28px;
 }
 
 .value-card {
-  background: var(--lego-light-gray);
-  border: 3px solid var(--lego-blue);
-  border-top: 6px solid var(--lego-blue);
-  border-radius: var(--panel-radius);
+  background: var(--paper);
+  border: var(--b4);
+  border-top: 6px solid var(--blue);
+  box-shadow: var(--sh-sm);
   padding: 16px;
   text-align: center;
-  box-shadow: 4px 4px 0 rgba(0,0,80,0.2);
-  transition: transform 0.1s ease;
+  transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .value-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--lego-red);
-  border-top-color: var(--lego-red);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--sh);
+  border-top-color: var(--red);
 }
 
 .value-card h4 {
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  color: var(--lego-blue);
-  margin-bottom: 8px;
-  font-size: 15px;
+  font-family: var(--font-lego);
+  font-size: 14px;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--blue);
+  margin-bottom: 6px;
 }
 
 .value-card:hover h4 {
-  color: var(--lego-red);
+  color: var(--red);
 }
 
 .value-card p {
-  font-size: 13px;
+  font-size: 12px;
   color: #555;
-  font-weight: 600;
+  font-weight: 700;
 }
 
-.about-image {
-  border: 4px solid var(--lego-yellow);
-  border-radius: var(--panel-radius);
-  overflow: hidden;
-  box-shadow: 6px 6px 0 rgba(0,0,0,0.35);
-  height: 260px;
-  background: linear-gradient(135deg, var(--lego-orange), var(--lego-yellow));
+/* ============================================================
+   SECTION CARDS — LEGO × NEO BRUTALIST BLOCKS
+   ============================================================ */
+.section-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.section-card {
+  background: var(--white);
+  border: var(--b4);
+  box-shadow: var(--sh);
   display: flex;
+  flex-direction: column;
+  transition: transform 0.1s, box-shadow 0.1s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 50s starburst pop on hover — cartoon energy */
+.section-card::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 120px;
+  height: 120px;
+  background: var(--yellow);
+  clip-path: polygon(50% 0%, 56% 35%, 85% 15%, 65% 42%, 100% 50%,
+      65% 58%, 85% 85%, 56% 65%, 50% 100%, 44% 65%,
+      15% 85%, 35% 58%, 0% 50%, 35% 42%, 15% 15%, 44% 35%);
+  opacity: 0;
+  transform: scale(0.5) rotate(0deg);
+  transition: opacity 0.15s, transform 0.2s;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section-card:hover::before {
+  opacity: 0.18;
+  transform: scale(1) rotate(20deg);
+}
+
+.section-card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: var(--sh-xl);
+}
+
+.section-card-header {
+  padding: 10px 14px;
+  border-bottom: var(--b4);
+  position: relative;
+  z-index: 1;
+}
+
+.card-tag {
+  display: inline-block;
+  font-family: var(--font-title);
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: var(--white);
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+.section-card--red .section-card-header {
+  background: var(--red);
+}
+
+.section-card--yellow .section-card-header {
+  background: var(--yk);
+}
+
+.section-card--green .section-card-header {
+  background: var(--green);
+}
+
+.section-card--purple .section-card-header {
+  background: var(--purple);
+}
+
+/* Equal-height content areas — Quick Links align across all cards */
+.section-card-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-bottom: var(--b4);
+  display: block;
+  flex-shrink: 0;
+}
+
+/* ---- Comic Book Panel (replaces empty img slots) ---- */
+.comic-panel {
+  width: 100%;
+  height: 150px;
+  border-bottom: var(--b4);
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 90px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  /* halftone dot background */
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.12) 1.5px, transparent 1.5px);
+  background-size: 10px 10px;
 }
 
-/* ============================================
+.comic-panel--red {
+  background-color: var(--red);
+}
+
+.comic-panel--green {
+  background-color: var(--green);
+}
+
+.comic-zap {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  font-family: var(--font-hero);
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--yellow);
+  -webkit-text-stroke: 1px var(--black);
+  transform: rotate(8deg);
+  text-shadow: 2px 2px 0 var(--black);
+  z-index: 1;
+}
+
+.comic-word {
+  font-family: var(--font-hero);
+  font-size: 52px;
+  letter-spacing: 6px;
+  color: var(--white);
+  -webkit-text-stroke: 3px var(--black);
+  text-shadow: 4px 4px 0 var(--black), 6px 6px 0 rgba(0, 0, 0, 0.3);
+  transform: skewX(-6deg) scaleY(1.08);
+  line-height: 1;
+  z-index: 1;
+  position: relative;
+}
+
+.comic-sub {
+  font-family: var(--font-title);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--white);
+  text-transform: uppercase;
+  text-align: center;
+  white-space: pre-line;
+  line-height: 1.5;
+  margin-top: 4px;
+  background: var(--black);
+  padding: 2px 10px;
+  z-index: 1;
+  position: relative;
+}
+
+.section-card-leaderboard {
+  padding: 10px 14px 10px;
+  background: #FFF8D0;
+  border-bottom: var(--b4);
+  height: 150px;
+  overflow-y: auto;
+}
+
+/* Quick Links — all cards share identical separator position */
+.quick-links {
+  padding: 10px 14px 14px;
+  flex: 1;
+  background: var(--paper);
+  /* 50s halftone dot pattern on the quick links bg */
+  background-image:
+    radial-gradient(circle, rgba(0, 0, 0, 0.06) 28%, transparent 29%);
+  background-color: var(--paper);
+  background-size: 10px 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.quick-links strong {
+  display: block;
+  font-family: var(--font-data);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--black);
+  /* Cartoon double-line separator — the star of the show */
+  border-top: 4px solid var(--black);
+  border-bottom: 2px solid var(--black);
+  padding: 5px 0;
+  margin-bottom: 8px;
+  background: linear-gradient(transparent 45%, var(--yellow) 45%, var(--yellow) 55%, transparent 55%);
+}
+
+.quick-links ul {
+  list-style: none;
+}
+
+.quick-links li {
+  padding: 1px 0;
+}
+
+.quick-links a {
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--blue);
+  display: block;
+  padding: 3px 0;
+  transition: color 0.1s, letter-spacing 0.1s;
+}
+
+/* Arcade pixel arrow prefix */
+.quick-links a::before {
+  content: '► ';
+  font-family: var(--font-game);
+  font-size: 7px;
+  color: inherit;
+  vertical-align: middle;
+}
+
+.quick-links a:hover {
+  color: var(--red);
+  letter-spacing: 0.5px;
+  /* cartoon stretch */
+  text-decoration: underline;
+}
+
+/* ---- Leaderboard widget ---- */
+.leaderboard-label {
+  font-family: var(--font-game);
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: var(--yk);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  /* 90s arcade neon glow */
+  text-shadow: 0 0 6px rgba(255, 180, 0, 0.6);
+}
+
+.leaderboard-empty {
+  font-family: var(--font-data);
+  font-size: 10px;
+  color: #999;
+  text-align: center;
+  padding: 6px 0;
+}
+
+.leaderboard-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  border-bottom: 2px solid var(--paper);
+  font-size: 12px;
+}
+
+.leaderboard-row:last-child {
+  border-bottom: none;
+}
+
+.leaderboard-rank {
+  font-family: var(--font-game);
+  font-size: 10px;
+  width: 26px;
+  text-align: center;
+  color: var(--yk);
+}
+
+.leaderboard-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 12px;
+}
+
+.leaderboard-pts {
+  font-family: var(--font-game);
+  font-size: 7px;
+  background: var(--green);
+  color: var(--white);
+  border: 2px solid var(--black);
+  padding: 3px 7px;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+}
+
+/* ---- Ramadan card ---- */
+.ramadan-card-content {
+  padding: 16px;
+  background: var(--purple);
+  color: var(--white);
+  text-align: center;
+  border-bottom: var(--b4);
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* 90s halftone dot on purple */
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.08) 30%, transparent 31%);
+  background-size: 12px 12px;
+  background-color: var(--purple);
+}
+
+.ramadan-badge {
+  font-family: var(--font-game);
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: var(--yellow);
+  display: block;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 0 var(--black);
+}
+
+.ramadan-card-content p {
+  font-family: var(--font-lego);
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.ramadan-note {
+  font-size: 11px !important;
+  font-family: var(--font-data) !important;
+  opacity: 0.7;
+  letter-spacing: 0.3px !important;
+}
+
+/* ============================================================
    MENU SECTION
-   ============================================ */
+   ============================================================ */
+.menu-section-label {
+  font-family: var(--font-data);
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #777;
+  text-align: center;
+  margin-bottom: 14px;
+  padding: 8px;
+  border: 2px dashed #bbb;
+  background: var(--paper);
+}
 
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  background: var(--lego-light-gray);
-  border: 3px solid var(--lego-black);
+  gap: 16px;
+  padding: 24px;
+  background: var(--white);
+  border: var(--b4);
   border-top: none;
-  border-radius: 0 0 var(--panel-radius) var(--panel-radius);
-  box-shadow: 6px 6px 0 rgba(0,0,0,0.35);
-  margin-bottom: 0;
+  box-shadow: var(--sh-xl);
 }
 
 .menu-item {
-  background: var(--lego-white);
-  border: 3px solid var(--lego-black);
-  border-radius: var(--panel-radius);
-  overflow: hidden;
-  box-shadow: 5px 5px 0 rgba(0,0,0,0.35);
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  background: var(--white);
+  border: var(--b4);
+  box-shadow: var(--sh);
+  transition: transform 0.1s, box-shadow 0.1s;
+  position: relative;
 }
 
 .menu-item:hover {
-  transform: translate(-3px, -3px);
-  box-shadow: 8px 8px 0 rgba(0,0,0,0.4);
+  transform: translate(-4px, -4px);
+  box-shadow: var(--sh-xl);
 }
 
 .menu-item img {
   width: 100%;
   height: 180px;
   object-fit: cover;
-  border-bottom: 3px solid var(--lego-black);
-  transition: transform 0.3s ease;
-}
-
-.menu-item:hover img {
-  transform: scale(1.05);
+  border-bottom: var(--b4);
+  display: block;
 }
 
 .menu-item-content {
   padding: 16px;
 }
 
-.menu-item h3 {
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  color: var(--lego-red);
-  font-size: 20px;
-  margin-bottom: 6px;
+/* Menu badge tag */
+.menu-tag {
+  display: inline-block;
+  font-family: var(--font-game);
+  font-size: 7px;
+  letter-spacing: 1px;
+  background: var(--red);
+  color: var(--white);
+  border: 2px solid var(--black);
+  padding: 3px 8px;
+  margin-bottom: 8px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+}
+
+.menu-tag--blue {
+  background: var(--blue);
+}
+
+.menu-tag--green {
+  background: var(--green);
+}
+
+.menu-item h3 {
+  font-family: var(--font-hero);
+  color: var(--red);
+  font-size: 28px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .menu-item p {
-  color: #555;
+  font-family: var(--font-body);
+  color: #444;
   font-size: 13px;
-  margin-bottom: 10px;
-  line-height: 1.5;
-  font-weight: 600;
-  min-height: 38px;
-}
-
-.price {
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  font-size: 26px;
-  font-weight: 900;
-  color: var(--lego-green);
-  margin-bottom: 12px;
-  text-shadow: 2px 2px 0 rgba(0,100,0,0.3);
+  margin-bottom: 16px;
+  line-height: 1.55;
 }
 
 .order-link {
   display: block;
-  background: var(--lego-green);
-  color: white;
-  padding: 10px 18px;
-  border-radius: 5px;
+  background: var(--green);
+  color: var(--white);
+  padding: 12px 20px;
+  border: var(--b4);
+  border-bottom: 6px solid var(--black);
   text-decoration: none;
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  font-size: 15px;
-  font-weight: 900;
+  font-family: var(--font-title);
+  font-size: 18px;
+  letter-spacing: 2px;
   text-align: center;
-  border: 3px solid var(--lego-green-dark);
-  border-bottom: 5px solid var(--lego-green-dark);
   text-transform: uppercase;
-  transition: all 0.1s ease;
-  box-shadow: 2px 2px 0 rgba(0,0,0,0.25);
+  box-shadow: var(--sh-sm);
+  transition: transform 0.12s cubic-bezier(.34, 1.56, .64, 1), box-shadow 0.1s;
+  /* 90s arcade stripe underlayer */
+  position: relative;
+  overflow: hidden;
+}
+
+.order-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(-45deg,
+      rgba(255, 255, 255, 0) 0px,
+      rgba(255, 255, 255, 0) 6px,
+      rgba(255, 255, 255, 0.07) 6px,
+      rgba(255, 255, 255, 0.07) 12px);
+  pointer-events: none;
 }
 
 .order-link:hover {
-  background: var(--lego-blue);
-  border-color: var(--lego-blue-dark);
-  transform: translateY(-2px);
+  background: var(--blue);
+  /* cartoon spring bounce */
+  transform: translate(-3px, -4px) scale(1.02);
+  box-shadow: var(--sh-lg);
+  letter-spacing: 3px;
 }
 
 .order-link:active {
-  transform: translateY(2px);
-  border-bottom-width: 2px;
+  transform: translate(3px, 4px);
+  box-shadow: none;
+  border-bottom-width: 3px;
 }
 
-/* ============================================
-   PROMO BANNER
-   ============================================ */
-
+/* ============================================================
+   PROMO / RAMADAN BANNER
+   ============================================================ */
 .promo-banner {
-  background: var(--lego-yellow);
-  border: 4px solid var(--lego-black);
-  border-radius: var(--panel-radius);
-  padding: 24px;
-  margin: 24px 0;
-  box-shadow: 6px 6px 0 rgba(0,0,0,0.4);
-  text-align: center;
+  background: var(--yellow);
+  border: var(--b4);
+  box-shadow: var(--sh-lg);
+  padding: 28px;
+  margin: 20px 0 0;
+}
+
+.promo-banner-label {
+  display: inline-block;
+  font-family: var(--font-game);
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  background: var(--red);
+  color: var(--white);
+  border: var(--b);
+  padding: 4px 10px;
+  margin-bottom: 12px;
 }
 
 .promo-banner h3 {
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  color: var(--lego-red);
-  font-size: 26px;
-  margin-bottom: 14px;
+  font-family: var(--font-hero);
+  color: var(--black);
+  font-size: 40px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  text-shadow: 2px 2px 0 rgba(100,0,0,0.3);
+  margin-bottom: 16px;
+  -webkit-text-stroke: 1px var(--black);
+  text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+  /* Override section h2 */
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  display: block;
 }
 
 .promo-item {
-  background: var(--lego-white);
-  border: 3px solid var(--lego-red);
-  border-left: 8px solid var(--lego-red);
-  padding: 12px 18px;
+  background: var(--white);
+  border: var(--b4);
+  border-left: 8px solid var(--red);
+  padding: 14px 18px;
   margin: 10px 0;
-  border-radius: 5px;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--lego-dark-gray);
-  font-size: 15px;
-  box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
-  text-align: left;
+  color: var(--black);
+  box-shadow: var(--sh-sm);
 }
 
-/* ============================================
-   MEMBERS SECTION
-   ============================================ */
+.promo-item-num {
+  font-family: var(--font-data);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--red);
+  line-height: 1;
+}
 
+/* ============================================================
+   MEMBERS SECTION (inside modal)
+   ============================================================ */
 .members-section {
-  background: var(--lego-white);
-  border: 3px solid var(--lego-black);
-  border-top: none;
-  border-radius: 0 0 var(--panel-radius) var(--panel-radius);
-  box-shadow: 6px 6px 0 rgba(0,0,0,0.35);
-  padding: 24px;
-  margin-bottom: 30px;
+  background: var(--white);
 }
 
-.members-section > p {
+.members-section>p {
   text-align: center;
   margin-bottom: 20px;
-  color: #555;
-  font-weight: 700;
-  font-size: 15px;
+  font-size: 14px;
+  color: #444;
+  font-family: var(--font-body);
 }
 
 .members-controls {
   display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
+  gap: 10px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
-  background: var(--lego-light-gray);
-  border: 3px solid var(--lego-blue);
-  border-radius: var(--panel-radius);
+  background: var(--paper);
+  border: var(--b4);
   padding: 16px;
-  box-shadow: 3px 3px 0 rgba(0,0,80,0.2);
+  box-shadow: var(--sh-sm);
 }
 
 .input-group {
   display: flex;
   gap: 10px;
   flex: 1;
-  min-width: 250px;
+  min-width: 260px;
 }
 
 .input-group input {
   flex: 1;
   padding: 10px 14px;
-  border: 3px solid var(--lego-blue);
-  border-radius: 5px;
+  border: var(--b4);
   font-size: 14px;
-  font-family: 'Nunito', Arial, sans-serif;
+  font-family: var(--font-body);
   font-weight: 700;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  background: white;
+  background: var(--white);
+  transition: box-shadow 0.1s;
 }
 
 .input-group input:focus {
   outline: none;
-  border-color: var(--lego-red);
-  box-shadow: 0 0 0 3px rgba(204,0,0,0.15), 3px 3px 0 rgba(0,0,0,0.15);
+  box-shadow: var(--sh-sm);
 }
 
-/* LEGO-style buttons */
+/* Buttons */
 .btn {
-  padding: 10px 22px;
-  border-radius: 5px;
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  font-size: 15px;
+  padding: 10px 20px;
+  font-family: var(--font-title);
+  font-size: 17px;
+  letter-spacing: 1.5px;
   font-weight: 900;
   cursor: pointer;
-  transition: all 0.1s ease;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border: 3px solid rgba(0,0,0,0.4);
-  border-bottom: 5px solid rgba(0,0,0,0.4);
-  box-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+  border: var(--b4);
+  border-bottom: 6px solid var(--black);
+  box-shadow: var(--sh-sm);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--sh);
 }
 
 .btn:active {
-  transform: translateY(2px);
-  border-bottom-width: 2px;
+  transform: translate(3px, 4px);
+  box-shadow: none;
+  border-bottom-width: 3px;
 }
 
 .btn-primary {
-  background: var(--lego-blue);
-  color: white;
-  border-color: var(--lego-blue-dark);
-  border-bottom-color: #002F5A;
+  background: var(--blue);
+  color: var(--white);
 }
 
 .btn-primary:hover {
-  background: var(--lego-red);
-  border-color: var(--lego-red-dark);
-  border-bottom-color: #550000;
-  transform: translateY(-2px);
+  background: var(--red);
 }
 
 .btn-export {
-  background: var(--lego-green);
-  color: white;
-  border-color: var(--lego-green-dark);
-  border-bottom-color: #004520;
+  background: var(--green);
+  color: var(--white);
 }
 
 .btn-export:hover {
-  background: #007A3A;
-  transform: translateY(-2px);
+  background: var(--green-dk);
 }
 
 .btn-success {
-  background: var(--lego-green);
-  color: white;
-  border-color: var(--lego-green-dark);
-}
-
-.btn-success:hover {
-  background: var(--lego-green-dark);
+  background: var(--green);
+  color: var(--white);
 }
 
 .btn-danger {
-  background: var(--lego-red);
-  color: white;
-  padding: 6px 14px;
-  font-size: 12px;
-  border-color: var(--lego-red-dark);
-  border-bottom-color: #550000;
-}
-
-.btn-danger:hover {
-  background: var(--lego-red-dark);
-  transform: translateY(-2px);
+  background: var(--red);
+  color: var(--white);
+  padding: 6px 12px;
+  font-size: 13px;
 }
 
 .btn-reset {
-  background: #888;
-  color: white;
-  border-color: #555;
-  border-bottom-color: #333;
-  padding: 10px 22px;
-  font-size: 15px;
+  background: #444;
+  color: var(--white);
+  padding: 10px 20px;
+  font-size: 17px;
 }
 
 .btn-reset:hover {
-  background: var(--lego-red);
-  border-color: var(--lego-red-dark);
-  transform: translateY(-2px);
-}
-
-.members-table-wrapper {
-  overflow-x: auto;
-  border: 3px solid var(--lego-black);
-  border-radius: var(--panel-radius);
-  box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
-}
-
-.members-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.members-table thead {
-  background: var(--lego-red);
-}
-
-.members-table thead th {
-  color: white;
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-bottom: 4px solid var(--lego-red-dark);
-}
-
-.members-table th,
-.members-table td {
-  padding: 12px 14px;
-  text-align: left;
-  border-bottom: 2px solid #ddd;
-  font-weight: 700;
-  font-size: 14px;
-}
-
-.members-table tbody tr {
-  transition: background-color 0.15s ease;
-}
-
-.members-table tbody tr:hover {
-  background-color: #FFF8D6;
-}
-
-.members-table tbody tr:nth-child(even) {
-  background-color: #F5F5F5;
-}
-
-.members-table tbody tr:nth-child(even):hover {
-  background-color: #FFF8D6;
-}
-
-.points-badge {
-  display: inline-block;
-  background: var(--lego-green);
-  color: white;
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  font-size: 14px;
-  border: 2px solid var(--lego-green-dark);
-  border-bottom: 3px solid var(--lego-green-dark);
-}
-
-.status-badge {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  font-size: 12px;
-  border-width: 2px;
-  border-style: solid;
-}
-
-.status-ready {
-  background: var(--lego-green);
-  color: white;
-  border-color: var(--lego-green-dark);
-}
-
-.status-pending {
-  background: var(--lego-yellow);
-  color: var(--lego-black);
-  border-color: var(--lego-yellow-dark);
-}
-
-.empty-state {
-  text-align: center;
-  padding: 40px;
-  color: #888;
-  font-weight: 700;
-  font-size: 15px;
-}
-
-.members-actions {
-  margin-top: 16px;
-  text-align: right;
-}
-
-/* ============================================
-   VIDEO CAMPAIGN SECTION
-   ============================================ */
-
-.video-campaign {
-  margin: 0;
-  text-align: center;
-  background: var(--lego-blue);
-  border: 3px solid var(--lego-black);
-  border-top: none;
-  border-radius: 0 0 var(--panel-radius) var(--panel-radius);
-  box-shadow: 6px 6px 0 rgba(0,0,0,0.35);
-  padding: 24px;
-}
-
-.video-campaign h2 {
-  background: var(--lego-blue);
-  border-bottom: 3px solid var(--lego-blue-dark);
-}
-
-.video-campaign iframe,
-.video-campaign video {
-  width: 100%;
-  max-width: 700px;
-  height: 380px;
-  border: 4px solid var(--lego-yellow);
-  border-radius: var(--panel-radius);
-  box-shadow: 6px 6px 0 rgba(0,0,0,0.4);
-}
-
-/* ============================================
-   GALLERY SECTION
-   ============================================ */
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
-  padding: 20px;
-  background: #f0f0f0;
-  border: 3px solid var(--lego-black);
-  border-top: none;
-  border-radius: 0 0 var(--panel-radius) var(--panel-radius);
-  box-shadow: 6px 6px 0 rgba(0,0,0,0.35);
-}
-
-.gallery-item {
-  position: relative;
-  overflow: hidden;
-  border: 4px solid var(--lego-black);
-  border-radius: var(--panel-radius);
-  box-shadow: 5px 5px 0 rgba(0,0,0,0.4);
-  cursor: pointer;
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
-}
-
-.gallery-item:hover {
-  transform: translate(-3px, -3px);
-  box-shadow: 8px 8px 0 rgba(0,0,0,0.4);
-}
-
-.gallery-item img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.3s ease;
-}
-
-.gallery-item:hover img {
-  transform: scale(1.08);
-}
-
-/* ============================================
-   LOCATION SECTION
-   ============================================ */
-
-.location {
-  margin: 0;
-  text-align: center;
-}
-
-.location-info {
-  background: var(--lego-white);
-  border: 3px solid var(--lego-black);
-  border-top: none;
-  border-bottom: none;
-  padding: 24px;
-}
-
-.location-info h3 {
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  color: var(--lego-red);
-  margin-bottom: 14px;
-  font-size: 20px;
-  text-transform: uppercase;
-}
-
-.location-details {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  text-align: left;
-}
-
-.location-detail {
-  background: var(--lego-light-gray);
-  padding: 14px;
-  border: 3px solid var(--lego-blue);
-  border-left: 7px solid var(--lego-blue);
-  border-radius: var(--panel-radius);
-  box-shadow: 3px 3px 0 rgba(0,0,80,0.2);
-}
-
-.location-detail strong {
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  color: var(--lego-blue);
-  display: block;
-  margin-bottom: 4px;
-  font-size: 14px;
-  text-transform: uppercase;
-}
-
-.location-detail p {
-  color: #333;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.location-whatsapp-link {
-  color: var(--lego-green);
-  text-decoration: none;
-  font-weight: 800;
-}
-
-.location-whatsapp-link:hover {
-  text-decoration: underline;
-}
-
-.location iframe {
-  width: 100%;
-  height: 360px;
-  border: 4px solid var(--lego-black);
-  border-radius: 0 0 var(--panel-radius) var(--panel-radius);
-  box-shadow: 6px 6px 0 rgba(0,0,0,0.35);
-  display: block;
-}
-
-/* ============================================
-   FOOTER
-   ============================================ */
-
-footer {
-  background: var(--lego-blue-dark);
-  color: var(--lego-white);
-  padding: 30px 20px 20px;
-  margin-top: 0;
-  border-top: 6px solid var(--lego-yellow);
-}
-
-.footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.footer-content h3 {
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  font-size: 26px;
-  color: var(--lego-yellow);
-  text-shadow: 2px 2px 0 rgba(0,0,0,0.4);
-  margin-bottom: 10px;
-  text-transform: uppercase;
-}
-
-.footer-content p {
-  margin: 8px 0;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.footer-social {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 16px;
-}
-
-.footer-social a {
-  color: var(--lego-yellow);
-  text-decoration: none;
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  font-size: 14px;
-  transition: color 0.2s ease;
-}
-
-.footer-social a:hover {
-  color: var(--lego-orange);
-}
-
-.location-description {
-  margin: 10px 0;
-  font-size: 14px;
-  font-weight: 600;
-  opacity: 0.9;
-}
-
-.location-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px;
-  margin: 16px 0;
-  text-align: left;
-}
-
-.location-grid-item {
-  font-size: 13px;
-}
-
-.location-grid-item strong {
-  display: block;
-  font-family: 'Fredoka One', Impact, Arial Black, sans-serif;
-  color: var(--lego-yellow);
-  font-size: 14px;
-  margin-bottom: 6px;
-  text-transform: uppercase;
-}
-
-.location-grid-item p {
-  color: rgba(255,255,255,0.85);
-  font-size: 13px;
-  line-height: 1.6;
-}
-
-.location-contact-whatsapp {
-  color: #7FD97F;
-  text-decoration: none;
-  font-weight: 800;
-}
-
-.location-contact-whatsapp:hover {
-  text-decoration: underline;
-}
-
-.location-instagram-link {
-  color: var(--lego-yellow);
-  text-decoration: none;
-  font-weight: 800;
-  margin-right: 12px;
-}
-
-.location-instagram-link:hover {
-  text-decoration: underline;
-}
-
-.footer-divider {
-  border-top: 2px solid rgba(255,215,0,0.35);
-  padding-top: 16px;
-  margin-top: 16px;
-  font-size: 12px;
-  color: rgba(255,255,255,0.7);
-}
-
-/* ============================================
-   FLOATING BUTTONS
-   ============================================ */
-
-.floating-buttons {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  z-index: 999;
-}
-
-.floating-buttons a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 58px;
-  height: 58px;
-  border-radius: 8px;
-  background: var(--lego-yellow);
-  border: 3px solid var(--lego-black);
-  border-bottom: 5px solid var(--lego-black);
-  box-shadow: 3px 3px 0 rgba(0,0,0,0.4);
-  transition: all 0.1s ease;
-  text-decoration: none;
-}
-
-.floating-buttons a:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0 rgba(0,0,0,0.4);
-}
-
-.floating-buttons a:active {
-  transform: translate(1px, 2px);
-  border-bottom-width: 2px;
-}
-
-.floating-buttons img {
-  width: 32px;
-  height: 32px;
-}
-
-/* ============================================
-   UTILITY
-   ============================================ */
-
-.about-highlight p {
-  margin-top: 8px;
-  margin-bottom: 0;
-}
-
-.member-join-date {
-  color: #888;
-  font-size: 12px;
-}
-
-.whatsapp-link {
-  color: var(--lego-green);
-  text-decoration: none;
-  font-weight: 700;
-}
-
-.whatsapp-link:hover {
-  text-decoration: underline;
+  background: var(--red);
 }
 
 .btn-action {
@@ -1130,52 +1158,704 @@ footer {
   margin-right: 0;
 }
 
+/* Table */
+.members-table-wrapper {
+  overflow-x: auto;
+  border: var(--b4);
+  box-shadow: var(--sh);
+  margin-bottom: 16px;
+}
+
+.members-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.members-table thead {
+  background: var(--red);
+}
+
 .members-table thead th {
+  color: var(--white);
+  font-family: var(--font-title);
+  font-size: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-bottom: var(--b4);
   text-align: left;
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
+.members-table th,
+.members-table td {
+  padding: 12px 14px;
+  border-bottom: 2px solid #e0e0e0;
+  font-size: 13px;
+  font-weight: 700;
+}
 
+.members-table tbody tr:hover {
+  background: #FFF8D6;
+}
+
+.members-table tbody tr:nth-child(even) {
+  background: #F5F0E8;
+}
+
+.members-table tbody tr:nth-child(even):hover {
+  background: #FFF8D6;
+}
+
+.points-badge {
+  display: inline-block;
+  background: var(--green);
+  color: var(--white);
+  padding: 3px 10px;
+  font-family: var(--font-game);
+  font-size: 9px;
+  border: 2px solid var(--black);
+  letter-spacing: 0.5px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  font-family: var(--font-game);
+  font-size: 8px;
+  letter-spacing: 0.5px;
+  border: 2px solid var(--black);
+  text-transform: uppercase;
+}
+
+.status-ready {
+  background: var(--green);
+  color: var(--white);
+}
+
+.status-pending {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 44px;
+  color: #888;
+  font-family: var(--font-data);
+  font-size: 12px;
+  border: 3px dashed #bbb;
+  background: var(--paper);
+  letter-spacing: 0.5px;
+}
+
+.members-actions {
+  margin-top: 14px;
+  text-align: right;
+}
+
+.member-join-date {
+  color: #999;
+  font-size: 11px;
+}
+
+.whatsapp-link {
+  color: var(--green);
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.whatsapp-link:hover {
+  text-decoration: underline;
+}
+
+/* ============================================================
+   VIDEO CAMPAIGN
+   ============================================================ */
+.video-campaign {
+  text-align: center;
+  background: var(--blue);
+  border: var(--b4);
+  border-top: none;
+  box-shadow: var(--sh-xl);
+  padding: 28px;
+}
+
+.video-campaign video,
+.video-campaign iframe {
+  width: 100%;
+  max-width: 720px;
+  height: 380px;
+  border: var(--b4);
+  box-shadow: var(--sh-lg);
+  display: block;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   GALLERY (inside modal)
+   ============================================================ */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  padding: 4px;
+}
+
+.gallery-item {
+  overflow: hidden;
+  border: var(--b4);
+  box-shadow: var(--sh);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.gallery-item:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: var(--sh-xl);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+/* ============================================================
+   CONTACT SECTION
+   ============================================================ */
+.contact-section {
+  background: var(--white);
+  border: var(--b4);
+  border-top: none;
+  box-shadow: var(--sh-xl);
+  padding: 36px;
+  text-align: center;
+}
+
+.contact-sub {
+  font-family: var(--font-data);
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  color: #555;
+  margin-bottom: 28px;
+  line-height: 1.8;
+}
+
+.contact-grid {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 32px;
+  border: var(--b4);
+  border-bottom: 7px solid var(--black);
+  text-decoration: none;
+  font-family: var(--font-title);
+  text-transform: uppercase;
+  box-shadow: var(--sh);
+  min-width: 230px;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.contact-card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: var(--sh-xl);
+}
+
+.contact-card:active {
+  transform: translate(4px, 5px);
+  box-shadow: none;
+  border-bottom-width: 4px;
+}
+
+.contact-card--wa {
+  background: #25D366;
+  color: var(--white);
+}
+
+.contact-card--ig {
+  background: #E1306C;
+  color: var(--white);
+}
+
+.contact-card-icon {
+  font-size: 34px;
+  line-height: 1;
+}
+
+.contact-card div {
+  text-align: left;
+}
+
+.contact-card strong {
+  display: block;
+  font-size: 22px;
+  letter-spacing: 2px;
+}
+
+.contact-card p {
+  font-size: 13px;
+  opacity: 0.9;
+  font-family: var(--font-data);
+  font-weight: 700;
+  margin: 0;
+  text-transform: none;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   MODAL OVERLAYS
+   ============================================================ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.80);
+  z-index: 1000;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 16px;
+  overflow-y: auto;
+}
+
+.modal-overlay.is-open {
+  display: flex;
+}
+
+.modal-box {
+  background: var(--white);
+  border: var(--b5);
+  box-shadow: 12px 12px 0 var(--black);
+  width: 100%;
+  max-width: 860px;
+  display: flex;
+  flex-direction: column;
+  animation: modal-pop 0.15s ease;
+}
+
+.modal-box--wide {
+  max-width: 1100px;
+}
+
+@keyframes modal-pop {
+  from {
+    transform: scale(0.88) translateY(28px);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--blue);
+  padding: 14px 22px;
+  border-bottom: var(--b4);
+}
+
+.modal-header h2 {
+  font-family: var(--font-title);
+  font-size: 26px;
+  letter-spacing: 3px;
+  color: var(--white);
+  background: none;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.modal-close {
+  background: var(--red);
+  color: var(--white);
+  border: var(--b4);
+  border-bottom: 5px solid var(--black);
+  font-family: var(--font-title);
+  font-size: 22px;
+  letter-spacing: 1px;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  box-shadow: var(--sh-sm);
+  transition: transform 0.1s, box-shadow 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close:hover {
+  background: var(--red-dk);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--sh);
+}
+
+.modal-close:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+/* Gallery inside modal */
+.modal-body .gallery-grid {
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* ============================================================
+   FLOATING BUTTONS
+   ============================================================ */
+.floating-buttons {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 999;
+}
+
+/* Floating buttons base */
+.floating-buttons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: var(--b4);
+  border-bottom: 5px solid var(--black);
+  box-shadow: var(--sh-sm);
+  text-decoration: none;
+  font-family: var(--font-title);
+  font-size: 18px;
+  color: var(--white);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+/* WhatsApp = green */
+.floating-buttons .fb-wa {
+  background: #25D366;
+}
+
+.floating-buttons .fb-wa:hover {
+  background: #1aad53;
+  transform: translate(-2px, -2px);
+  box-shadow: var(--sh);
+}
+
+/* Instagram = pink */
+.floating-buttons .fb-ig {
+  background: #E1306C;
+}
+
+.floating-buttons .fb-ig:hover {
+  background: #b5204e;
+  transform: translate(-2px, -2px);
+  box-shadow: var(--sh);
+}
+
+.floating-buttons a:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+  border-bottom-width: 3px;
+}
+
+.floating-buttons img {
+  width: 30px;
+  height: 30px;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: var(--black);
+  color: var(--white);
+  padding: 28px 20px 20px;
+  /* 90s checkerboard top border — cartoon/arcade divider */
+  background-image:
+    repeating-conic-gradient(var(--yellow) 0% 25%, var(--black) 0% 50%);
+  background-size: 16px 16px;
+  background-repeat: repeat-x;
+  background-position: top;
+  margin-top: 0;
+  border-top: 4px solid var(--black);
+}
+
+footer>* {
+  background: var(--black);
+}
+
+.footer-content {
+  max-width: 1240px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: var(--font-hero);
+  font-size: 56px;
+  letter-spacing: 6px;
+  color: var(--red);
+  text-shadow: 4px 4px 0 var(--yellow), 8px 8px 0 rgba(0, 0, 0, 0.5);
+  margin-bottom: 6px;
+  line-height: 1;
+}
+
+.location-description {
+  font-family: var(--font-data);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #888;
+  margin-bottom: 24px;
+}
+
+.location-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin: 0 auto 20px;
+  text-align: left;
+  max-width: 520px;
+}
+
+.location-grid-item strong {
+  display: block;
+  font-family: var(--font-title);
+  color: var(--yellow);
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.location-grid-item p {
+  font-family: var(--font-data);
+  color: #999;
+  font-size: 11px;
+  line-height: 1.8;
+  letter-spacing: 0.5px;
+}
+
+.location-contact-whatsapp {
+  color: #5EFF8F;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.location-contact-whatsapp:hover {
+  text-decoration: underline;
+}
+
+.location-instagram-link {
+  color: #E1306C;
+  font-weight: 700;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.location-instagram-link:hover {
+  text-decoration: underline;
+}
+
+.footer-divider {
+  border-top: 2px solid #222;
+  padding-top: 16px;
+  margin-top: 16px;
+  font-family: var(--font-data);
+  font-size: 10px;
+  color: #444;
+  letter-spacing: 0.5px;
+  line-height: 2;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 960px) {
+  .section-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — 768px (tablet & large phone)
+   ============================================================ */
 @media (max-width: 768px) {
+
+  /* Header */
   header .header-content {
     flex-direction: column;
     height: auto;
-    padding: 12px 16px;
-    gap: 10px;
+    padding: 10px 14px;
+    gap: 6px;
   }
 
   .nav-links {
-    gap: 4px;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 4px;
   }
 
   .nav-links a {
-    font-size: 12px;
-    padding: 6px 10px;
+    font-size: 13px;
+    padding: 5px 10px;
   }
 
+  /* Hero */
   .hero {
-    margin: 12px 8px 0;
+    margin: 8px 8px 0;
     padding: 36px 16px;
   }
 
-  .hero h2 {
-    font-size: 28px;
+  .hero-eyebrow {
+    font-size: 9px;
   }
 
+  .hero h2 {
+    font-size: 44px;
+  }
+
+  .hero p {
+    font-size: 13px;
+  }
+
+  .cta-button {
+    font-size: 17px;
+    padding: 14px 28px;
+  }
+
+  /* Container padding */
+  .container {
+    padding: 0 8px;
+  }
+
+  /* Section headings */
   section h2 {
     font-size: 22px;
     padding: 10px 16px;
+    letter-spacing: 2px;
   }
 
+  /* About */
+  .about-content {
+    grid-template-columns: 1fr;
+  }
+
+  .about-image {
+    height: 160px;
+  }
+
+  .about-section {
+    padding: 16px;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  /* Mascot */
+  .mascot-section {
+    padding: 28px 16px;
+  }
+
+  .mascot-inner {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .mascot-text h3 {
+    font-size: 26px;
+  }
+
+  /* Section cards */
+  .section-cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  /* Comic panels */
+  .comic-word {
+    font-size: 36px;
+    letter-spacing: 4px;
+  }
+
+  .comic-zap {
+    font-size: 11px;
+  }
+
+  /* Menu grid */
   .menu-grid {
     grid-template-columns: 1fr;
-    padding: 14px;
+    padding: 12px;
+    gap: 12px;
   }
 
+  .menu-item-content {
+    padding: 12px 14px 14px;
+  }
+
+  /* Promo banner */
+  .promo-banner {
+    padding: 20px 16px;
+  }
+
+  .promo-banner h3 {
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+
+  /* Video */
+  .video-campaign {
+    padding: 16px;
+  }
+
+  .video-campaign video,
+  .video-campaign iframe {
+    height: 220px;
+  }
+
+  /* Contact */
+  .contact-section {
+    padding: 20px 16px;
+  }
+
+  .contact-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .contact-card {
+    min-width: unset;
+    width: 100%;
+    max-width: 360px;
+    padding: 16px 20px;
+  }
+
+  /* Members modal */
   .members-controls {
     flex-direction: column;
   }
@@ -1185,59 +1865,344 @@ footer {
     flex-direction: column;
   }
 
-  .members-table {
-    font-size: 12px;
+  .members-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .members-table th,
   .members-table td {
-    padding: 8px 10px;
+    font-size: 11px;
+    padding: 8px 8px;
   }
 
-  .about-content {
-    grid-template-columns: 1fr;
-    gap: 16px;
+  /* Modals */
+  .modal-box {
+    max-width: 100%;
   }
 
-  .values-grid {
-    grid-template-columns: 1fr 1fr;
+  .modal-overlay {
+    padding: 12px 8px;
   }
 
-  .about-image {
-    height: 180px;
+  .modal-header h2 {
+    font-size: 18px;
+    letter-spacing: 1px;
   }
 
-  .location-details {
-    grid-template-columns: 1fr;
-  }
-
-  .video-campaign video,
-  .video-campaign iframe {
-    height: 240px;
-  }
-
+  /* Dividers */
   .lego-divider {
-    height: 14px;
+    height: 16px;
     margin: 20px 0;
   }
 
-  .gallery-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    padding: 12px;
+  /* Footer */
+  .footer-logo {
+    font-size: 40px;
+  }
+
+  .location-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    text-align: center;
+  }
+
+  /* Floating buttons */
+  .floating-buttons {
+    bottom: 16px;
+    right: 14px;
+    gap: 8px;
+  }
+
+  .floating-buttons a {
+    width: 48px;
+    height: 48px;
+    font-size: 16px;
   }
 }
 
-@media (max-width: 480px) {
+/* ============================================================
+   RESPONSIVE — 540px (small phones)
+   ============================================================ */
+@media (max-width: 540px) {
+  .hero h2 {
+    font-size: 34px;
+    letter-spacing: 2px;
+  }
+
+  .hero-eyebrow {
+    font-size: 8px;
+  }
+
+  .cta-button {
+    font-size: 16px;
+    padding: 12px 24px;
+    border-bottom-width: 5px;
+  }
+
+  .section-cards {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  /* Comic panel scales down further */
+  .comic-panel {
+    height: 110px;
+  }
+
+  .comic-word {
+    font-size: 28px;
+    letter-spacing: 3px;
+    -webkit-text-stroke: 2px var(--black);
+  }
+
+  .comic-sub {
+    font-size: 7px;
+    letter-spacing: 1px;
+  }
+
+  .section-card-img {
+    height: 110px;
+  }
+
+  .section-card-leaderboard {
+    height: 110px;
+  }
+
+  /* Promo ticker smaller */
+  .promo-ticker-inner {
+    font-size: 10px;
+  }
+
+  /* Section h2 tighter */
+  section h2 {
+    font-size: 18px;
+    letter-spacing: 1px;
+  }
+
+  /* Value cards 1 col on small */
   .values-grid {
     grid-template-columns: 1fr;
   }
 
-  .gallery-grid {
+  /* Mascot text */
+  .mascot-text h3 {
+    font-size: 22px;
+  }
+
+  .mascot-text p {
+    font-size: 13px;
+  }
+
+  /* Contact card full width */
+  .contact-card {
+    max-width: 100%;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  .contact-card strong {
+    font-size: 18px;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — 380px (very small phones)
+   ============================================================ */
+@media (max-width: 380px) {
+  .section-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .values-grid {
     grid-template-columns: 1fr;
   }
 
   .hero h2 {
-    font-size: 22px;
+    font-size: 28px;
   }
+
+  .nav-links a {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .comic-word {
+    font-size: 42px;
+  }
+
+  .mascot-name-badge {
+    font-size: 11px;
+    padding: 4px 12px;
+  }
+
+  .footer-logo {
+    font-size: 32px;
+    letter-spacing: 3px;
+  }
+}
+
+/* ============================================================
+   MASCOT SECTION
+   ============================================================ */
+.mascot-section {
+  background: var(--yellow);
+  border: var(--b4);
+  border-top: none;
+  box-shadow: var(--sh-xl);
+  padding: 48px 36px;
+}
+
+.mascot-inner {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 48px;
+  align-items: center;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.mascot-img-wrap {
+  position: relative;
+  text-align: center;
+}
+
+.mascot-img-wrap img {
+  width: 100%;
+  max-width: 300px;
+  border: var(--b4);
+  box-shadow: var(--sh-xl);
+  display: block;
+  margin: 0 auto;
+  background: var(--white);
+}
+
+.mascot-name-badge {
+  display: inline-block;
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--font-title);
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  border: var(--b4);
+  box-shadow: var(--sh-sm);
+  margin-top: 14px;
+}
+
+.mascot-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mascot-text h3 {
+  font-family: var(--font-hero);
+  font-size: 36px;
+  letter-spacing: 3px;
+  color: var(--black);
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.mascot-text h3 span {
+  color: var(--red);
+  display: block;
+}
+
+.mascot-text p {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--black);
+  line-height: 1.8;
+  font-weight: 600;
+  margin: 0;
+}
+
+.mascot-bubble {
+  background: var(--white);
+  border: var(--b4);
+  box-shadow: var(--sh-sm);
+  padding: 14px 18px;
+  font-family: var(--font-title);
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: var(--black);
+  position: relative;
+}
+
+.mascot-bubble::before {
+  content: '"';
+  font-family: var(--font-hero);
+  font-size: 48px;
+  color: var(--red);
+  line-height: 0;
+  position: relative;
+  top: 14px;
+  margin-right: 6px;
+}
+
+@media (max-width: 768px) {
+  .mascot-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .mascot-text h3 {
+    font-size: 26px;
+  }
+}
+
+/* ---- Superman-style UTAN title ---- */
+.mascot-hero-title {
+  font-family: var(--font-hero);
+  font-size: 80px;
+  letter-spacing: 10px;
+  line-height: 1;
+  margin: 0 0 4px;
+  text-transform: uppercase;
+
+  /* Superman palette: dark navy fill, red shadow layers, yellow stroke */
+  color: #0D2B6E;
+  -webkit-text-stroke: 3px #ffffff;
+  text-shadow:
+    3px 3px 0 #C0000B,
+    6px 6px 0 #8B0000,
+    9px 9px 0 rgba(0, 0, 0, 0.25);
+
+  /* Slight italic + scale for heroic punch */
+  transform: skewX(-5deg) scaleY(1.06);
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .mascot-hero-title {
+    font-size: 58px;
+    letter-spacing: 6px;
+    -webkit-text-stroke: 2px #ffffff;
+  }
+}
+
+@media (max-width: 540px) {
+  .mascot-hero-title {
+    font-size: 46px;
+    letter-spacing: 4px;
+  }
+}
+
+/* ---- Menu item thematic h3 colors ---- */
+.menu-item--nanamango .menu-item-content h3 {
+  color: #C41E5E;
+}
+
+.menu-item--stropis .menu-item-content h3 {
+  color: #FFD6E0;
+}
+
+.menu-item--banavoca .menu-item-content h3 {
+  /* Alpukat: avocado green-yellow */
+  color: #6B8E23;
 }

@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Fruttein Juice Shop - Juice Premium Berkualitas Tinggi dengan Bahan-Bahan Pilihan Terbaik">
+  <meta name="description"
+    content="Fruttein Juice Shop - Juice Premium Berkualitas Tinggi dengan Bahan-Bahan Pilihan Terbaik">
   <meta name="author" content="Fruttein Juice Shop">
-  <meta name="theme-color" content="#CC0000">
+  <meta name="theme-color" content="#D90000">
   <title>Fruttein Juice Shop - Premium Juice Kualitas Terbaik</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
 
   <!-- Navigation Header -->
   <header>
     <div class="header-content">
-      <h1>🍓 FRUTTEIN JUICE SHOP</h1>
+      <div class="logo-block">
+        <span class="logo-icon">F</span>
+        <h1>FRUTTEIN JUICE SHOP</h1>
+      </div>
       <ul class="nav-links">
-        <li><a href="#home">🏠 Beranda</a></li>
-        <li><a href="#about">ℹ️ Tentang</a></li>
-        <li><a href="#menu">📋 Menu</a></li>
-        <li><a href="#members">👥 Member</a></li>
-        <li><a href="#gallery">🖼️ Galeri</a></li>
-        <li><a href="#location">📍 Lokasi</a></li>
+        <li><a href="#home">Beranda</a></li>
+        <li><a href="#about">Tentang</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="javascript:void(0)" onclick="openModal('membersModal')">Member</a></li>
+        <li><a href="javascript:void(0)" onclick="openModal('galleryModal')">Galeri</a></li>
       </ul>
     </div>
   </header>
@@ -29,20 +34,28 @@
   <!-- Promo Ticker -->
   <div class="promo-ticker">
     <div class="promo-ticker-inner">
-      <span>🎉 TGIF: Setiap Jumat hanya Rp25.000/3 Botol!</span>
-      <span>🎁 Diskon 25% untuk pembelian di atas 40 pcs!</span>
-      <span>⭐ Kumpulkan 10 Poin → Hadiah GRATIS Eksklusif!</span>
-      <span>🍓 FRUTTEIN - Premium Juice Malang Terbaik!</span>
-      <span>🎉 TGIF: Setiap Jumat hanya Rp25.000/3 Botol!</span>
-      <span>🎁 Diskon 25% untuk pembelian di atas 40 pcs!</span>
+      <span class="ticker-pip"></span>
+      <span>EVENT RAMADHAN: Setiap 2 pembelian GRATIS 1 Chocoberry!</span>
+      <span class="ticker-pip"></span>
+      <span>Spesial Ramadhan hanya di Fruttein — jangan sampai terlewat!</span>
+      <span class="ticker-pip"></span>
+      <span>Chocoberry GRATIS menanti kamu — beli 2, dapat 1!</span>
+      <span class="ticker-pip"></span>
+      <span>FRUTTEIN — Premium Juice Terbaik!</span>
+      <span class="ticker-pip"></span>
+      <span>EVENT RAMADHAN: Setiap 2 pembelian GRATIS 1 Chocoberry!</span>
+      <span class="ticker-pip"></span>
+      <span>Spesial Ramadhan hanya di Fruttein — jangan sampai terlewat!</span>
     </div>
   </div>
 
   <!-- Hero Section -->
   <section class="hero" id="home">
-    <h2>Nikmati Kesegaran Premium Juice Fruttein!</h2>
-    <p>Dibuat dari buah-buahan pilihan berkualitas tinggi dengan resep rahasia yang telah teruji 🍹</p>
-    <a href="#menu" class="cta-button">🛒 Lihat Menu Kami!</a>
+    <div class="hero-eyebrow">— PREMIUM JUICE —</div>
+    <h2>NIKMATI KESEGARAN<br><span class="hero-highlight">FRUTTEIN!</span></h2>
+    <p>Dibuat dari buah-buahan pilihan berkualitas tinggi dengan resep rahasia yang telah teruji
+    </p>
+    <a href="#menu" class="cta-button">LIHAT MENU KAMI</a>
   </section>
 
   <!-- Brick Divider -->
@@ -52,52 +65,55 @@
 
     <!-- About Section -->
     <section id="about">
-      <h2>ℹ️ Tentang Fruttein</h2>
+      <h2>TENTANG FRUTTEIN</h2>
       <div class="about-section">
         <div class="about-content">
           <div class="about-text">
-            <h3>🌟 Mengapa Fruttein Lahir?</h3>
+            <h3>MENGAPA FRUTTEIN LAHIR?</h3>
             <p>
-              Fruttein didirikan dengan misi untuk membawa inovasi dalam industri minuman sehat. Kami percaya bahwa setiap orang berhak menikmati juice yang tidak hanya lezat, tetapi juga berkualitas premium dan dibuat dengan penuh cinta.
+              Fruttein didirikan dengan misi untuk membawa inovasi dalam industri minuman sehat. Kami percaya bahwa
+              setiap orang berhak menikmati juice yang tidak hanya lezat, tetapi juga berkualitas premium dan dibuat
+              dengan penuh cinta.
             </p>
             <p>
-              Dimulai dari dapur sederhana dengan passion untuk kesehatan, Fruttein berkembang menjadi pilihan utama bagi ribuan pelanggan setia. Setiap botol yang kami hasilkan adalah hasil dari dedikasi, inovasi, dan standar kualitas tertinggi.
+              Dimulai dari dapur sederhana dengan passion untuk kesehatan, Fruttein berkembang menjadi pilihan utama
+              bagi ribuan pelanggan setia. Setiap botol yang kami hasilkan adalah hasil dari dedikasi, inovasi, dan
+              standar kualitas tertinggi.
             </p>
-
             <div class="about-highlight">
-              <strong>🎯 Visi Kami:</strong>
-              <p>Menjadi brand juice premium terpercaya yang menghadirkan kesegaran dan kebahagiaan dalam setiap tegukan.</p>
+              <strong>VISI KAMI</strong>
+              <p>Menjadi brand juice premium terpercaya yang menghadirkan kesegaran dan kebahagiaan dalam setiap
+                tegukan.</p>
             </div>
           </div>
-
           <div class="about-image">
-            🥤
+            <span class="about-emoji-big">🥤</span>
           </div>
         </div>
 
         <div class="values-grid">
           <div class="value-card">
-            <h4>🍎 Bahan Pilihan</h4>
+            <h4>Bahan Pilihan</h4>
             <p>Menggunakan buah-buahan segar terbaik tanpa pengawet berbahaya</p>
           </div>
           <div class="value-card">
-            <h4>✨ Kualitas Premium</h4>
+            <h4>Kualitas Premium</h4>
             <p>Setiap produk melalui kontrol kualitas ketat untuk kepuasan Anda</p>
           </div>
           <div class="value-card">
-            <h4>💪 Nutrisi Lengkap</h4>
+            <h4>Nutrisi Lengkap</h4>
             <p>Kaya akan vitamin, mineral, dan antioksidan untuk kesehatan optimal</p>
           </div>
           <div class="value-card">
-            <h4>🌱 Produksi Alami</h4>
+            <h4>Produksi Alami</h4>
             <p>Proses produksi natural tanpa zat kimia tambahan</p>
           </div>
           <div class="value-card">
-            <h4>❤️ Dibuat dengan Cinta</h4>
+            <h4>Dibuat dengan Cinta</h4>
             <p>Setiap juice dibuat dengan dedikasi penuh untuk Anda</p>
           </div>
           <div class="value-card">
-            <h4>🤝 Kepercayaan Pelanggan</h4>
+            <h4>Kepercayaan Pelanggan</h4>
             <p>Telah dipercaya oleh ribuan pelanggan setia Fruttein</p>
           </div>
         </div>
@@ -107,91 +123,198 @@
     <!-- Brick Divider -->
     <div class="lego-divider"></div>
 
-    <!-- Menu Section -->
-    <section id="menu">
-      <h2>📋 Menu Unggulan Kami</h2>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <img src="assets/images/mango.jpg" alt="Nampisga">
-          <div class="menu-item-content">
-            <h3>Nampisga</h3>
-            <p>Kombinasi sempurna Buah Naga, Pisang, Mangga &amp; Golden Nectar untuk rasa yang eksplosif.</p>
-            <p class="price">Rp10.000</p>
-            <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Nampisga." class="order-link">🛒 Pesan via WhatsApp</a>
+    <!-- Mascot Section -->
+    <section id="mascot">
+      <h2>UTAN — PENJAGA RIMBA FRUTTEIN</h2>
+      <div class="mascot-section">
+        <div class="mascot-inner">
+          <div class="mascot-img-wrap">
+            <img src="assets/images/Mascot Fruttein.png" alt="Utan — Penjaga Rimba Fruttein">
+            <div class="mascot-name-badge">🦧 UTAN — Penjaga Rimba</div>
           </div>
-        </div>
-        <div class="menu-item">
-          <img src="assets/images/strawberry.jpg" alt="Stropis">
-          <div class="menu-item-content">
-            <h3>Stropis</h3>
-            <p>Manis dan lezat dari kombinasi Strawberry, Pisang, Yoghurt &amp; Golden Nectar.</p>
-            <p class="price">Rp10.000</p>
-            <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Stropis." class="order-link">🛒 Pesan via WhatsApp</a>
-          </div>
-        </div>
-        <div class="menu-item">
-          <img src="assets/images/avocado.jpg" alt="Alpisan">
-          <div class="menu-item-content">
-            <h3>Alpisan</h3>
-            <p>Kaya nutrisi dari Alpukat, Pisang, Fresh Milk &amp; Golden Nectar yang creamy.</p>
-            <p class="price">Rp10.000</p>
-            <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Alpisan." class="order-link">🛒 Pesan via WhatsApp</a>
-          </div>
-        </div>
-      </div>
+          <div class="mascot-text">
+            <h3 class="mascot-hero-title">UTAN</h3>
 
-      <!-- Promo Banner -->
-      <div class="promo-banner">
-        <h3>✨ Promo &amp; Penawaran Spesial!</h3>
-        <div class="promo-item">🎉 <strong>TGIF:</strong> Setiap Jumat hanya Rp25.000/3 Botol</div>
-        <div class="promo-item">🎁 <strong>Pembelian Banyak:</strong> Diskon 25% untuk pembelian di atas 40 pcs</div>
-        <div class="promo-item">⭐ <strong>Member Rewards:</strong> Setiap 10 pembelian dapatkan hadiah gratis eksklusif!</div>
+            <p>Di jantung hutan tropis Nusantara, tempat matahari menembus kanopi hijau dan buah-buahan
+              tumbuh dengan energi alam yang murni, lahirlah seorang penjaga rimba bernama <strong>Utan</strong>.</p>
+
+            <p>Sejak kecil, Utan berbeda dari yang lain. Ia bukan hanya kuat, tetapi juga bijak.
+              Ia memahami bahasa angin, aliran air, dan rahasia alam yang menjaga keseimbangan hutan tetap hidup.
+              Baginya, setiap buah bukan sekadar makanan — melainkan sumber kehidupan yang harus dijaga.</p>
+
+            <p>Namun waktu berubah. Hutan mulai kehilangan keseimbangannya. Banyak yang memilih kecepatan
+              dibanding kemurnian, melupakan rasa asli yang diciptakan oleh alam.</p>
+
+            <p><strong>Melihat itu, Utan turun dari rimba.</strong></p>
+
+            <p>Ia membawa satu misi: mengembalikan kesegaran alami kepada manusia. Bersama Fruttein,
+              Utan mengubah buah-buahan terbaik menjadi minuman yang menyimpan energi alam —
+              segar, alami, dan penuh kehidupan.</p>
+
+            <p>Kini, setiap gelas Fruttein membawa jejak perjalanan sang penjaga rimba.
+              Bagi Utan, ini bukan sekadar minuman. Ini adalah cara menjaga hubungan antara
+              manusia dan alam tetap hidup.</p>
+
+            <div class="mascot-bubble">
+              "Selama alam dijaga, kesegaran tidak akan pernah hilang."
+              <br><small>— Utan, Penjaga Rimba</small>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Brick Divider -->
     <div class="lego-divider"></div>
 
-    <!-- Members Section -->
-    <section id="members">
-      <h2>👥 Daftar Member &amp; Sistem Poin</h2>
-      <div class="members-section">
-        <p>Bergabunglah dengan member Fruttein dan dapatkan poin di setiap pembelian. Kumpulkan 10 poin untuk ditukarkan dengan hadiah menarik! 🎁</p>
+    <!-- Menu & Section Cards -->
+    <section id="menu">
+      <h2>MENU &amp; JELAJAHI FRUTTEIN</h2>
 
-        <!-- Add Member Form -->
-        <div class="members-controls">
-          <div class="input-group">
-            <input type="text" id="memberName" placeholder="Nama Member" maxlength="50">
-            <input type="tel" id="memberPhone" placeholder="Nomor WhatsApp (cth: 0852-xxxx-xxxx)" maxlength="20">
+      <!-- Section Cards Row -->
+      <div class="section-cards">
+
+        <!-- Products Card -->
+        <div class="section-card section-card--red">
+          <div class="section-card-header">
+            <span class="card-tag">PRODUK</span>
           </div>
-          <button class="btn btn-primary" onclick="addMember()">➕ Tambah Member</button>
-          <button class="btn btn-primary btn-export" onclick="exportMembers()" title="Export data ke CSV">📥 Export CSV</button>
+          <div class="comic-panel comic-panel--red">
+            <div class="comic-zap">POW!</div>
+            <div class="comic-word">MENU</div>
+            <div class="comic-sub">PILIHAN TERBAIK
+              UNTUK KAMU!</div>
+          </div>
+          <div class="quick-links">
+            <strong>QUICK LINKS</strong>
+            <ul>
+              <li><a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Nanamango."
+                  target="_blank">Nanamango</a></li>
+              <li><a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Stropis."
+                  target="_blank">Stropis</a></li>
+              <li><a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Banavoca."
+                  target="_blank">Banavoca</a></li>
+            </ul>
+          </div>
         </div>
 
-        <!-- Members List -->
-        <div class="members-table-wrapper">
-          <table class="members-table" id="membersTable">
-            <thead>
-              <tr>
-                <th style="width: 5%;">No</th>
-                <th style="width: 20%;">Nama Member</th>
-                <th style="width: 18%;">WhatsApp</th>
-                <th style="width: 12%;">Poin</th>
-                <th style="width: 13%;">Pembelian</th>
-                <th style="width: 18%;">Status Reward</th>
-                <th style="width: 14%;">Aksi</th>
-              </tr>
-            </thead>
-            <tbody id="membersBody">
-            </tbody>
-          </table>
-        </div>
-        <div id="emptyState" class="empty-state">
-          📭 Belum ada member terdaftar. Tambahkan member baru untuk memulai program loyalitas Fruttein!
+        <!-- Member Card -->
+        <div class="section-card section-card--yellow">
+          <div class="section-card-header">
+            <span class="card-tag">MEMBER</span>
+          </div>
+          <div class="section-card-leaderboard">
+            <p class="leaderboard-label">TOP MEMBER</p>
+            <div id="topMembersList">
+              <div class="leaderboard-empty">Belum ada member</div>
+            </div>
+          </div>
+          <div class="quick-links">
+            <strong>QUICK LINKS</strong>
+            <ul>
+              <li><a href="javascript:void(0)" onclick="openModal('membersModal')">Kelola Member</a></li>
+              <li><a href="javascript:void(0)" onclick="openModal('membersModal')">Tambah Member Baru</a></li>
+              <li><a href="javascript:void(0)" onclick="exportMembers()">Export Data CSV</a></li>
+            </ul>
+          </div>
         </div>
 
-        <div class="members-actions">
-          <button class="btn btn-danger btn-reset" onclick="resetData()" title="Reset semua data member">🔄 Reset Data</button>
+        <!-- Galeri Card -->
+        <div class="section-card section-card--green">
+          <div class="section-card-header">
+            <span class="card-tag">GALERI</span>
+          </div>
+          <div class="comic-panel comic-panel--green">
+            <div class="comic-zap">WOW!</div>
+            <div class="comic-word">GALERI</div>
+            <div class="comic-sub">FOTO-FOTO
+              FRUTTEIN KEREN!</div>
+          </div>
+          <div class="quick-links">
+            <strong>QUICK LINKS</strong>
+            <ul>
+              <li><a href="javascript:void(0)" onclick="openModal('galleryModal')">Lihat Semua Foto</a></li>
+              <li><a href="https://www.instagram.com/fruttein" target="_blank">Instagram Kami</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Event / Ramadhan Card -->
+        <div class="section-card section-card--purple">
+          <div class="section-card-header">
+            <span class="card-tag">EVENT</span>
+          </div>
+          <div class="ramadan-card-content">
+            <p class="ramadan-badge">RAMADHAN 2025</p>
+            <p>Beli <strong>2</strong> produk apapun,<br>gratis <strong>1 Chocoberry!</strong></p>
+            <p class="ramadan-note">Berlaku sepanjang bulan Ramadhan</p>
+          </div>
+          <div class="quick-links">
+            <strong>QUICK LINKS</strong>
+            <ul>
+              <li><a
+                  href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20mau%20klaim%20event%20Ramadhan%20gratis%20Chocoberry."
+                  target="_blank">Klaim via WhatsApp</a></li>
+              <li><a href="https://wa.me/6285204575882" target="_blank">Info Lebih Lanjut</a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+      <!-- End Section Cards -->
+
+      <!-- Brick Divider -->
+      <div class="lego-divider" style="margin: 24px 0;"></div>
+
+      <!-- Full Menu Cards -->
+      <div class="menu-section-label">PILIHAN MENU KAMI</div>
+      <div class="menu-grid">
+        <div class="menu-item menu-item--nanamango">
+          <img src="assets/images/mango.jpg" alt="Nanamango">
+          <div class="menu-item-content">
+            <span class="menu-tag">BEST SELLER</span>
+            <h3>Nanamango</h3>
+            <p>Kombinasi sempurna Buah Naga, Pisang, Mangga &amp; Golden Nectar untuk rasa yang eksplosif.</p>
+            <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Nanamango."
+              class="order-link">PESAN SEKARANG</a>
+          </div>
+        </div>
+        <div class="menu-item menu-item--stropis">
+          <img src="assets/images/strawberry.jpg" alt="Stropis">
+          <div class="menu-item-content">
+            <span class="menu-tag menu-tag--blue">FAVORIT</span>
+            <h3>Stropis</h3>
+            <p>Manis dan lezat dari kombinasi Strawberry, Pisang, Yoghurt &amp; Golden Nectar.</p>
+            <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Stropis."
+              class="order-link">PESAN SEKARANG</a>
+          </div>
+        </div>
+        <div class="menu-item menu-item--banavoca">
+          <img src="assets/images/avocado.jpg" alt="Banavoca">
+          <div class="menu-item-content">
+            <span class="menu-tag menu-tag--green">CREAMY</span>
+            <h3>Banavoca</h3>
+            <p>Kaya nutrisi dari Alpukat, Pisang, Fresh Milk &amp; Golden Nectar yang creamy.</p>
+            <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Banavoca."
+              class="order-link">PESAN SEKARANG</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ramadan Event Banner -->
+      <div class="promo-banner">
+        <div class="promo-banner-label">EVENT RAMADHAN</div>
+        <h3>BELI 2, GRATIS 1 CHOCOBERRY!</h3>
+        <div class="promo-item">
+          <div><strong>Beli 2 Gratis 1 Chocoberry!</strong> Setiap 2 pembelian produk apapun, kamu langsung dapat 1
+            Chocoberry GRATIS!</div>
+        </div>
+        <div class="promo-item">
+          <div><strong>Berlaku sepanjang Ramadhan</strong> — nikmati kesegaran Fruttein di bulan penuh berkah!</div>
+        </div>
+        <div class="promo-item">
+          <div><strong>Pesan via WhatsApp</strong> dan informasikan event Ramadhan untuk klaim Chocoberry gratis kamu!
+          </div>
         </div>
       </div>
     </section>
@@ -201,7 +324,7 @@
 
     <!-- Video Campaign Section -->
     <section class="video-campaign">
-      <h2>🎬 Video Kampanye Kami</h2>
+      <h2>VIDEO KAMPANYE KAMI</h2>
       <video controls loop muted playsinline>
         <source src="campaign.mp4" type="video/mp4">
         Browser Anda tidak mendukung video.
@@ -211,90 +334,126 @@
     <!-- Brick Divider -->
     <div class="lego-divider"></div>
 
-    <!-- Gallery Section -->
-    <section id="gallery">
-      <h2>🖼️ Galeri Fruttein</h2>
-      <div class="gallery-grid">
-        <div class="gallery-item">
-          <img src="assets/images/FrutteinGaleri1.jpg" alt="Gallery 1">
-        </div>
-        <div class="gallery-item">
-          <img src="assets/images/FrutteinGaleri2.jpg" alt="Gallery 2">
-        </div>
-        <div class="gallery-item">
-          <img src="assets/images/gallery3.jpg" alt="Gallery 3">
-        </div>
-        <div class="gallery-item">
-          <img src="assets/images/gallery4.jpg" alt="Gallery 4">
-        </div>
-      </div>
-    </section>
-
-    <!-- Brick Divider -->
-    <div class="lego-divider"></div>
-
-    <!-- Location Section -->
-    <section id="location" class="location">
-      <h2>📍 Lokasi &amp; Kontak Kami</h2>
-      <div class="location-info">
-        <h3>🏪 Kunjungi Toko Kami</h3>
-        <div class="location-details">
-          <div class="location-detail">
-            <strong>📍 Alamat</strong>
-            <p>Jl. Kendal Sari No.43, Malang, Indonesia</p>
-          </div>
-          <div class="location-detail">
-            <strong>📞 Hubungi Kami</strong>
-            <p><a href="https://wa.me/6285204575882" class="location-whatsapp-link">WhatsApp: +62 852-0457-5882</a></p>
-          </div>
-          <div class="location-detail">
-            <strong>🕐 Jam Operasional</strong>
-            <p>Senin - Minggu: 08:00 - 19:00</p>
-          </div>
+    <!-- Contact Section -->
+    <section id="contact">
+      <h2>HUBUNGI KAMI</h2>
+      <div class="contact-section">
+        <p class="contact-sub">Kami hanya berjualan secara <strong>ONLINE</strong>. Pesan sekarang melalui WhatsApp dan
+          kami siap melayani kamu!</p>
+        <div class="contact-grid">
+          <a href="https://wa.me/6285204575882" target="_blank" class="contact-card contact-card--wa">
+            <div class="contact-card-icon">💬</div>
+            <div>
+              <strong>WHATSAPP</strong>
+              <p>+62 852-0457-5882</p>
+            </div>
+          </a>
+          <a href="https://www.instagram.com/fruttein" target="_blank" class="contact-card contact-card--ig">
+            <div class="contact-card-icon">📸</div>
+            <div>
+              <strong>INSTAGRAM</strong>
+              <p>@fruttein</p>
+            </div>
+          </a>
         </div>
       </div>
-
-      <!-- Google Maps -->
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.3943905957617!2d112.61615567422354!3d-7.078173969130822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7882cf6e2da2f5%3A0x3e0a2a9ff9e9ed0!2sJl.%20Kendal%20Sari%20No.43%2C%20Malang!5e0!3m2!1sen!2sid!4v1695892597393!5m2!1sen!2sid" allowfullscreen="" loading="lazy"></iframe>
     </section>
 
   </div>
 
+  <!-- MODAL: Gallery -->
+  <div id="galleryModal" class="modal-overlay" onclick="handleOverlayClick(event, 'galleryModal')">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2>GALERI FRUTTEIN</h2>
+        <button class="modal-close" onclick="closeModal('galleryModal')">X</button>
+      </div>
+      <div class="modal-body">
+        <div class="gallery-grid">
+          <div class="gallery-item"><img src="assets/images/FrutteinGaleri1.jpg" alt="Gallery 1"></div>
+          <div class="gallery-item"><img src="assets/images/FrutteinGaleri2.jpg" alt="Gallery 2"></div>
+          <div class="gallery-item"><img src="assets/images/gallery3.jpg" alt="Gallery 3"></div>
+          <div class="gallery-item"><img src="assets/images/gallery4.jpg" alt="Gallery 4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Members Management -->
+  <div id="membersModal" class="modal-overlay" onclick="handleOverlayClick(event, 'membersModal')">
+    <div class="modal-box modal-box--wide">
+      <div class="modal-header">
+        <h2>DAFTAR MEMBER &amp; SISTEM POIN</h2>
+        <button class="modal-close" onclick="closeModal('membersModal')">X</button>
+      </div>
+      <div class="modal-body">
+        <div class="members-section">
+          <p>Bergabunglah dengan member Fruttein dan dapatkan poin di setiap pembelian. Kumpulkan 10 poin untuk
+            ditukarkan dengan hadiah menarik!</p>
+
+          <div class="members-controls">
+            <div class="input-group">
+              <input type="text" id="memberName" placeholder="Nama Member" maxlength="50">
+              <input type="tel" id="memberPhone" placeholder="Nomor WhatsApp (cth: 0852-xxxx-xxxx)" maxlength="20">
+            </div>
+            <button class="btn btn-primary" onclick="addMember()">TAMBAH MEMBER</button>
+            <button class="btn btn-export" onclick="exportMembers()">EXPORT CSV</button>
+          </div>
+
+          <div class="members-table-wrapper">
+            <table class="members-table" id="membersTable">
+              <thead>
+                <tr>
+                  <th style="width:5%">No</th>
+                  <th style="width:20%">Nama Member</th>
+                  <th style="width:18%">WhatsApp</th>
+                  <th style="width:12%">Poin</th>
+                  <th style="width:13%">Pembelian</th>
+                  <th style="width:18%">Status Reward</th>
+                  <th style="width:14%">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="membersBody"></tbody>
+            </table>
+          </div>
+          <div id="emptyState" class="empty-state">
+            Belum ada member terdaftar. Tambahkan member baru untuk memulai program loyalitas Fruttein!
+          </div>
+          <div class="members-actions">
+            <button class="btn btn-reset" onclick="resetData()">RESET DATA</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Floating Buttons -->
   <div class="floating-buttons">
-    <a href="https://wa.me/6285204575882" target="_blank" title="Hubungi Kami via WhatsApp">
-      <img src="assets/images/walogo.png" alt="WhatsApp" onerror="this.style.display='none';this.parentElement.innerHTML='💬'">
+    <a class="fb-wa" href="https://wa.me/6285204575882" target="_blank" title="WhatsApp">
+      <img src="assets/images/walogo.png" alt="WhatsApp"
+        onerror="this.style.display='none';this.parentElement.innerHTML='WA'">
     </a>
-    <a href="https://www.instagram.com/fruttein" target="_blank" title="Ikuti Instagram Kami">
-      <img src="assets/images/instalogo.png" alt="Instagram" onerror="this.style.display='none';this.parentElement.innerHTML='📸'">
+    <a class="fb-ig" href="https://www.instagram.com/fruttein" target="_blank" title="Instagram">
+      <img src="assets/images/instalogo.png" alt="Instagram"
+        onerror="this.style.display='none';this.parentElement.innerHTML='IG'">
     </a>
   </div>
 
   <!-- Footer -->
   <footer>
     <div class="footer-content">
-      <h3>🍓 FRUTTEIN JUICE SHOP</h3>
-      <p class="location-description">
-        Membawa kesegaran dan kualitas premium ke setiap tegukan. 🏆
-      </p>
+      <div class="footer-logo">FRUTTEIN</div>
+      <p class="location-description">Membawa kesegaran dan kualitas premium ke setiap tegukan.</p>
 
       <div class="location-grid">
         <div class="location-grid-item">
-          <strong>📍 Lokasi</strong>
-          <p>
-            Jl. Kendal Sari No.43<br>
-            Malang, Indonesia
-          </p>
-        </div>
-        <div class="location-grid-item">
-          <strong>📞 Hubungi Kami</strong>
-          <p>
-            WhatsApp: +62 852-0457-5882<br>
+          <strong>HUBUNGI KAMI</strong>
+          <p>WhatsApp: +62 852-0457-5882<br>
             <a href="https://wa.me/6285204575882" class="location-contact-whatsapp">Chat via WhatsApp</a>
           </p>
         </div>
         <div class="location-grid-item">
-          <strong>🔗 Ikuti Kami</strong>
+          <strong>IKUTI KAMI</strong>
           <p>
             <a href="https://www.instagram.com/fruttein" class="location-instagram-link">Instagram</a>
             <a href="https://wa.me/6285204575882" class="location-contact-whatsapp">WhatsApp</a>
@@ -304,13 +463,13 @@
 
       <div class="footer-divider">
         <p>&copy; 2025 Fruttein Juice Shop. Semua hak dilindungi.</p>
-        <p>Dibuat dengan ❤️ untuk memberikan yang terbaik bagi Anda</p>
+        <p>Dibuat dengan cinta untuk memberikan yang terbaik bagi Anda</p>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script src="js/utils.js"></script>
   <script src="js/script.js"></script>
 </body>
+
 </html>
