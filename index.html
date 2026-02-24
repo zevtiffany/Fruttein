@@ -391,7 +391,29 @@
           <p>Bergabunglah dengan member Fruttein dan dapatkan poin di setiap pembelian. Kumpulkan 10 poin untuk
             ditukarkan dengan hadiah menarik!</p>
 
-          <div class="members-controls">
+          <!-- Status Bar -->
+          <div id="memberStatusBar"
+            style="display:none;padding:10px 14px;font-family:monospace;font-size:13px;font-weight:700;border:3px solid #000;margin-bottom:10px;">
+          </div>
+
+          <!-- Admin Bar -->
+          <div class="admin-bar">
+            <span id="adminBadge" class="admin-badge" style="display:none;">🔑 Mode Admin</span>
+            <button id="adminLoginToggleBtn" class="btn btn-admin-toggle" onclick="toggleLoginForm()">🔑 Login
+              Admin</button>
+            <button id="adminLogoutBtn" class="btn btn-admin-logout" onclick="adminLogout()"
+              style="display:none;">Logout Admin</button>
+          </div>
+
+          <!-- Form Login Admin (tersembunyi default) -->
+          <div id="adminLoginForm" class="admin-login-form" style="display:none;">
+            <input type="email" id="adminEmail" placeholder="Email Admin" autocomplete="username">
+            <input type="password" id="adminPassword" placeholder="Password" autocomplete="current-password">
+            <button class="btn btn-primary" onclick="adminLogin()">MASUK</button>
+            <p id="adminLoginError" class="admin-login-error"></p>
+          </div>
+
+          <div class="members-controls admin-only" style="display:none;">
             <div class="input-group">
               <input type="text" id="memberName" placeholder="Nama Member" maxlength="50">
               <input type="tel" id="memberPhone" placeholder="Nomor WhatsApp (cth: 0852-xxxx-xxxx)" maxlength="20">
@@ -419,10 +441,27 @@
           <div id="emptyState" class="empty-state">
             Belum ada member terdaftar. Tambahkan member baru untuk memulai program loyalitas Fruttein!
           </div>
-          <div class="members-actions">
+          <div class="members-actions admin-only" style="display:none;">
             <button class="btn btn-reset" onclick="resetData()">RESET DATA</button>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Confirm Dialog (mengganti window.confirm yang bisa terblokir modal) -->
+  <div id="customConfirmOverlay"
+    style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;">
+    <div
+      style="background:#F0EAD6;border:4px solid #0D0D0D;box-shadow:8px 8px 0 #0D0D0D;padding:28px 32px;max-width:400px;width:90%;font-family:'Nunito',sans-serif;">
+      <p id="customConfirmMsg" style="font-size:16px;font-weight:800;margin-bottom:20px;color:#0D0D0D;line-height:1.5;">
+      </p>
+      <div style="display:flex;gap:12px;justify-content:flex-end;">
+        <button id="customConfirmCancel"
+          style="background:#F0EAD6;border:3px solid #0D0D0D;border-bottom:5px solid #0D0D0D;padding:10px 24px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;">BATAL</button>
+        <button id="customConfirmOk"
+          style="background:#E3000B;color:#fff;border:3px solid #0D0D0D;border-bottom:5px solid #0D0D0D;padding:10px 24px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;">YA,
+          LANJUTKAN</button>
       </div>
     </div>
   </div>
@@ -468,7 +507,15 @@
     </div>
   </footer>
 
+  <!-- Firebase SDKs (compat — no bundler needed) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+  <!-- App Scripts -->
   <script src="js/utils.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js"></script>
   <script src="js/script.js"></script>
 </body>
 

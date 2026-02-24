@@ -1,139 +1,227 @@
 /* ============================================
    FRUTTEIN MEMBER MANAGEMENT SYSTEM
+   — Firebase Firestore Edition —
    ============================================ */
+
+const MEMBERS_COLLECTION = 'members';
+
+/* ---- Custom Confirm Dialog (mengganti window.confirm) ---- */
+function customConfirm(message) {
+  return new Promise((resolve) => {
+    const overlay = document.getElementById('customConfirmOverlay');
+    const msgEl = document.getElementById('customConfirmMsg');
+    const okBtn = document.getElementById('customConfirmOk');
+    const cancelBtn = document.getElementById('customConfirmCancel');
+    if (!overlay) { resolve(window.confirm(message)); return; }
+
+    msgEl.textContent = message;
+    overlay.style.display = 'flex';
+
+    function cleanup() {
+      overlay.style.display = 'none';
+      okBtn.removeEventListener('click', onOk);
+      cancelBtn.removeEventListener('click', onCancel);
+    }
+    function onOk() { cleanup(); resolve(true); }
+    function onCancel() { cleanup(); resolve(false); }
+
+    okBtn.addEventListener('click', onOk);
+    cancelBtn.addEventListener('click', onCancel);
+  });
+}
+
+/* ---- Status bar helper ---- */
+function showStatus(msg, isError) {
+  const bar = document.getElementById('memberStatusBar');
+  if (!bar) return;
+  bar.textContent = msg;
+  bar.style.display = 'block';
+  bar.style.background = isError ? '#E3000B' : '#007A2E';
+  bar.style.color = '#fff';
+  clearTimeout(bar._timer);
+  bar._timer = setTimeout(() => { bar.style.display = 'none'; }, 5000);
+}
 
 class MemberManager {
   constructor() {
-    this.members = this.loadMembers();
-    this.render();
+    this.members = [];
+    this.unsubscribe = null;
+    this.listenToMembers();
   }
 
   /**
-   * Load members dari localStorage
+   * Realtime listener ke Firestore — otomatis update UI
    */
-  loadMembers() {
-    try {
-      const data = localStorage.getItem(LOYALTY_CONFIG.STORAGE_KEY);
-      return data ? JSON.parse(data) : [];
-    } catch (error) {
-      console.error('Error loading members:', error);
-      return [];
-    }
+  listenToMembers() {
+    this.unsubscribe = db.collection(MEMBERS_COLLECTION)
+      .onSnapshot((snapshot) => {
+        this.members = snapshot.docs.map(doc => ({
+          firestoreId: doc.id,
+          ...doc.data()
+        }));
+        // Sort client-side berdasarkan createdAt (aman untuk dokumen lama)
+        this.members.sort((a, b) => {
+          const ta = a.createdAt ? a.createdAt.toMillis() : 0;
+          const tb = b.createdAt ? b.createdAt.toMillis() : 0;
+          return ta - tb;
+        });
+        this.render();
+      }, (error) => {
+        console.error('Firestore listener error:', error);
+        showStatus('❌ Gagal memuat data: ' + (error.code || error.message), true);
+      });
   }
 
   /**
-   * Save members ke localStorage
-   */
-  saveMembers() {
-    try {
-      localStorage.setItem(LOYALTY_CONFIG.STORAGE_KEY, JSON.stringify(this.members));
-    } catch (error) {
-      console.error('Error saving members:', error);
-    }
-  }
-
-  /**
-   * Tambah member baru
+   * Tambah member baru (khusus admin)
    */
   addMember(name, phone) {
-    if (!name.trim() || !phone.trim()) {
-      alert(MESSAGES.EMPTY_FIELD);
-      return false;
-    }
-
-    if (!/^[\d\s\-\+]+$/.test(phone)) {
-      alert(MESSAGES.INVALID_PHONE);
-      return false;
-    }
+    if (!isAdmin()) { showStatus('⚠️ Login admin dulu!', true); return false; }
+    if (!name.trim() || !phone.trim()) { alert(MESSAGES.EMPTY_FIELD); return false; }
+    if (!/^[\d\s\-\+]+$/.test(phone)) { alert(MESSAGES.INVALID_PHONE); return false; }
 
     const newMember = {
-      id: Date.now(),
       name: name.trim(),
       phone: phone.trim(),
       points: 0,
+      purchases: 0,
+      rewards: 0,
       joinDate: new Date().toLocaleDateString('id-ID'),
-      purchases: 0
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
     };
 
-    this.members.push(newMember);
-    this.saveMembers();
-    this.render();
+    showStatus('⏳ Menyimpan member baru...', false);
+    db.collection(MEMBERS_COLLECTION).add(newMember)
+      .then(() => showStatus('✅ Member berhasil ditambahkan!', false))
+      .catch(err => {
+        showStatus('❌ Gagal tambah: ' + (err.code || err.message), true);
+        console.error('Add error:', err);
+      });
+
     return true;
   }
 
   /**
-   * Tambah pembelian (1 poin per pembelian)
+   * Tambah pembelian (khusus admin)
    */
-  addPurchase(memberId) {
-    const member = this.members.find(m => m.id === memberId);
-    if (member) {
-      member.points += LOYALTY_CONFIG.POINTS_PER_PURCHASE;
-      member.purchases += 1;
-      this.saveMembers();
-      this.render();
+  addPurchase(firestoreId) {
+    if (!isAdmin()) { showStatus('⚠️ Login admin dulu!', true); return; }
 
-      // Notifikasi untuk milestone
-      if (member.points === LOYALTY_CONFIG.POINTS_FOR_REWARD) {
-        alert(MESSAGES.MILESTONE_10(member.name));
-      } else if (LOYALTY_CONFIG.MILESTONE_REWARDS.includes(member.points)) {
-        alert(MESSAGES.MILESTONE_5(member.name));
-      }
-    }
+    const member = this.members.find(m => m.firestoreId === firestoreId);
+    if (!member) { showStatus('❌ Member tidak ditemukan.', true); return; }
+
+    const newPoints = member.points + LOYALTY_CONFIG.POINTS_PER_PURCHASE;
+    const newPurchases = member.purchases + 1;
+
+    showStatus('⏳ Menambah pembelian...', false);
+    db.collection(MEMBERS_COLLECTION).doc(firestoreId)
+      .update({ points: newPoints, purchases: newPurchases })
+      .then(() => {
+        showStatus('✅ Pembelian ditambahkan!', false);
+        if (newPoints === LOYALTY_CONFIG.POINTS_FOR_REWARD) {
+          alert(MESSAGES.MILESTONE_10(member.name));
+        } else if (LOYALTY_CONFIG.MILESTONE_REWARDS.includes(newPoints)) {
+          alert(MESSAGES.MILESTONE_5(member.name));
+        }
+      })
+      .catch(err => {
+        showStatus('❌ Gagal: ' + (err.code || err.message), true);
+        console.error(err);
+      });
   }
 
   /**
-   * Klaim reward (setiap 10 poin = 1 hadiah)
+   * Klaim reward (khusus admin)
    */
-  claimReward(memberId) {
-    const member = this.members.find(m => m.id === memberId);
-    if (member && member.points >= LOYALTY_CONFIG.POINTS_FOR_REWARD) {
-      const claimedPoints = Math.floor(member.points / LOYALTY_CONFIG.POINTS_FOR_REWARD) * LOYALTY_CONFIG.POINTS_FOR_REWARD;
-      const rewardCount = Math.floor(claimedPoints / LOYALTY_CONFIG.POINTS_FOR_REWARD);
-      member.points -= claimedPoints;
-      member.rewards = (member.rewards || 0) + rewardCount;
-      this.saveMembers();
-      this.render();
-      alert(MESSAGES.REWARD_CLAIMED(member.name, rewardCount, member.points));
-    }
+  claimReward(firestoreId) {
+    if (!isAdmin()) { showStatus('⚠️ Login admin dulu!', true); return; }
+
+    const member = this.members.find(m => m.firestoreId === firestoreId);
+    if (!member || member.points < LOYALTY_CONFIG.POINTS_FOR_REWARD) return;
+
+    const claimedPoints = Math.floor(member.points / LOYALTY_CONFIG.POINTS_FOR_REWARD) * LOYALTY_CONFIG.POINTS_FOR_REWARD;
+    const rewardCount = Math.floor(claimedPoints / LOYALTY_CONFIG.POINTS_FOR_REWARD);
+    const newPoints = member.points - claimedPoints;
+    const newRewards = (member.rewards || 0) + rewardCount;
+
+    showStatus('⏳ Memproses klaim reward...', false);
+    db.collection(MEMBERS_COLLECTION).doc(firestoreId)
+      .update({ points: newPoints, rewards: newRewards })
+      .then(() => {
+        showStatus('✅ Reward berhasil diklaim!', false);
+        alert(MESSAGES.REWARD_CLAIMED(member.name, rewardCount, newPoints));
+      })
+      .catch(err => {
+        showStatus('❌ Gagal klaim: ' + (err.code || err.message), true);
+        console.error(err);
+      });
   }
 
   /**
-   * Hapus member
+   * Hapus member (khusus admin)
    */
-  deleteMember(memberId) {
-    if (confirm(MESSAGES.CONFIRM_DELETE)) {
-      this.members = this.members.filter(m => m.id !== memberId);
-      this.saveMembers();
-      this.render();
-      alert(MESSAGES.DELETED);
-    }
+  deleteMember(firestoreId) {
+    console.log('[deleteMember] dipanggil, id=', firestoreId, 'isAdmin=', isAdmin());
+    if (!isAdmin()) { showStatus('⚠️ Login admin dulu untuk menghapus!', true); return; }
+    if (!firestoreId) { showStatus('❌ ID member tidak valid.', true); return; }
+
+    customConfirm(MESSAGES.CONFIRM_DELETE).then(ok => {
+      if (!ok) return;
+      showStatus('⏳ Menghapus member...', false);
+      db.collection(MEMBERS_COLLECTION).doc(firestoreId)
+        .delete()
+        .then(() => showStatus('✅ Member berhasil dihapus!', false))
+        .catch(err => {
+          console.error('Delete error:', err);
+          if (err.code === 'permission-denied') {
+            showStatus('❌ Akses ditolak! Update Firestore Rules.', true);
+            alert('❌ Akses ditolak oleh Firestore!\n\nBuka Firebase Console → Firestore → Rules dan pastikan:\nallow write: if request.auth != null;');
+          } else {
+            showStatus('❌ Gagal hapus: ' + (err.code || err.message), true);
+          }
+        });
+    });
   }
 
   /**
-   * Reset semua data member (untuk administrator)
+   * Reset semua data member (khusus admin)
    */
   resetAllData() {
-    if (confirm(MESSAGES.CONFIRM_RESET)) {
-      if (confirm(MESSAGES.CONFIRM_RESET_AGAIN)) {
-        this.members = [];
-        this.saveMembers();
-        this.render();
-        alert(MESSAGES.RESET_SUCCESS);
-      }
-    }
+    console.log('[resetAllData] dipanggil, isAdmin=', isAdmin());
+    if (!isAdmin()) { showStatus('⚠️ Login admin dulu untuk reset!', true); return; }
+    if (this.members.length === 0) { showStatus('⚠️ Tidak ada data untuk direset.', true); return; }
+
+    customConfirm(MESSAGES.CONFIRM_RESET).then(ok1 => {
+      if (!ok1) return;
+      customConfirm(MESSAGES.CONFIRM_RESET_AGAIN).then(ok2 => {
+        if (!ok2) return;
+        showStatus('⏳ Mereset semua data...', false);
+        const batch = db.batch();
+        this.members.forEach(member => {
+          batch.delete(db.collection(MEMBERS_COLLECTION).doc(member.firestoreId));
+        });
+        batch.commit()
+          .then(() => showStatus('✅ Semua data telah direset!', false))
+          .catch(err => {
+            console.error('Reset error:', err);
+            if (err.code === 'permission-denied') {
+              showStatus('❌ Akses ditolak! Update Firestore Rules.', true);
+            } else {
+              showStatus('❌ Gagal reset: ' + (err.code || err.message), true);
+            }
+          });
+      });
+    });
   }
 
   /**
-   * Export data ke CSV
+   * Export data ke CSV (khusus admin)
    */
   exportToCSV() {
-    if (this.members.length === 0) {
-      alert(MESSAGES.EXPORT_EMPTY);
-      return;
-    }
+    if (!isAdmin()) { showStatus('⚠️ Login admin dulu!', true); return; }
+    if (this.members.length === 0) { alert(MESSAGES.EXPORT_EMPTY); return; }
 
     let csv = 'No,Nama Member,WhatsApp,Poin,Total Pembelian,Total Reward,Tanggal Bergabung\n';
-
     this.members.forEach((member, index) => {
       csv += `${index + 1},"${member.name}","${member.phone}",${member.points},${member.purchases},"${member.rewards || 0}","${member.joinDate}"\n`;
     });
@@ -153,85 +241,144 @@ class MemberManager {
   getRewardStatus(points) {
     const rewards = Math.floor(points / LOYALTY_CONFIG.POINTS_FOR_REWARD);
     const remaining = points % LOYALTY_CONFIG.POINTS_FOR_REWARD;
-    if (rewards > 0) {
-      return `✅ ${rewards} hadiah siap diambil (+${remaining} poin)`;
-    }
+    if (rewards > 0) return `✅ ${rewards} hadiah siap diambil (+${remaining} poin)`;
     return `⏳ ${LOYALTY_CONFIG.POINTS_FOR_REWARD - remaining} poin lagi`;
   }
 
   /**
-   * Render tabel member
+   * Render tabel member — pakai event delegation (bukan inline onclick)
    */
   render() {
     const tbody = document.querySelector(UI_SELECTORS.membersBody);
     const emptyState = document.querySelector(UI_SELECTORS.emptyState);
-    const table = document.querySelector(UI_SELECTORS.membersTable).parentElement;
+    const tableWrap = document.querySelector(UI_SELECTORS.membersTable);
+    if (!tbody) return;
 
     tbody.innerHTML = '';
 
     if (this.members.length === 0) {
       emptyState.style.display = 'block';
-      table.style.display = 'none';
+      if (tableWrap) tableWrap.parentElement.style.display = 'none';
     } else {
       emptyState.style.display = 'none';
-      table.style.display = 'block';
+      if (tableWrap) tableWrap.parentElement.style.display = 'block';
+
+      const admin = isAdmin();
 
       this.members.forEach((member, index) => {
         const isReady = member.points >= LOYALTY_CONFIG.POINTS_FOR_REWARD;
 
         const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${index + 1}</td>
-          <td><strong>${member.name}</strong><br><small class="member-join-date">${member.joinDate}</small></td>
-          <td>
-            <a href="${WHATSAPP_BASE_URL}&phone=${member.phone.replace(/\D/g, '')}" target="_blank" class="whatsapp-link">
-              📱 ${member.phone}
-            </a>
-          </td>
-          <td>
-            <span class="points-badge">${member.points} / ${LOYALTY_CONFIG.POINTS_FOR_REWARD}</span>
-          </td>
-          <td><strong>${member.purchases}</strong></td>
-          <td>
-            <span class="status-badge ${isReady ? 'status-ready' : 'status-pending'}">
-              ${this.getRewardStatus(member.points)}
-            </span>
-          </td>
-          <td>
-            <button class="btn btn-success btn-action" onclick="memberManager.addPurchase(${member.id})" title="Tambah pembelian">➕ Beli</button>
-            ${isReady ? `<button class="btn btn-success btn-action" onclick="memberManager.claimReward(${member.id})" title="Klaim reward">🎁 Klaim</button>` : ''}
-            <button class="btn btn-danger btn-action" onclick="memberManager.deleteMember(${member.id})" title="Hapus member">❌</button>
-          </td>
-        `;
+        row.dataset.id = member.firestoreId; // Simpan ID di data attribute
+
+        // Buat sel tabel
+        const tdNo = document.createElement('td');
+        const tdNama = document.createElement('td');
+        const tdPhone = document.createElement('td');
+        const tdPoin = document.createElement('td');
+        const tdBeli = document.createElement('td');
+        const tdStatus = document.createElement('td');
+        const tdAksi = document.createElement('td');
+
+        tdNo.textContent = index + 1;
+
+        tdNama.innerHTML = `<strong>${member.name}</strong><br><small class="member-join-date">${member.joinDate}</small>`;
+
+        tdPhone.innerHTML = `<a href="${WHATSAPP_BASE_URL}&phone=${member.phone.replace(/\D/g, '')}" target="_blank" class="whatsapp-link">📱 ${member.phone}</a>`;
+
+        tdPoin.innerHTML = `<span class="points-badge">${member.points} / ${LOYALTY_CONFIG.POINTS_FOR_REWARD}</span>`;
+
+        tdBeli.innerHTML = `<strong>${member.purchases}</strong>`;
+
+        tdStatus.innerHTML = `<span class="status-badge ${isReady ? 'status-ready' : 'status-pending'}">${this.getRewardStatus(member.points)}</span>`;
+
+        if (admin) {
+          // ➕ Beli
+          const btnBeli = document.createElement('button');
+          btnBeli.className = 'btn btn-success btn-action';
+          btnBeli.textContent = '➕ Beli';
+          btnBeli.title = 'Tambah pembelian';
+          btnBeli.dataset.action = 'addPurchase';
+          tdAksi.appendChild(btnBeli);
+
+          // 🎁 Klaim (hanya jika reward siap)
+          if (isReady) {
+            const btnKlaim = document.createElement('button');
+            btnKlaim.className = 'btn btn-success btn-action';
+            btnKlaim.textContent = '🎁 Klaim';
+            btnKlaim.title = 'Klaim reward';
+            btnKlaim.dataset.action = 'claimReward';
+            tdAksi.appendChild(btnKlaim);
+          }
+
+          // ❌ Hapus
+          const btnHapus = document.createElement('button');
+          btnHapus.className = 'btn btn-danger btn-action';
+          btnHapus.textContent = '❌';
+          btnHapus.title = 'Hapus member';
+          btnHapus.dataset.action = 'delete';
+          tdAksi.appendChild(btnHapus);
+        } else {
+          tdAksi.innerHTML = '<span style="color:#aaa;font-size:0.8em;">—</span>';
+        }
+
+        row.append(tdNo, tdNama, tdPhone, tdPoin, tdBeli, tdStatus, tdAksi);
         tbody.appendChild(row);
       });
     }
 
-    // Update top members leaderboard on home page
+    // Update leaderboard homepage
     renderTopMembers(this.members, 4);
   }
 }
 
-/**
- * Initialize Member Manager dan Event Listeners
- */
+/* ============================================
+   EVENT DELEGATION untuk tabel member
+   (Lebih reliable daripada inline onclick)
+   ============================================ */
+function setupTableEventDelegation() {
+  const tbody = document.querySelector(UI_SELECTORS.membersBody);
+  if (!tbody) return;
+
+  tbody.addEventListener('click', function (e) {
+    const btn = e.target.closest('button[data-action]');
+    if (!btn) return;
+
+    const row = btn.closest('tr');
+    const firestoreId = row ? row.dataset.id : null;
+    const action = btn.dataset.action;
+
+    console.log('[TableClick] action=', action, 'id=', firestoreId);
+
+    if (!memberManager) return;
+
+    if (action === 'addPurchase') memberManager.addPurchase(firestoreId);
+    if (action === 'claimReward') memberManager.claimReward(firestoreId);
+    if (action === 'delete') memberManager.deleteMember(firestoreId);
+  });
+}
+
+/* ============================================
+   INISIALISASI
+   ============================================ */
 let memberManager;
 
 document.addEventListener('DOMContentLoaded', function () {
-  initializeApp();
+  memberManager = new MemberManager();
   setupEventListeners();
+  setupTableEventDelegation();
+
+  // Setup auth listener SETELAH memberManager siap
+  auth.onAuthStateChanged((user) => {
+    currentAdmin = user;
+    updateAdminUI(user);
+    if (memberManager) memberManager.render();
+  });
 });
 
-/**
- * Initialize aplikasi
- */
-function initializeApp() {
-  memberManager = new MemberManager();
-}
-
-/**
- * Setup semua event listeners
- */
+/* ============================================
+   EVENT LISTENERS
+   ============================================ */
 function setupEventListeners() {
   const memberName = document.querySelector(UI_SELECTORS.memberName);
   const memberPhone = document.querySelector(UI_SELECTORS.memberPhone);
@@ -241,7 +388,13 @@ function setupEventListeners() {
     memberPhone.addEventListener('keypress', handleEnter);
   }
 
-  // Close modal on Escape key
+  const pwField = document.getElementById('adminPassword');
+  if (pwField) {
+    pwField.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') adminLogin();
+    });
+  }
+
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
       document.querySelectorAll('.modal-overlay.is-open').forEach(function (m) {
@@ -252,29 +405,21 @@ function setupEventListeners() {
   });
 }
 
-/**
- * Handle Enter key untuk form input
- */
 function handleEnter(e) {
   if (e.key === 'Enter') {
     const memberName = document.querySelector(UI_SELECTORS.memberName);
     const memberPhone = document.querySelector(UI_SELECTORS.memberPhone);
-
-    if (e.target === memberName) {
-      memberPhone.focus();
-    } else if (e.target === memberPhone) {
-      addMember();
-    }
+    if (e.target === memberName) memberPhone.focus();
+    else if (e.target === memberPhone) addMember();
   }
 }
 
-/**
- * Tambah member dari form
- */
+/* ============================================
+   PUBLIC FUNCTIONS
+   ============================================ */
 function addMember() {
   const nameInput = document.querySelector(UI_SELECTORS.memberName);
   const phoneInput = document.querySelector(UI_SELECTORS.memberPhone);
-
   if (memberManager.addMember(nameInput.value, phoneInput.value)) {
     nameInput.value = '';
     phoneInput.value = '';
@@ -282,64 +427,31 @@ function addMember() {
   }
 }
 
-/**
- * Export data member ke CSV
- */
-function exportMembers() {
-  memberManager.exportToCSV();
-}
-
-/**
- * Reset semua data member
- */
-function resetData() {
-  memberManager.resetAllData();
-}
+function exportMembers() { memberManager.exportToCSV(); }
+function resetData() { memberManager.resetAllData(); }
 
 /* ============================================
    MODAL FUNCTIONS
    ============================================ */
-
-/**
- * Buka modal berdasarkan ID
- */
 function openModal(modalId) {
   const modal = document.getElementById(modalId);
-  if (modal) {
-    modal.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
-  }
+  if (modal) { modal.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
 }
 
-/**
- * Tutup modal berdasarkan ID
- */
 function closeModal(modalId) {
   const modal = document.getElementById(modalId);
-  if (modal) {
-    modal.classList.remove('is-open');
-    document.body.style.overflow = '';
-  }
+  if (modal) { modal.classList.remove('is-open'); document.body.style.overflow = ''; }
 }
 
-/**
- * Tutup modal jika klik di luar konten (overlay)
- */
 function handleOverlayClick(event, modalId) {
-  if (event.target === event.currentTarget) {
-    closeModal(modalId);
-  }
+  if (event.target === event.currentTarget) closeModal(modalId);
 }
 
 /* ============================================
    TOP MEMBERS LEADERBOARD
    ============================================ */
-
 const RANK_ICONS = ['🥇', '🥈', '🥉', '4️⃣'];
 
-/**
- * Render top N members (by points) ke widget di homepage
- */
 function renderTopMembers(members, limit) {
   limit = limit || 4;
   const container = document.getElementById('topMembersList');
@@ -350,7 +462,6 @@ function renderTopMembers(members, limit) {
     return;
   }
 
-  // Sort by points descending, take top N
   const sorted = members.slice().sort(function (a, b) { return b.points - a.points; });
   const top = sorted.slice(0, limit);
 

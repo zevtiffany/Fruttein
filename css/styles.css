@@ -2156,7 +2156,7 @@ footer>* {
   }
 }
 
-/* ---- Superman-style UTAN title ---- */
+/* ---- UTAN title — matches footer FRUTTEIN logo style ---- */
 .mascot-hero-title {
   font-family: var(--font-hero);
   font-size: 80px;
@@ -2164,25 +2164,16 @@ footer>* {
   line-height: 1;
   margin: 0 0 4px;
   text-transform: uppercase;
-
-  /* Superman palette: dark navy fill, red shadow layers, yellow stroke */
-  color: #0D2B6E;
-  -webkit-text-stroke: 3px #ffffff;
-  text-shadow:
-    3px 3px 0 #C0000B,
-    6px 6px 0 #8B0000,
-    9px 9px 0 rgba(0, 0, 0, 0.25);
-
-  /* Slight italic + scale for heroic punch */
-  transform: skewX(-5deg) scaleY(1.06);
   display: inline-block;
+
+  color: var(--red);
+  text-shadow: 4px 4px 0 var(--black), 8px 8px 0 rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 768px) {
   .mascot-hero-title {
     font-size: 58px;
     letter-spacing: 6px;
-    -webkit-text-stroke: 2px #ffffff;
   }
 }
 
@@ -2205,4 +2196,124 @@ footer>* {
 .menu-item--banavoca .menu-item-content h3 {
   /* Alpukat: avocado green-yellow */
   color: #6B8E23;
+}
+
+/* ============================================================
+   ADMIN LOGIN — UI
+   ============================================================ */
+
+/* Admin bar: berisi badge + tombol login/logout */
+.admin-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0 6px;
+  border-bottom: 3px dashed var(--black);
+  margin-bottom: 10px;
+}
+
+/* Badge "🔑 Mode Admin" */
+.admin-badge {
+  background: var(--green);
+  color: var(--white);
+  font-family: var(--font-data);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 5px 14px;
+  border: var(--b);
+  box-shadow: var(--sh-sm);
+  text-transform: uppercase;
+}
+
+/* Tombol Login Admin (kecil, subtle) */
+.btn-admin-toggle {
+  background: var(--paper);
+  color: var(--black);
+  font-family: var(--font-data);
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 6px 14px;
+  border: var(--b);
+  border-bottom: 4px solid var(--black);
+  box-shadow: var(--sh-sm);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.1s, transform 0.1s;
+}
+
+.btn-admin-toggle:hover {
+  background: var(--yellow);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--sh);
+}
+
+/* Tombol Logout */
+.btn-admin-logout {
+  background: var(--red);
+  color: var(--white);
+  font-family: var(--font-data);
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 6px 14px;
+  border: var(--b);
+  border-bottom: 4px solid var(--black);
+  box-shadow: var(--sh-sm);
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.1s, transform 0.1s;
+}
+
+.btn-admin-logout:hover {
+  background: var(--red-dk);
+  transform: translate(-2px, -2px);
+  box-shadow: var(--sh);
+}
+
+/* Form login admin */
+.admin-login-form {
+  background: var(--paper);
+  border: var(--b4);
+  border-top: 6px solid var(--blue);
+  box-shadow: var(--sh);
+  padding: 16px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-login-form input[type="email"],
+.admin-login-form input[type="password"] {
+  flex: 1 1 180px;
+  padding: 9px 12px;
+  border: var(--b);
+  border-bottom: 4px solid var(--black);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  background: var(--white);
+  outline: none;
+  box-shadow: var(--sh-sm);
+}
+
+.admin-login-form input:focus {
+  border-color: var(--blue);
+  border-bottom-color: var(--blue-dk);
+}
+
+.admin-login-form .btn-primary {
+  white-space: nowrap;
+}
+
+/* Pesan error login */
+.admin-login-error {
+  width: 100%;
+  color: var(--red);
+  font-family: var(--font-data);
+  font-size: 11px;
+  margin: 0;
+  padding: 0;
+  min-height: 16px;
 }
