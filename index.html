@@ -27,6 +27,8 @@
         <li><a href="#menu">Menu</a></li>
         <li><a href="javascript:void(0)" onclick="openModal('membersModal')">Member</a></li>
         <li><a href="javascript:void(0)" onclick="openModal('galleryModal')">Galeri</a></li>
+        <li><a href="javascript:void(0)" onclick="openModal('adminPoModal')" class="admin-only"
+            style="display:none; background:var(--red); color:white;">Admin PO</a></li>
       </ul>
     </div>
   </header>
@@ -188,12 +190,9 @@
           <div class="quick-links">
             <strong>QUICK LINKS</strong>
             <ul>
-              <li><a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Nanamango."
-                  target="_blank">Nanamango</a></li>
-              <li><a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Stropis."
-                  target="_blank">Stropis</a></li>
-              <li><a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Banavoca."
-                  target="_blank">Banavoca</a></li>
+              <li><a href="javascript:void(0)" onclick="openPreorderModal(1)">Nanamango</a></li>
+              <li><a href="javascript:void(0)" onclick="openPreorderModal(2)">Stropis</a></li>
+              <li><a href="javascript:void(0)" onclick="openPreorderModal(3)">Banavoca</a></li>
             </ul>
           </div>
         </div>
@@ -275,8 +274,7 @@
             <span class="menu-tag">BEST SELLER</span>
             <h3>Nanamango</h3>
             <p>Kombinasi sempurna Buah Naga, Pisang, Mangga &amp; Golden Nectar untuk rasa yang eksplosif.</p>
-            <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Nanamango."
-              class="order-link">PESAN SEKARANG</a>
+            <a href="javascript:void(0)" onclick="openPreorderModal(1)" class="order-link">PREORDER SEKARANG</a>
           </div>
         </div>
         <div class="menu-item menu-item--stropis">
@@ -285,8 +283,7 @@
             <span class="menu-tag menu-tag--blue">FAVORIT</span>
             <h3>Stropis</h3>
             <p>Manis dan lezat dari kombinasi Strawberry, Pisang, Yoghurt &amp; Golden Nectar.</p>
-            <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Stropis."
-              class="order-link">PESAN SEKARANG</a>
+            <a href="javascript:void(0)" onclick="openPreorderModal(2)" class="order-link">PREORDER SEKARANG</a>
           </div>
         </div>
         <div class="menu-item menu-item--banavoca">
@@ -295,8 +292,7 @@
             <span class="menu-tag menu-tag--green">CREAMY</span>
             <h3>Banavoca</h3>
             <p>Kaya nutrisi dari Alpukat, Pisang, Fresh Milk &amp; Golden Nectar yang creamy.</p>
-            <a href="https://wa.me/6285204575882?text=Halo%20Fruttein!%20Saya%20ingin%20pesan%20Banavoca."
-              class="order-link">PESAN SEKARANG</a>
+            <a href="javascript:void(0)" onclick="openPreorderModal(3)" class="order-link">PREORDER SEKARANG</a>
           </div>
         </div>
       </div>
@@ -441,8 +437,52 @@
           <div id="emptyState" class="empty-state">
             Belum ada member terdaftar. Tambahkan member baru untuk memulai program loyalitas Fruttein!
           </div>
-          <div class="members-actions admin-only" style="display:none;">
-            <button class="btn btn-reset" onclick="resetData()">RESET DATA</button>
+
+          <div class="members-actions admin-only" style="display:none; margin-top: 20px;">
+            <button class="btn btn-reset" onclick="resetData()">RESET DATA MEMBER</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Admin PO (Dedicated) -->
+  <div id="adminPoModal" class="modal-overlay" onclick="handleOverlayClick(event, 'adminPoModal')">
+    <div class="modal-box modal-box--wide">
+      <div class="modal-header">
+        <h2>MANAJEMEN TANGGAL PREORDER</h2>
+        <button class="modal-close" onclick="closeModal('adminPoModal')">X</button>
+      </div>
+      <div class="modal-body">
+        <div class="members-section">
+          <p>Atur tanggal buka untuk Preorder. Tanggal yang tidak ditambahkan (atau status TUTUP) tidak akan bisa
+            diakses pelanggan.</p>
+
+          <div class="admin-po-section">
+            <div class="input-group"
+              style="margin-bottom: 20px; background: var(--paper); padding: 15px; border: var(--b4);">
+              <label style="font-family: var(--font-title); font-size: 16px;">Tambah Tanggal Buka Baru:</label>
+              <div style="display: flex; gap: 10px; margin-top: 8px;">
+                <input type="date" id="newPoDate" style="flex:1;">
+                <button class="btn btn-primary" onclick="addPoDate()">TAMBAH TANGGAL</button>
+              </div>
+            </div>
+
+            <div class="members-table-wrapper">
+              <table class="members-table">
+                <thead>
+                  <tr>
+                    <th>Tanggal PO</th>
+                    <th>Status</th>
+                    <th>Kuota Terisi</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="poDatesBody">
+                  <!-- Data PO akan dirender disini -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -462,6 +502,73 @@
         <button id="customConfirmOk"
           style="background:#E3000B;color:#fff;border:3px solid #0D0D0D;border-bottom:5px solid #0D0D0D;padding:10px 24px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:800;cursor:pointer;">YA,
           LANJUTKAN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Preorder -->
+  <div id="preorderModal" class="modal-overlay" onclick="handleOverlayClick(event, 'preorderModal')">
+    <div class="modal-box"
+      style="max-width: 500px; border: 6px dashed var(--red); background: #FFF9E6; position: relative;">
+
+      <!-- Visual accent block -->
+      <div
+        style="position: absolute; top: -15px; right: -15px; width: 40px; height: 40px; background: var(--yellow); border: 4px solid var(--black); transform: rotate(15deg); z-index: -1;">
+      </div>
+
+      <div class="modal-header"
+        style="background: var(--red); color: white; border-bottom: 4px dashed var(--black); margin: -28px -32px 20px -32px; padding: 20px 32px;">
+        <h2>🛒 PREORDER SEKARANG</h2>
+        <button class="modal-close" onclick="closeModal('preorderModal')" type="button"
+          style="background: white; color: var(--red);">X</button>
+      </div>
+
+      <div class="modal-body">
+        <form id="preorderForm" class="preorder-form">
+          <div class="form-group">
+            <label>Nama Lengkap</label>
+            <input type="text" id="poName" required placeholder="Masukkan nama kamu">
+          </div>
+          <div class="form-group">
+            <label>Nomor WhatsApp</label>
+            <input type="tel" id="poPhone" required placeholder="Cth: 0852xxxx (minimal 10 digit)">
+          </div>
+          <div class="form-group">
+            <label>Alamat Pengiriman</label>
+            <textarea id="poAddress" required placeholder="Masukkan alamat lengkap pengiriman"
+              style="padding: 12px 14px; border: var(--b4); font-family: var(--font-body); font-size: 15px; font-weight: 700; background: var(--paper); color: var(--black); width: 100%; min-height: 80px; resize: vertical;"></textarea>
+          </div>
+          <div class="form-group">
+            <label>Pilih Produk</label>
+            <select id="poProduct" required>
+              <option value="1">Nanamango</option>
+              <option value="2">Stropis</option>
+              <option value="3">Banavoca</option>
+            </select>
+          </div>
+          <div class="form-group row-group">
+            <div style="flex:1;">
+              <label>Tanggal Pengiriman</label>
+              <select id="poDate" required>
+                <option value="">Memuat tanggal...</option>
+              </select>
+            </div>
+            <div style="width: 120px;">
+              <label>Jumlah</label>
+              <input type="number" id="poQty" required min="1" max="10" value="1">
+            </div>
+          </div>
+          <div class="form-help-text">
+            *Batas pemesanan H-4 Jam (maksimal jam 13:00 siang) untuk pengiriman di hari yang sama (jam 17:00).
+          </div>
+
+          <div id="poStatusMsg"
+            style="display:none; margin: 16px 0; padding: 12px; font-weight: 800; border: 3px solid var(--black); font-size: 13px; text-align: center;">
+          </div>
+
+          <button type="submit" class="cta-button" style="width: 100%; margin-top: 10px; font-size: 20px;"
+            id="poSubmitBtn">KIRIM PREORDER (WA)</button>
+        </form>
       </div>
     </div>
   </div>

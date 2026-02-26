@@ -1523,6 +1523,63 @@ section h2 {
 }
 
 /* ============================================================
+   PREORDER FORM STYLES
+   ============================================================ */
+.preorder-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.row-group {
+  flex-direction: row;
+  gap: 12px;
+}
+
+.form-group label {
+  font-family: var(--font-title);
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: var(--black);
+  text-transform: uppercase;
+}
+
+.form-group input,
+.form-group select {
+  padding: 12px 14px;
+  border: var(--b4);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  background: var(--paper);
+  color: var(--black);
+  transition: box-shadow 0.1s, transform 0.1s;
+  width: 100%;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  background: var(--white);
+  box-shadow: var(--sh-sm);
+  border-color: var(--blue);
+}
+
+.form-help-text {
+  font-family: var(--font-data);
+  font-size: 11px;
+  color: var(--red);
+  line-height: 1.4;
+  margin-top: -6px;
+}
+
+/* ============================================================
    FLOATING BUTTONS
    ============================================================ */
 .floating-buttons {

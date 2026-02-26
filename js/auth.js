@@ -58,12 +58,20 @@ function updateAdminUI(user) {
         if (loginBtn) loginBtn.style.display = 'none';
         if (logoutBtn) logoutBtn.style.display = 'inline-block';
         if (adminBadge) adminBadge.style.display = 'inline-block';
+
+        // Khusus untuk tombol Naviasi Admin PO supaya display flex
+        const adminNav = document.querySelector('a[onclick="openModal(\'adminPoModal\')"]');
+        if (adminNav) adminNav.style.display = 'block';
     } else {
         // Belum login / sudah logout
         adminOnlyEls.forEach(el => el.style.display = 'none');
         if (loginBtn) loginBtn.style.display = 'inline-block';
         if (logoutBtn) logoutBtn.style.display = 'none';
         if (adminBadge) adminBadge.style.display = 'none';
+
+        const adminNav = document.querySelector('a[onclick="openModal(\'adminPoModal\')"]');
+        if (adminNav) adminNav.style.display = 'none';
+
         // Sembunyikan form login saat logout
         const form = document.getElementById('adminLoginForm');
         if (form) form.style.display = 'none';
