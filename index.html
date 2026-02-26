@@ -169,34 +169,10 @@
     <!-- Brick Divider -->
     <div class="lego-divider"></div>
 
-    <!-- Menu & Section Cards -->
+    <!-- Menu -->
     <section id="menu">
-      <h2>MENU &amp; JELAJAHI FRUTTEIN</h2>
-
-      <!-- Section Cards Row -->
+      <!-- Section Cards Row (Restored 3 cards without the Product menu card) -->
       <div class="section-cards">
-
-        <!-- Products Card -->
-        <div class="section-card section-card--red">
-          <div class="section-card-header">
-            <span class="card-tag">PRODUK</span>
-          </div>
-          <div class="comic-panel comic-panel--red">
-            <div class="comic-zap">POW!</div>
-            <div class="comic-word">MENU</div>
-            <div class="comic-sub">PILIHAN TERBAIK
-              UNTUK KAMU!</div>
-          </div>
-          <div class="quick-links">
-            <strong>QUICK LINKS</strong>
-            <ul>
-              <li><a href="javascript:void(0)" onclick="openPreorderModal(1)">Nanamango</a></li>
-              <li><a href="javascript:void(0)" onclick="openPreorderModal(2)">Stropis</a></li>
-              <li><a href="javascript:void(0)" onclick="openPreorderModal(3)">Banavoca</a></li>
-            </ul>
-          </div>
-        </div>
-
         <!-- Member Card -->
         <div class="section-card section-card--yellow">
           <div class="section-card-header">
@@ -258,15 +234,15 @@
             </ul>
           </div>
         </div>
-
       </div>
-      <!-- End Section Cards -->
-
       <!-- Brick Divider -->
       <div class="lego-divider" style="margin: 24px 0;"></div>
 
-      <!-- Full Menu Cards -->
-      <div class="menu-section-label">PILIHAN MENU KAMI</div>
+      <div class="menu-section-label" style="font-size:32px; text-align:center; margin-bottom: 5px;">PILIHAN MENU KAMI
+      </div>
+      <div id="frontPoQuotaBadge"
+        style="text-align:center; font-family:var(--font-title); font-size:18px; margin-bottom:24px; color:var(--black);">
+        Memuat stok PO tercepat...</div>
       <div class="menu-grid">
         <div class="menu-item menu-item--nanamango">
           <img src="assets/images/mango.jpg" alt="Nanamango">
@@ -534,9 +510,12 @@
             <input type="tel" id="poPhone" required placeholder="Cth: 0852xxxx (minimal 10 digit)">
           </div>
           <div class="form-group">
-            <label>Alamat Pengiriman</label>
-            <textarea id="poAddress" required placeholder="Masukkan alamat lengkap pengiriman"
-              style="padding: 12px 14px; border: var(--b4); font-family: var(--font-body); font-size: 15px; font-weight: 700; background: var(--paper); color: var(--black); width: 100%; min-height: 80px; resize: vertical;"></textarea>
+            <label>Alamat (Link Google Maps)</label>
+            <input type="url" id="poGmaps" required placeholder="Cth: https://maps.app.goo.gl/...">
+          </div>
+          <div class="form-group">
+            <label>Penanda Visual Rumah</label>
+            <input type="text" id="poLandmark" required placeholder="Cth: Pagar hitam, cat abu-abu, depan pos">
           </div>
           <div class="form-group">
             <label>Pilih Produk</label>
@@ -623,7 +602,10 @@
   <script src="js/utils.js"></script>
   <script src="js/firebase-config.js"></script>
   <script src="js/auth.js"></script>
-  <script src="js/script.js"></script>
+  <script src="js/ui/modals.js"></script>
+  <script src="js/services/memberService.js"></script>
+  <script src="js/services/preorderService.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>

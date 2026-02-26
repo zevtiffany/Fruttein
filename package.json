@@ -1,0 +1,26 @@
+{
+  "name": "fruttein",
+  "version": "1.0.0",
+  "description": "Website profesional untuk Fruttein Juice Shop dengan sistem member loyalty dan poin reward.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zevtiffany/Fruttein.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/zevtiffany/Fruttein/issues"
+  },
+  "homepage": "https://github.com/zevtiffany/Fruttein#readme",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1"
+  }
+}
