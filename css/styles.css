@@ -502,6 +502,19 @@ section h2 {
 /* ============================================================
    SECTION CARDS — LEGO × NEO BRUTALIST BLOCKS
    ============================================================ */
+.section-cards-header {
+  background: var(--blue);
+  color: var(--white);
+  border: var(--b4);
+  box-shadow: var(--sh);
+  padding: 16px 20px;
+  font-family: var(--font-hero);
+  font-size: 30px;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+  margin-bottom: 14px;
+}
+
 .section-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -983,6 +996,34 @@ section h2 {
   box-shadow: var(--sh-lg);
   padding: 28px;
   margin: 20px 0 0;
+}
+
+.promo-flex {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.promo-text {
+  flex: 1;
+}
+
+.promo-image {
+  flex: 0 0 300px;
+}
+
+.promo-image img {
+  width: 100%;
+  height: auto;
+  border: var(--b4);
+  box-shadow: var(--sh);
+  display: block;
+  transform: rotate(2deg);
+  transition: transform 0.2s;
+}
+
+.promo-image img:hover {
+  transform: rotate(-1deg) scale(1.05);
 }
 
 .promo-banner-label {
@@ -1882,6 +1923,18 @@ footer>* {
   .promo-banner h3 {
     font-size: 24px;
     letter-spacing: 1px;
+  }
+
+  .promo-flex {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .promo-image {
+    flex: auto;
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
   }
 
   /* Video */

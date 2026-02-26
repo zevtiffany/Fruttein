@@ -27,24 +27,24 @@ const BUSINESS_INFO = {
 const PRODUCTS = [
   {
     id: 1,
-    name: 'Nampisga',
-    price: 10000,
+    name: 'Nanamango',
+    price: 17000,
     description: 'Kombinasi sempurna Buah Naga, Pisang, Mangga & Golden Nectar untuk rasa yang eksplosif.',
-    image: 'assets/images/mango.jpg'
+    image: 'assets/images/Nanamango.jpeg'
   },
   {
     id: 2,
     name: 'Stropis',
-    price: 10000,
+    price: 17000,
     description: 'Manis dan lezat dari kombinasi Strawberry, Pisang, Yoghurt & Golden Nectar.',
-    image: 'assets/images/strawberry.jpg'
+    image: 'assets/images/Stropis.jpeg'
   },
   {
     id: 3,
-    name: 'Alpisan',
-    price: 10000,
+    name: 'Banavoca',
+    price: 17000,
     description: 'Kaya nutrisi dari Alpukat, Pisang, Fresh Milk & Golden Nectar yang creamy.',
-    image: 'assets/images/avocado.jpg'
+    image: 'assets/images/Banavoca.jpeg'
   }
 ];
 
@@ -77,14 +77,14 @@ const MESSAGES = {
   INVALID_PHONE: '⚠️ Nomor WhatsApp tidak valid!',
   CONFIRM_DELETE: 'Apakah Anda yakin ingin menghapus member ini?',
   DELETED: '✅ Member berhasil dihapus',
-  
+
   MILESTONE_5: (name) => `✨ ${name} sudah punya 5 poin, 5 poin lagi untuk reward!`,
   MILESTONE_10: (name) => `🎉 Selamat! ${name} telah mengumpulkan 10 poin!\n\nPoin siap ditukarkan dengan hadiah menarik Fruttein!`,
   REWARD_CLAIMED: (name, rewards, points) => `✅ Reward Diklaim!\n\n${name} mendapatkan ${rewards} hadiah\n\nSisa Poin: ${points}`,
-  
+
   CONFIRM_RESET: '⚠️ PERINGATAN: Tindakan ini akan menghapus SEMUA data member!\n\nApakah Anda yakin?',
   CONFIRM_RESET_AGAIN: 'Klik OK sekali lagi untuk mengonfirmasi penghapusan',
   RESET_SUCCESS: '✅ Semua data member telah dihapus',
-  
+
   EXPORT_EMPTY: '⚠️ Tidak ada data member untuk diexport'
 };
