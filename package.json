@@ -4,7 +4,8 @@
   "description": "Website profesional untuk Fruttein Juice Shop dengan sistem member loyalty dan poin reward.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node scripts/build.js && node server.js",
+    "build": "node scripts/build.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
