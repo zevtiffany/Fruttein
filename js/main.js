@@ -4,14 +4,13 @@
 
 let memberManager;
 
-document.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('firebaseReady', function () {
     // 1. Inisialisasi Sistem Member
     memberManager = new MemberManager();
     setupEventListeners();
     setupTableEventDelegation();
 
     // 2. Setup Auth Listener (dari auth.js)
-    // Dipanggil setelah manager siap supaya UI Table bisa diupdate
     auth.onAuthStateChanged((user) => {
         currentAdmin = user;
         if (typeof updateAdminUI === 'function') updateAdminUI(user);
