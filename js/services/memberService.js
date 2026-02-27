@@ -254,8 +254,10 @@ class MemberManager {
                     } else {
                         displayPhone = '****' + cleanPhone.substring(Math.max(0, cleanPhone.length - 2));
                     }
+                    tdPhone.innerHTML = `<span>📱 ${displayPhone}</span>`;
+                } else {
+                    tdPhone.innerHTML = `<a href="${WHATSAPP_BASE_URL}&phone=${member.phone.replace(/\D/g, '')}" target="_blank" class="whatsapp-link">📱 ${displayPhone}</a>`;
                 }
-                tdPhone.innerHTML = `<a href="${WHATSAPP_BASE_URL}&phone=${member.phone.replace(/\D/g, '')}" target="_blank" class="whatsapp-link">📱 ${displayPhone}</a>`;
 
                 tdPoin.innerHTML = `<span class="points-badge">${member.points} / ${LOYALTY_CONFIG.POINTS_FOR_REWARD}</span>`;
 
