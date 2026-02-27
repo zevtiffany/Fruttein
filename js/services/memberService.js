@@ -346,6 +346,87 @@ function addMember() {
 function exportMembers() { memberManager.exportToCSV(); }
 function resetData() { memberManager.resetAllData(); }
 
+async function syncPOToMembers() {
+    if (!isAdmin()) { alert("Login admin dulu!"); return; }
+
+    // Gunakan customConfirm agar UI konsisten dan tidak diblokir browser popup jika memungkinkan
+    const confirmed = await new Promise(resolve => {
+        if (typeof customConfirm === 'function') {
+            customConfirm("Sinkronisasi ini akan mengecek SEMUA data riwayat Pre-Order (PO) lama, lalu menambahkannya sebagai member baru atau menambahkan poin pada member yang sudah ada berdasarkan nomor WhatsApp. Proses ini mungkin memakan waktu. Lanjutkan?").then(resolve);
+        } else {
+            resolve(confirm("Sinkronisasi ini akan mengecek SEMUA data riwayat PO lama... Lanjutkan?"));
+        }
+    });
+
+    if (!confirmed) return;
+
+    showStatus("⏳ Memulai sinkronisasi data riwayat PO ke Member...", false);
+
+    try {
+        const poSnapshot = await db.collection('po_orders').get();
+        if (poSnapshot.empty) {
+            showStatus("⚠️ Tidak ada data PO lama ditemukan.", true);
+            return;
+        }
+
+        const poData = poSnapshot.docs.map(doc => doc.data());
+        console.log(`Ditemukan ${poData.length} total riwayat pre-order.`);
+
+        // Kelompokkan berdasarkan nomor telepon (WhatsApp)
+        const grouped = {};
+        poData.forEach(po => {
+            const phone = po.phone ? po.phone.trim() : null;
+            if (!phone) return;
+
+            if (!grouped[phone]) {
+                grouped[phone] = {
+                    name: po.name || 'Pelanggan',
+                    phone: phone,
+                    purchases: 0,
+                    points: 0
+                };
+            }
+            grouped[phone].purchases += 1;
+            grouped[phone].points += (typeof LOYALTY_CONFIG !== 'undefined' ? LOYALTY_CONFIG.POINTS_PER_PURCHASE : 1);
+        });
+
+        const uniquePhones = Object.keys(grouped);
+        let newCount = 0;
+        let updateCount = 0;
+
+        for (const phone of uniquePhones) {
+            const data = grouped[phone];
+            const memberSnap = await db.collection(MEMBERS_COLLECTION).where('phone', '==', phone).get();
+
+            if (memberSnap.empty) {
+                // Buat member baru dengan total poin yang diakumulasi
+                await db.collection(MEMBERS_COLLECTION).add({
+                    name: data.name,
+                    phone: data.phone,
+                    points: data.points,
+                    purchases: data.purchases,
+                    rewards: 0,
+                    joinDate: new Date().toLocaleDateString('id-ID'),
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                newCount++;
+            } else {
+                // Jika member sudah ada, kita lewati update poin otomatis dari script ini, 
+                // untuk mencegah manipulasi double points jika disinkronisasi berulang kali.
+                console.log(`Member ${phone} sudah ada. Dilewati dari sinkronisasi untuk mencegah dobel poin.`);
+                updateCount++;
+            }
+        }
+
+        const msg = `✅ Sinkronisasi Selesai! Berhasil mendaftarkan ${newCount} member baru dari riwayat PO. (${updateCount} member lama dilewati)`;
+        showStatus(msg, false);
+        alert(msg);
+    } catch (e) {
+        console.error("Error during sync: ", e);
+        showStatus("❌ Gagal sinkronisasi: " + e.message, true);
+    }
+}
+
 /* ============================================
    TOP MEMBERS LEADERBOARD
    ============================================ */
