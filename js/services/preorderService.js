@@ -178,7 +178,36 @@ function submitPreorder(e) {
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         });
     }).then(() => {
-        showPoStatus('✅ Pesanan berhasil dicatat! Mengalihkan ke WhatsApp...', false);
+        // --- 3. Auto-Register Member & Add Purchase ---
+        // Check if member already exists by phone number
+        const membersRef = db.collection('members');
+        return membersRef.where('phone', '==', phone).get().then(snapshot => {
+            if (snapshot.empty) {
+                // New member
+                const newMember = {
+                    name: name.trim(),
+                    phone: phone.trim(),
+                    points: typeof LOYALTY_CONFIG !== 'undefined' ? LOYALTY_CONFIG.POINTS_PER_PURCHASE : 1, // Fallback if config not loaded
+                    purchases: 1, // 1st purchase
+                    rewards: 0,
+                    joinDate: new Date().toLocaleDateString('id-ID'),
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+                return membersRef.add(newMember);
+            } else {
+                // Existing member
+                const memberDoc = snapshot.docs[0];
+                const memberData = memberDoc.data();
+                const pointsToAdd = typeof LOYALTY_CONFIG !== 'undefined' ? LOYALTY_CONFIG.POINTS_PER_PURCHASE : 1;
+
+                return membersRef.doc(memberDoc.id).update({
+                    points: (memberData.points || 0) + pointsToAdd,
+                    purchases: (memberData.purchases || 0) + 1
+                });
+            }
+        });
+    }).then(() => {
+        showPoStatus('✅ Pesanan & Data Member berhasil dicatat! Mengalihkan ke WhatsApp...', false);
 
         // Redirect ke WA
         setTimeout(() => {
