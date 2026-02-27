@@ -4,7 +4,7 @@
 
 let memberManager;
 
-window.addEventListener('firebaseReady', function () {
+function initApp() {
     // 1. Inisialisasi Sistem Member
     memberManager = new MemberManager();
     setupEventListeners();
@@ -26,7 +26,13 @@ window.addEventListener('firebaseReady', function () {
 
     // 5. Setup Listener Table PO khusus Admin
     setupAdminPoTableListener();
-});
+}
+
+if (typeof auth !== 'undefined' && auth !== null) {
+    initApp();
+} else {
+    window.addEventListener('firebaseReady', initApp);
+}
 
 /* ============================================
    EVENT LISTENERS UMUM
