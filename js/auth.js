@@ -23,6 +23,11 @@ function adminLogin() {
 
     errEl.textContent = '';
 
+    if (!auth) {
+        errEl.textContent = '❌ Sistem gagal terhubung ke Firebase. Pastikan kamu membuka web melalui localhost dan memiliki koneksi internet.';
+        return;
+    }
+
     auth.signInWithEmailAndPassword(email, password)
         .then(() => {
             document.getElementById('adminLoginForm').style.display = 'none';
