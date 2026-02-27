@@ -26,6 +26,7 @@ try {
     auth = firebase.auth();
 
     console.log("🔥 Firebase Successfully Initialized via Build Env");
+    console.log("🔍 Firebase Debug Status: Project ID is", firebaseConfig.projectId ? "Aman" : "KOSONG/UNDEFINED!");
 
     // Dispatch an event so the rest of the application knows Firebase is ready
     window.dispatchEvent(new Event('firebaseReady'));
