@@ -38,7 +38,11 @@ app.get('/', (req, res) => {
 // Serve everything else normally (CSS, JS, Images, etc)
 app.use(express.static(__dirname));
 
-app.listen(PORT, () => {
-    console.log(`🚀 Fruttein Web Server running on http://localhost:${PORT}`);
-    console.log(`🔐 Firebase Config is securely loaded from .env`);
-});
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`🚀 Fruttein Web Server running on http://localhost:${PORT}`);
+        console.log(`🔐 Firebase Config is securely loaded from .env`);
+    });
+}
+
+module.exports = app;
