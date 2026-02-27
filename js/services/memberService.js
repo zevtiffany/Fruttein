@@ -246,7 +246,16 @@ class MemberManager {
 
                 tdNama.innerHTML = `<strong>${member.name}</strong><br><small class="member-join-date">${member.joinDate}</small>`;
 
-                tdPhone.innerHTML = `<a href="${WHATSAPP_BASE_URL}&phone=${member.phone.replace(/\D/g, '')}" target="_blank" class="whatsapp-link">📱 ${member.phone}</a>`;
+                let displayPhone = member.phone;
+                if (!admin) {
+                    const cleanPhone = member.phone.replace(/\D/g, '');
+                    if (cleanPhone.length >= 8) {
+                        displayPhone = `${cleanPhone.substring(0, 4)}-****-${cleanPhone.substring(cleanPhone.length - 4)}`;
+                    } else {
+                        displayPhone = '****' + cleanPhone.substring(Math.max(0, cleanPhone.length - 2));
+                    }
+                }
+                tdPhone.innerHTML = `<a href="${WHATSAPP_BASE_URL}&phone=${member.phone.replace(/\D/g, '')}" target="_blank" class="whatsapp-link">📱 ${displayPhone}</a>`;
 
                 tdPoin.innerHTML = `<span class="points-badge">${member.points} / ${LOYALTY_CONFIG.POINTS_FOR_REWARD}</span>`;
 
