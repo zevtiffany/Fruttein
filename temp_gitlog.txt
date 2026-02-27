@@ -1,0 +1,174 @@
+﻿commit a2f64357309a078a9248d9a9c7e5cf4a9b9b4c1e
+Author: zevtiffany <zevtiffany@gmail.com>
+Date:   Fri Feb 27 08:36:42 2026 +0700
+
+    feat: implement dynamic Firebase configuration generation from environment variables via a new build script.
+
+diff --git a/js/firebase-config.js b/js/firebase-config.js
+deleted file mode 100644
+index c5d9224..0000000
+--- a/js/firebase-config.js
++++ /dev/null
+@@ -1,36 +0,0 @@
+-/* ============================================
+-   FIREBASE CONFIGURATION ÔÇö FRUTTEIN (SERVERLESS SAFE)
+-   ============================================ */
+-
+-let db;
+-let auth;
+-
+-async function initFirebase() {
+-    try {
+-        // Fetch config securely from Node.js / Vercel Serverless Endpoint
+-        const response = await fetch('/api/config');
+-        if (!response.ok) throw new Error("Failed to fetch Firebase Config");
+-
+-        const firebaseConfig = await response.json();
+-
+-        // Initialize Firebase
+-        if (!firebase.apps.length) {
+-            firebase.initializeApp(firebaseConfig);
+-        }
+-
+-        // Assign global instances
+-        db = firebase.firestore();
+-        auth = firebase.auth();
+-
+-        console.log("­ƒöÑ Firebase Successfully Initialized via API");
+-
+-        // Dispatch an event so the rest of the application knows Firebase is ready
+-        window.dispatchEvent(new Event('firebaseReady'));
+-
+-    } catch (err) {
+-        console.error("ÔØî Firebase Init Error:", err);
+-    }
+-}
+-
+-// Start Initialization
+-initFirebase();
+
+commit ff9d51e039b9c448136fd2059f99f5264c514f45
+Author: zevtiffany <zevtiffany@gmail.com>
+Date:   Fri Feb 27 07:17:12 2026 +0700
+
+    Fix Vercel: Switch from HTML rewrite injection to dynamic /api/config endpoint for serverless Firebase initialization
+
+diff --git a/js/firebase-config.js b/js/firebase-config.js
+index 1933344..c5d9224 100644
+--- a/js/firebase-config.js
++++ b/js/firebase-config.js
+@@ -1,18 +1,36 @@
+ /* ============================================
+-   FIREBASE CONFIGURATION ÔÇö FRUTTEIN
++   FIREBASE CONFIGURATION ÔÇö FRUTTEIN (SERVERLESS SAFE)
+    ============================================ */
+ 
+-// Firebase Configuration (injected by Node.js Server from .env)
+-const firebaseConfig = window.FIREBASE_ENV_CONFIG || {
+-    // Fallback error catcher
+-    apiKey: "MISSING_ENV_CONFIG",
+-    authDomain: "MISSING_ENV_CONFIG",
+-    projectId: "MISSING_ENV_CONFIG"
+-};
++let db;
++let auth;
+ 
+-// Inisialisasi Firebase
+-firebase.initializeApp(firebaseConfig);
++async function initFirebase() {
++    try {
++        // Fetch config securely from Node.js / Vercel Serverless Endpoint
++        const response = await fetch('/api/config');
++        if (!response.ok) throw new Error("Failed to fetch Firebase Config");
+ 
+-// Instance global yang dipakai di seluruh app
+-const db = firebase.firestore();
+-const auth = firebase.auth();
++        const firebaseConfig = await response.json();
++
++        // Initialize Firebase
++        if (!firebase.apps.length) {
++            firebase.initializeApp(firebaseConfig);
++        }
++
++        // Assign global instances
++        db = firebase.firestore();
++        auth = firebase.auth();
++
++        console.log("­ƒöÑ Firebase Successfully Initialized via API");
++
++        // Dispatch an event so the rest of the application knows Firebase is ready
++        window.dispatchEvent(new Event('firebaseReady'));
++
++    } catch (err) {
++        console.error("ÔØî Firebase Init Error:", err);
++    }
++}
++
++// Start Initialization
++initFirebase();
+
+commit 8e9e34f60ebe769c2697eee8b7093b28de345c25
+Author: zevtiffany <zevtiffany@gmail.com>
+Date:   Thu Feb 26 12:52:56 2026 +0700
+
+    hellohello
+
+diff --git a/js/firebase-config.js b/js/firebase-config.js
+index d08db4b..1933344 100644
+--- a/js/firebase-config.js
++++ b/js/firebase-config.js
+@@ -2,14 +2,12 @@
+    FIREBASE CONFIGURATION ÔÇö FRUTTEIN
+    ============================================ */
+ 
+-const firebaseConfig = {
+-    apiKey: "AIzaSyCAOvfUmpytTA30lu0a3c-IYIvL8sk0Jmc",
+-    authDomain: "fruttein-b3a41.firebaseapp.com",
+-    projectId: "fruttein-b3a41",
+-    storageBucket: "fruttein-b3a41.firebasestorage.app",
+-    messagingSenderId: "278970143189",
+-    appId: "1:278970143189:web:5fa6462abdf907b38ead5c",
+-    measurementId: "G-S16TLV8345"
++// Firebase Configuration (injected by Node.js Server from .env)
++const firebaseConfig = window.FIREBASE_ENV_CONFIG || {
++    // Fallback error catcher
++    apiKey: "MISSING_ENV_CONFIG",
++    authDomain: "MISSING_ENV_CONFIG",
++    projectId: "MISSING_ENV_CONFIG"
+ };
+ 
+ // Inisialisasi Firebase
+
+commit ed18e2a1fa9b50dfe2d5eb506815f2d422b2b50e
+Author: zevtiffany <zevtiffany@gmail.com>
+Date:   Tue Feb 24 22:01:54 2026 +0700
+
+    firebase
+
+diff --git a/js/firebase-config.js b/js/firebase-config.js
+new file mode 100644
+index 0000000..d08db4b
+--- /dev/null
++++ b/js/firebase-config.js
+@@ -0,0 +1,20 @@
++/* ============================================
++   FIREBASE CONFIGURATION ÔÇö FRUTTEIN
++   ============================================ */
++
++const firebaseConfig = {
++    apiKey: "AIzaSyCAOvfUmpytTA30lu0a3c-IYIvL8sk0Jmc",
++    authDomain: "fruttein-b3a41.firebaseapp.com",
++    projectId: "fruttein-b3a41",
++    storageBucket: "fruttein-b3a41.firebasestorage.app",
++    messagingSenderId: "278970143189",
++    appId: "1:278970143189:web:5fa6462abdf907b38ead5c",
++    measurementId: "G-S16TLV8345"
++};
++
++// Inisialisasi Firebase
++firebase.initializeApp(firebaseConfig);
++
++// Instance global yang dipakai di seluruh app
++const db = firebase.firestore();
++const auth = firebase.auth();

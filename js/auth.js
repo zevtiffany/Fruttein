@@ -34,8 +34,20 @@ function adminLogin() {
             document.getElementById('adminPassword').value = '';
         })
         .catch((err) => {
-            errEl.textContent = '❌ Login gagal: Email atau password salah.';
-            console.error('Auth error:', err.code);
+            // Tampilkan pesan error spesifik dari Firebase agar mudah di-debug
+            let errorMsg = '❌ Login gagal: ';
+            if (err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+                errorMsg += 'Email atau password salah. Pastikan akun terdaftar di Firebase.';
+            } else if (err.code === 'auth/invalid-api-key') {
+                errorMsg += 'API Key Firebase tidak valid. Periksa konfigurasi kredensial.';
+            } else if (err.code === 'auth/operation-not-allowed') {
+                errorMsg += 'Metode login Email/Password belum diaktifkan di Firebase Console.';
+            } else {
+                errorMsg += err.message + ' (' + err.code + ')';
+            }
+
+            errEl.textContent = errorMsg;
+            console.error('Auth error:', err.code, err.message);
         });
 }
 
