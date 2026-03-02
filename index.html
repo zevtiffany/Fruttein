@@ -483,6 +483,37 @@
     </div>
   </div>
 
+  <!-- MODAL: PO Orders Detil -->
+  <div id="poOrdersModal" class="modal-overlay" onclick="handleOverlayClick(event, 'poOrdersModal')">
+    <div class="modal-box modal-box--wide">
+      <div class="modal-header">
+        <h2 id="poOrdersModalTitle">DAFTAR PESANAN PO</h2>
+        <button class="modal-close" onclick="closeModal('poOrdersModal')">X</button>
+      </div>
+      <div class="modal-body">
+        <div class="members-section">
+          <p id="poOrdersModalSubtitle">Menampilkan daftar pesanan untuk tanggal yang dipilih.</p>
+          <div class="members-table-wrapper">
+            <table class="members-table">
+              <thead>
+                <tr>
+                  <th style="width:25%">Nama Lengkap</th>
+                  <th style="width:20%">WhatsApp</th>
+                  <th style="width:25%">Produk</th>
+                  <th style="width:15%">Jumlah</th>
+                  <th style="width:15%">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="poOrdersBody">
+                <!-- Data Pesanan PO spesifik akan dirender disini -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Custom Confirm Dialog (mengganti window.confirm yang bisa terblokir modal) -->
   <div id="customConfirmOverlay"
     style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;">

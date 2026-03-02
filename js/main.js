@@ -113,6 +113,7 @@ function setupAdminPoTableListener() {
           <td><strong>${data.totalItems || 0}</strong> / 10 barang</td>
           <td>
             ${btnToggle}
+             <button class="btn btn-action" style="background:#805ad5;color:#fff;font-size:11px;" onclick="viewPoOrders('${data.date}')">LIHAT</button>
              <button class="btn btn-action" style="background:#2b6cb0;color:#fff;font-size:11px;" onclick="exportPoOrders('${data.date}')">CSV</button>
             <button class="btn btn-action btn-danger" style="font-size:11px;" onclick="deletePoDate('${data.date}')">DEL</button>
           </td>

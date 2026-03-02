@@ -285,6 +285,141 @@ function deletePoDate(dateStr) {
     }
 }
 
+/** Admin: View PO Orders by Date in Modal */
+function viewPoOrders(dateStr) {
+    if (!isAdmin()) return;
+
+    db.collection('po_orders')
+        .where('deliveryDate', '==', dateStr)
+        .get()
+        .then(snapshot => {
+            if (snapshot.empty) {
+                alert(`Belum ada pesanan masuk untuk tanggal ${dateStr}.`);
+                return;
+            }
+
+            let docsData = [];
+            snapshot.forEach(doc => {
+                docsData.push({ id: doc.id, ...doc.data() });
+            });
+
+            // Sort in JS ascending
+            docsData.sort((a, b) => {
+                const timeA = a.timestamp ? a.timestamp.toDate().getTime() : 0;
+                const timeB = b.timestamp ? b.timestamp.toDate().getTime() : 0;
+                return timeA - timeB;
+            });
+
+            const tbody = document.getElementById('poOrdersBody');
+            if (tbody) {
+                tbody.innerHTML = '';
+                docsData.forEach(data => {
+                    const tr = document.createElement('tr');
+
+                    // Sanitize outputs
+                    const name = data.name || '-';
+                    const phone = data.phone || '-';
+                    const product = data.productName || '-';
+                    const qty = data.qty || 0;
+
+                    // Tanda Petik / Quotes di JS di-escape untuk onclick
+                    const safeName = name.replace(/'/g, "\\'");
+
+                    tr.innerHTML = `
+                      <td><strong>${name}</strong></td>
+                      <td><a href="${WHATSAPP_BASE_URL}&phone=${phone.replace(/\\D/g, '')}" target="_blank" class="whatsapp-link">📱 ${phone}</a></td>
+                      <td>${product}</td>
+                      <td><strong>${qty}</strong></td>
+                      <td>
+                        <button class="btn btn-action btn-danger" style="font-size:11px;" onclick="cancelPoOrder('${data.id}', '${dateStr}', ${qty}, '${phone}', '${safeName}')">❌ BATAL</button>
+                      </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            // Set modal title & subtitle
+            const niceDate = new Date(dateStr.split('-')[0], dateStr.split('-')[1] - 1, dateStr.split('-')[2]).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const titleEl = document.getElementById('poOrdersModalTitle');
+            if (titleEl) titleEl.innerText = `PESANAN: ${niceDate}`;
+
+            openModal('poOrdersModal');
+
+        }).catch(error => {
+            console.error("View Orders Error:", error);
+            alert(`Gagal memuat pesanan: ${error.message}`);
+        });
+}
+
+/** Admin: Cancel a Specific PO Order */
+function cancelPoOrder(orderId, dateStr, qty, phone, name) {
+    if (!isAdmin()) return;
+
+    if (typeof customConfirm === 'function') {
+        customConfirm(`Yakin ingin membatalkan pesanan PO atas nama ${name} sejumlah ${qty} barang?\n\nKuota PO tanggal tersebut akan dikembalikan, dan poin/riwayat pembelian member akan dikurangi otomatis.`).then(yes => {
+            if (yes) processCancelPo(orderId, dateStr, qty, phone);
+        });
+    } else {
+        if (confirm(`Yakin ingin membatalkan pesanan PO atas nama ${name} sejumlah ${qty} barang?\n\nKuota PO tanggal tersebut akan dikembalikan, dan poin/riwayat pembelian member akan dikurangi otomatis.`)) {
+            processCancelPo(orderId, dateStr, qty, phone);
+        }
+    }
+}
+
+async function processCancelPo(orderId, dateStr, qty, phone) {
+    try {
+        const titleEl = document.getElementById('poOrdersModalTitle');
+        const oldTitle = titleEl ? titleEl.innerText : "";
+        if (titleEl) titleEl.innerText = "⏳ MEMPROSES PEMBATALAN...";
+
+        // 1. Delete the order document
+        await db.collection('po_orders').doc(orderId).delete();
+
+        // 2. Decrement the quota in po_dates
+        const dateDocRef = db.collection(PO_DATES_COLLECTION).doc(dateStr);
+        await db.runTransaction(async (transaction) => {
+            const dateDoc = await transaction.get(dateDocRef);
+            if (dateDoc.exists) {
+                const data = dateDoc.data();
+                const currentQty = data.totalItems || 0;
+                // Don't let quota drop below 0
+                const newQty = Math.max(0, currentQty - qty);
+                transaction.update(dateDocRef, { totalItems: newQty });
+            }
+        });
+
+        // 3. Reverse Member Points (optional but recommended for consistency)
+        if (phone) {
+            const membersRef = db.collection('members');
+            const memberSnapshot = await membersRef.where('phone', '==', phone).get();
+            if (!memberSnapshot.empty) {
+                const memberDoc = memberSnapshot.docs[0];
+                const memberData = memberDoc.data();
+                const pointsToDeduct = typeof LOYALTY_CONFIG !== 'undefined' ? LOYALTY_CONFIG.POINTS_PER_PURCHASE : 1;
+
+                // Safety bounds - points and purchases cannot go below 0
+                const newPoints = Math.max(0, (memberData.points || 0) - pointsToDeduct);
+                const newPurchases = Math.max(0, (memberData.purchases || 0) - 1);
+
+                await membersRef.doc(memberDoc.id).update({
+                    points: newPoints,
+                    purchases: newPurchases
+                });
+            }
+        }
+
+        // 4. Refresh the UI
+        alert("✅ Pesanan berhasil dibatalkan. Kuota dan points telah disesuaikan!");
+        viewPoOrders(dateStr); // Refresh the modal list
+
+    } catch (error) {
+        console.error("Cancel PO Error:", error);
+        alert(`❌ Gagal membatalkan pesanan: ${error.message}`);
+        const titleEl = document.getElementById('poOrdersModalTitle');
+        if (titleEl) titleEl.innerText = "❌ GAGAL MEMPROSES";
+    }
+}
+
 /** Admin: Export PO Orders to CSV by Date */
 function exportPoOrders(dateStr) {
     if (!isAdmin()) return;
