@@ -215,7 +215,16 @@ function submitPreorder(e) {
             const niceDate = new Date(dateObjStr.split('-')[0], dateObjStr.split('-')[1] - 1, dateObjStr.split('-')[2]).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
             const teks = `Halo Fruttein! Saya ingin PREORDER:\n\n*Nama:* ${name}\n*Nomor WA:* ${phone}\n*Link Gmaps:* ${gmaps}\n*Penanda Visual:* ${landmark}\n*Produk:* ${productName}\n*Jumlah:* ${qty} barang\n*Tgl Pengiriman:* ${niceDate}\n\nMohon konfirmasinya ya!`;
 
-            window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(teks)}`, '_blank');
+            // Apple/iOS browser (Safari) strict pop-up blocker blocker workaround
+            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(teks)}`;
+            if (isIOS) {
+                // Untuk iPhone, arahkan langsung di tab yang sama agar tidak dianggap 'pop-up' iklan
+                window.location.href = waUrl;
+            } else {
+                // Untuk Android dan PC, tab baru (biasanya diizinkan atau buka app WA)
+                window.open(waUrl, '_blank');
+            }
 
             closeModal('preorderModal');
             document.getElementById('preorderForm').reset();
