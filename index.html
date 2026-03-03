@@ -252,7 +252,7 @@
               style="font-size: 20px; font-weight: 800; font-family: var(--font-hero); margin-bottom: 8px;">Rp 17.000
             </p>
             <p>Kombinasi sempurna Buah Naga, Pisang, Mangga &amp; Golden Nectar untuk rasa yang eksplosif.</p>
-            <a href="javascript:void(0)" onclick="openPreorderModal(1)" class="order-link">PREORDER SEKARANG</a>
+            <a href="javascript:void(0)" onclick="addToCart(1, 'Nanamango', 17000)" class="order-link">🛒 TAMBAH</a>
           </div>
         </div>
         <div class="menu-item menu-item--stropis">
@@ -264,7 +264,7 @@
               style="font-size: 20px; font-weight: 800; font-family: var(--font-hero); margin-bottom: 8px;">Rp 17.000
             </p>
             <p>Manis dan lezat dari kombinasi Strawberry, Pisang, Yoghurt &amp; Golden Nectar.</p>
-            <a href="javascript:void(0)" onclick="openPreorderModal(2)" class="order-link">PREORDER SEKARANG</a>
+            <a href="javascript:void(0)" onclick="addToCart(2, 'Stropis', 17000)" class="order-link">🛒 TAMBAH</a>
           </div>
         </div>
         <div class="menu-item menu-item--banavoca">
@@ -276,7 +276,7 @@
               style="font-size: 20px; font-weight: 800; font-family: var(--font-hero); margin-bottom: 8px;">Rp 17.000
             </p>
             <p>Kaya nutrisi dari Alpukat, Pisang, Fresh Milk &amp; Golden Nectar yang creamy.</p>
-            <a href="javascript:void(0)" onclick="openPreorderModal(3)" class="order-link">PREORDER SEKARANG</a>
+            <a href="javascript:void(0)" onclick="addToCart(3, 'Banavoca', 17000)" class="order-link">🛒 TAMBAH</a>
           </div>
         </div>
       </div>
@@ -531,8 +531,8 @@
     </div>
   </div>
 
-  <!-- MODAL: Preorder -->
-  <div id="preorderModal" class="modal-overlay" onclick="handleOverlayClick(event, 'preorderModal')">
+  <!-- MODAL: Keranjang Belanja (Cart) -->
+  <div id="cartModal" class="modal-overlay" onclick="handleOverlayClick(event, 'cartModal')">
     <div class="modal-box"
       style="max-width: 500px; border: 6px dashed var(--red); background: #FFF9E6; position: relative;">
 
@@ -543,13 +543,25 @@
 
       <div class="modal-header"
         style="background: var(--red); color: white; border-bottom: 4px dashed var(--black); margin: -28px -32px 20px -32px; padding: 20px 32px;">
-        <h2>🛒 PREORDER SEKARANG</h2>
-        <button class="modal-close" onclick="closeModal('preorderModal')" type="button"
+        <h2>🛒 KERANJANG BELANJA</h2>
+        <button class="modal-close" onclick="closeModal('cartModal')" type="button"
           style="background: white; color: var(--red);">X</button>
       </div>
 
       <div class="modal-body">
+        <div id="cartItemsContainer" style="margin-bottom: 20px;">
+          <!-- Items will be injected here via JS -->
+        </div>
+
+        <div
+          style="border-top: 2px dashed var(--grey); padding-top: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; font-weight: 800; font-size: 18px;">
+          <span>TOTAL:</span>
+          <span id="cartTotalPriceInfo">Rp 0</span>
+        </div>
+
         <form id="preorderForm" class="preorder-form">
+          <h3 style="font-size: 16px; margin-bottom: 10px; border-bottom: 2px solid var(--black); padding-bottom: 5px;">
+            DATA PENGIRIMAN</h3>
           <div class="form-group">
             <label>Nama Lengkap</label>
             <input type="text" id="poName" required placeholder="Masukkan nama kamu">
@@ -567,24 +579,10 @@
             <input type="text" id="poLandmark" required placeholder="Cth: Pagar hitam, cat abu-abu, depan pos">
           </div>
           <div class="form-group">
-            <label>Pilih Produk</label>
-            <select id="poProduct" required>
-              <option value="1">Nanamango</option>
-              <option value="2">Stropis</option>
-              <option value="3">Banavoca</option>
+            <label>Tanggal Pengiriman</label>
+            <select id="poDate" required>
+              <option value="">Memuat tanggal...</option>
             </select>
-          </div>
-          <div class="form-group row-group">
-            <div style="flex:1;">
-              <label>Tanggal Pengiriman</label>
-              <select id="poDate" required>
-                <option value="">Memuat tanggal...</option>
-              </select>
-            </div>
-            <div style="width: 120px;">
-              <label>Jumlah</label>
-              <input type="number" id="poQty" required min="1" max="10" value="1">
-            </div>
           </div>
           <div class="form-help-text">
             *Batas pemesanan H-4 Jam (maksimal jam 13:00 siang) untuk pengiriman di hari yang sama (jam 17:00).
@@ -599,6 +597,11 @@
         </form>
       </div>
     </div>
+  </div>
+
+  <!-- Floating Cart Badge -->
+  <div id="floatingCartBadge" class="floating-cart-badge" onclick="openModal('cartModal')" style="display:none;">
+    <!-- Content populated by cartService.js -->
   </div>
 
   <!-- Floating Buttons -->
@@ -653,6 +656,7 @@
   <script src="js/auth.js"></script>
   <script src="js/ui/modals.js"></script>
   <script src="js/services/memberService.js"></script>
+  <script src="js/services/cartService.js"></script>
   <script src="js/services/preorderService.js"></script>
   <script src="js/main.js"></script>
 </body>

@@ -114,14 +114,15 @@ function submitPreorder(e) {
     const phone = document.getElementById('poPhone').value.trim();
     const gmaps = document.getElementById('poGmaps').value.trim();
     const landmark = document.getElementById('poLandmark').value.trim();
-    const productVal = document.getElementById('poProduct').value;
-    const qty = parseInt(document.getElementById('poQty').value, 10);
     const dateObjStr = document.getElementById('poDate').value;
 
-    let productName = "Produk";
-    if (productVal === '1') productName = "Nanamango";
-    if (productVal === '2') productName = "Stropis";
-    if (productVal === '3') productName = "Banavoca";
+    const totalQty = getCartTotalItems();
+    const totalPrice = getCartTotalPrice();
+
+    if (cart.length === 0) {
+        showPoStatus('⚠️ Keranjang belanja masih kosong, silahkan pilih menu dulu.', true);
+        return;
+    }
 
     if (!/^[0-9]+$/.test(phone)) {
         showPoStatus('⚠️ Nomor WhatsApp hanya boleh diisi dengan angka saja tanpa spasi/simbol.', true);
@@ -138,8 +139,8 @@ function submitPreorder(e) {
         return;
     }
 
-    if (qty < 1 || qty > 10) {
-        showPoStatus('⚠️ Jumlah pesanan tidak valid (1-10 barang).', true);
+    if (totalQty < 1 || totalQty > 10) {
+        showPoStatus(`⚠️ Jumlah pesanan tidak valid (${totalQty} barang). Maksimal 10 barang per PO.`, true);
         return;
     }
 
@@ -159,10 +160,10 @@ function submitPreorder(e) {
             const currentQty = data.totalItems || 0;
 
             if (!data.isOpen) throw "Tanggal tersebut sudah ditutup oleh Admin.";
-            if (currentQty + qty > 10) throw `Maaf, kuota untuk tanggal tersebut tinggal sisa ${10 - currentQty} barang.`;
+            if (currentQty + totalQty > 10) throw `Maaf, kuota untuk tanggal tersebut tinggal sisa ${10 - currentQty} barang.`;
 
             // Update the quota
-            transaction.update(docRef, { totalItems: currentQty + qty });
+            transaction.update(docRef, { totalItems: currentQty + totalQty });
             return true; // Success
         });
     }).then(() => {
@@ -172,8 +173,9 @@ function submitPreorder(e) {
             phone: phone,
             gmaps: gmaps,
             landmark: landmark,
-            productName: productName,
-            qty: qty,
+            items: cart, // Save full cart array
+            qty: totalQty,
+            totalPrice: totalPrice,
             deliveryDate: dateObjStr,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         });
@@ -213,7 +215,9 @@ function submitPreorder(e) {
         setTimeout(() => {
             const waNumber = "6285204575882";
             const niceDate = new Date(dateObjStr.split('-')[0], dateObjStr.split('-')[1] - 1, dateObjStr.split('-')[2]).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            const teks = `Halo Fruttein! Saya ingin PREORDER:\n\n*Nama:* ${name}\n*Nomor WA:* ${phone}\n*Link Gmaps:* ${gmaps}\n*Penanda Visual:* ${landmark}\n*Produk:* ${productName}\n*Jumlah:* ${qty} barang\n*Tgl Pengiriman:* ${niceDate}\n\nMohon konfirmasinya ya!`;
+            let itemDetails = cart.map(item => `- ${item.name} (${item.qty}x) = ${formatRupiah(item.price * item.qty)}`).join('\n');
+
+            const teks = `Halo Fruttein! Saya ingin checkout pesanan:\n\n*Nama:* ${name}\n*Nomor WA:* ${phone}\n*Link Gmaps:* ${gmaps}\n*Penanda Visual:* ${landmark}\n*Tgl Pengiriman:* ${niceDate}\n\n*DAFTAR PESANAN:*\n${itemDetails}\n\n*TOTAL PESANAN:* ${totalQty} barang\n*TOTAL HARGA:* ${formatRupiah(totalPrice)}\n\nMohon konfirmasinya ya!`;
 
             // Apple/iOS browser (Safari) strict pop-up blocker blocker workaround
             const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -226,7 +230,8 @@ function submitPreorder(e) {
                 window.open(waUrl, '_blank');
             }
 
-            closeModal('preorderModal');
+            clearCart();
+            closeModal('cartModal');
             document.getElementById('preorderForm').reset();
             btn.disabled = false;
             btn.textContent = "KIRIM PREORDER (WA)";
