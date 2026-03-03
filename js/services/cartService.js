@@ -31,15 +31,22 @@ function addToCart(id, name, price, img) {
     renderCartBadge();
 
     // Simple visual feedback
-    const btn = event.currentTarget || event.target;
+    const btn = document.getElementById('addBtn-' + id);
     if (btn) {
-        const originalText = btn.innerText;
-        btn.innerText = "✓ DITAMBAHKAN";
-        btn.style.backgroundColor = "var(--green, #4CAF50)";
-        setTimeout(() => {
+        const originalText = "🛒 TAMBAH"; // Hardcode default to prevent stuck states
+        btn.innerText = "✅ DITAMBAHKAN!";
+        btn.style.backgroundColor = "var(--green)";
+        btn.style.color = "white";
+        // prevent multiple rapid clicks confusing the timeout
+        if (btn.dataset.timeoutId) clearTimeout(parseInt(btn.dataset.timeoutId));
+
+        const timeoutId = setTimeout(() => {
             btn.innerText = originalText;
             btn.style.backgroundColor = ""; // reset to default css
-        }, 1000);
+            btn.style.color = "";
+            btn.dataset.timeoutId = "";
+        }, 1200);
+        btn.dataset.timeoutId = timeoutId.toString();
     }
 }
 
@@ -122,10 +129,20 @@ function renderCartModalList() {
 
     let html = '';
     cart.forEach(item => {
+        // Tentukan warna block berdasarkan ID produk menggunakan hex color
+        let blockColor = '#C41E5E'; // Nanamango
+        if (item.id == 2) blockColor = '#FFD6E0'; // Stropis
+        if (item.id == 3) blockColor = '#6B8E23'; // Banavoca
+
+        let textColor = (item.id == 2) ? 'var(--black)' : 'white';
+        let textShadow = (item.id == 2) ? 'none' : '1px 1px 0 var(--black)';
+
         html += `
         <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #ccc;">
             <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
-                <img src="${item.img || ''}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px; border: 2px solid var(--black);">
+                <div style="width: 50px; height: 50px; border-radius: 8px; border: 3px solid var(--black); background: ${blockColor}; color: ${textColor}; box-shadow: 2px 2px 0 var(--black); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; text-shadow: ${textShadow};">
+                    ${item.name.charAt(0)}
+                </div>
                 <div>
                     <div style="font-weight: 800; font-size: 14px;">${item.name}</div>
                     <div style="color: var(--red); font-size: 13px; font-weight: 700;">${formatRupiah(item.price)}</div>

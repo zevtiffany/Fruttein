@@ -56,8 +56,9 @@ function loadPoDatesForCustomer() {
                 // 2. Jika tanggalnya persis hari ini, cek apakah sudah jam 13:00 siang
                 if (dateStr === todayStr && pastCutoff) return; // Lewat H-4 cutoff jam 13:00
 
-                // 3. Cek kuota penuh
-                if (qty >= 10) return; // Kuota 10 habis
+                // 3. Cek kuota penuh berdasarkan keranjang pengguna
+                const cartQty = typeof getCartTotalItems === 'function' ? getCartTotalItems() : 0;
+                if (qty + cartQty > 10) return; // Kuota sisa tidak cukup untuk keranjang
 
                 // Jika lolos semua validasi:
                 hasValidOptions = true;
@@ -124,8 +125,16 @@ function submitPreorder(e) {
         return;
     }
 
-    if (!/^[0-9]+$/.test(phone)) {
-        showPoStatus('⚠️ Nomor WhatsApp hanya boleh diisi dengan angka saja tanpa spasi/simbol.', true);
+    // Pembersihan String Telepon dari Karakter Umum (+, Spasi, Strip)
+    let phoneClean = phone.replace(/[\s\-\+]/g, '');
+
+    // Standardisasi kode negara 62 menjadi 0 agar member dikenali sebagai orang yang sama
+    if (phoneClean.startsWith('62')) {
+        phoneClean = '0' + phoneClean.substring(2);
+    }
+
+    if (!/^[0-9]+$/.test(phoneClean)) {
+        showPoStatus('⚠️ Nomor WhatsApp tidak valid. Pastikan hanya berisi angka.', true);
         return;
     }
 
@@ -170,7 +179,7 @@ function submitPreorder(e) {
         // 2. Jika transaksi sukses, simpan data record PO ke dalam collection po_orders
         return db.collection('po_orders').add({
             name: name,
-            phone: phone,
+            phone: phoneClean,
             gmaps: gmaps,
             landmark: landmark,
             items: cart, // Save full cart array
@@ -183,12 +192,12 @@ function submitPreorder(e) {
         // --- 3. Auto-Register Member & Add Purchase ---
         // Check if member already exists by phone number
         const membersRef = db.collection('members');
-        return membersRef.where('phone', '==', phone).get().then(snapshot => {
+        return membersRef.where('phone', '==', phoneClean).get().then(snapshot => {
             if (snapshot.empty) {
                 // New member
                 const newMember = {
                     name: name.trim(),
-                    phone: phone.trim(),
+                    phone: phoneClean,
                     points: typeof LOYALTY_CONFIG !== 'undefined' ? LOYALTY_CONFIG.POINTS_PER_PURCHASE : 1, // Fallback if config not loaded
                     purchases: 1, // 1st purchase
                     rewards: 0,
@@ -217,7 +226,7 @@ function submitPreorder(e) {
             const niceDate = new Date(dateObjStr.split('-')[0], dateObjStr.split('-')[1] - 1, dateObjStr.split('-')[2]).toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
             let itemDetails = cart.map(item => `- ${item.name} (${item.qty}x) = ${formatRupiah(item.price * item.qty)}`).join('\n');
 
-            const teks = `Halo Fruttein! Saya ingin checkout pesanan:\n\n*Nama:* ${name}\n*Nomor WA:* ${phone}\n*Link Gmaps:* ${gmaps}\n*Penanda Visual:* ${landmark}\n*Tgl Pengiriman:* ${niceDate}\n\n*DAFTAR PESANAN:*\n${itemDetails}\n\n*TOTAL PESANAN:* ${totalQty} barang\n*TOTAL HARGA:* ${formatRupiah(totalPrice)}\n\nMohon konfirmasinya ya!`;
+            const teks = `Halo Fruttein! Saya ingin checkout pesanan:\n\n*Nama:* ${name}\n*Nomor WA:* ${phoneClean}\n*Link Gmaps:* ${gmaps}\n*Penanda Visual:* ${landmark}\n*Tgl Pengiriman:* ${niceDate}\n\n*DAFTAR PESANAN:*\n${itemDetails}\n\n*TOTAL PESANAN:* ${totalQty} barang\n*TOTAL HARGA:* ${formatRupiah(totalPrice)}\n\nMohon konfirmasinya ya!`;
 
             // Apple/iOS browser (Safari) strict pop-up blocker blocker workaround
             const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
