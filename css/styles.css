@@ -2427,3 +2427,82 @@ footer>* {
   padding: 0;
   min-height: 16px;
 }
+
+/* ============================================================
+   FLOATING CART BADGE
+   ============================================================ */
+.floating-cart-badge {
+  position: fixed;
+  bottom: 24px;
+  right: 180px;
+  /* Space from standard floating buttons */
+  background: var(--yellow);
+  border: var(--b5);
+  box-shadow: var(--sh-xl);
+  border-radius: 50px;
+  padding: 12px 24px;
+  z-index: 999;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.floating-cart-badge:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 12px 18px 0 var(--black);
+  background: var(--white);
+}
+
+.floating-cart-badge:active {
+  transform: translateY(2px) scale(0.95);
+  box-shadow: 4px 4px 0 var(--black);
+}
+
+.cart-badge-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.cart-badge-icon {
+  font-size: 24px;
+  filter: drop-shadow(2px 2px 0 var(--black));
+}
+
+.cart-badge-text {
+  font-family: var(--font-hero);
+  font-size: 20px;
+  color: var(--black);
+  letter-spacing: 1px;
+}
+
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.3) translateY(100px);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.1) translateY(-10px);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .floating-cart-badge {
+    bottom: 90px;
+    right: 20px;
+    left: 20px;
+    justify-content: center;
+    border-radius: 12px;
+    padding: 16px;
+  }
+}
