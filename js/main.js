@@ -26,6 +26,10 @@ function initApp() {
 
     // 5. Setup Listener Table PO khusus Admin
     setupAdminPoTableListener();
+
+    // 6. Load Products from Firebase CMS
+    if (typeof loadProductsForCustomer === 'function') loadProductsForCustomer();
+    if (typeof loadAdminProducts === 'function') loadAdminProducts();
 }
 
 if (typeof auth !== 'undefined' && auth !== null) {

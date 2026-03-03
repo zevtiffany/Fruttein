@@ -20,12 +20,12 @@ function saveCart() {
     localStorage.setItem('fruttein_cart', JSON.stringify(cart));
 }
 
-function addToCart(id, name, price, img) {
+function addToCart(id, name, price, hexColor) {
     const index = cart.findIndex(item => item.id == id);
     if (index >= 0) {
         cart[index].qty += 1;
     } else {
-        cart.push({ id, name, price, img, qty: 1 });
+        cart.push({ id, name, price, hexColor, qty: 1 });
     }
     saveCart();
     renderCartBadge();
@@ -129,13 +129,15 @@ function renderCartModalList() {
 
     let html = '';
     cart.forEach(item => {
-        // Tentukan warna block berdasarkan ID produk menggunakan hex color
-        let blockColor = '#C41E5E'; // Nanamango
-        if (item.id == 2) blockColor = '#FFD6E0'; // Stropis
-        if (item.id == 3) blockColor = '#6B8E23'; // Banavoca
+        // Evaluate dynamic hex color inherited from product CMS
+        let blockColor = item.hexColor || '#C41E5E'; // fallback default
 
-        let textColor = (item.id == 2) ? 'var(--black)' : 'white';
-        let textShadow = (item.id == 2) ? 'none' : '1px 1px 0 var(--black)';
+        // Simple generic luminance check for text contrast:
+        // Assume (#FFD...) needs dark text. For pure programmatic genericness we can check first char if it's very light.
+        // But for Fruttein's branding scope, #FFD6E0 is the main light one.
+        const isLight = blockColor.toUpperCase() === '#FFD6E0';
+        let textColor = isLight ? 'var(--black)' : 'white';
+        let textShadow = isLight ? 'none' : '1px 1px 0 var(--black)';
 
         html += `
         <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #ccc;">

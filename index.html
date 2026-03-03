@@ -27,6 +27,8 @@
         <li><a href="#pilihan-menu">Menu</a></li>
         <li><a href="javascript:void(0)" onclick="openModal('membersModal')">Member</a></li>
         <li><a href="javascript:void(0)" onclick="openModal('galleryModal')">Galeri</a></li>
+        <li><a href="javascript:void(0)" onclick="openModal('adminProductsModal')" class="admin-only"
+            style="display:none; background:var(--blue); color:white;">Admin Produk</a></li>
         <li><a href="javascript:void(0)" onclick="openModal('adminPoModal')" class="admin-only"
             style="display:none; background:var(--red); color:white;">Admin PO</a></li>
       </ul>
@@ -242,46 +244,10 @@
       <div id="frontPoQuotaBadge"
         style="text-align:center; font-family:var(--font-title); font-size:18px; margin-bottom:24px; color:var(--black);">
         Memuat stok PO tercepat...</div>
-      <div class="menu-grid">
-        <div class="menu-item menu-item--nanamango">
-          <img src="assets/images/Nanamango.jpeg" alt="Nanamango">
-          <div class="menu-item-content">
-            <span class="menu-tag">BEST SELLER</span>
-            <h3>Nanamango</h3>
-            <p class="menu-price"
-              style="font-size: 20px; font-weight: 800; font-family: var(--font-hero); margin-bottom: 8px;">Rp 17.000
-            </p>
-            <p>Kombinasi sempurna Buah Naga, Pisang, Mangga &amp; Golden Nectar untuk rasa yang eksplosif.</p>
-            <a href="javascript:void(0)" id="addBtn-1" onclick="addToCart(1, 'Nanamango', 17000)" class="order-link">🛒
-              TAMBAH</a>
-          </div>
-        </div>
-        <div class="menu-item menu-item--stropis">
-          <img src="assets/images/Stropis.jpeg" alt="Stropis">
-          <div class="menu-item-content">
-            <span class="menu-tag menu-tag--blue">FAVORIT</span>
-            <h3>Stropis</h3>
-            <p class="menu-price"
-              style="font-size: 20px; font-weight: 800; font-family: var(--font-hero); margin-bottom: 8px;">Rp 17.000
-            </p>
-            <p>Manis dan lezat dari kombinasi Strawberry, Pisang, Yoghurt &amp; Golden Nectar.</p>
-            <a href="javascript:void(0)" id="addBtn-2" onclick="addToCart(2, 'Stropis', 17000)" class="order-link">🛒
-              TAMBAH</a>
-          </div>
-        </div>
-        <div class="menu-item menu-item--banavoca">
-          <img src="assets/images/Banavoca.jpeg" alt="Banavoca">
-          <div class="menu-item-content">
-            <span class="menu-tag menu-tag--green">CREAMY</span>
-            <h3>Banavoca</h3>
-            <p class="menu-price"
-              style="font-size: 20px; font-weight: 800; font-family: var(--font-hero); margin-bottom: 8px;">Rp 17.000
-            </p>
-            <p>Kaya nutrisi dari Alpukat, Pisang, Fresh Milk &amp; Golden Nectar yang creamy.</p>
-            <a href="javascript:void(0)" id="addBtn-3" onclick="addToCart(3, 'Banavoca', 17000)" class="order-link">🛒
-              TAMBAH</a>
-          </div>
-        </div>
+      <div class="menu-grid" id="menuGridContainer">
+        <!-- Products will be injected here dynamically by productService.js -->
+        <div style="grid-column: 1 / -1; text-align: center; font-family: var(--font-number); font-size: 20px;">Memuat
+          Menu...</div>
       </div>
 
       <!-- Ramadan Event Banner -->
@@ -534,6 +500,82 @@
     </div>
   </div>
 
+  <!-- MODAL: Admin Products (CMS) -->
+  <div id="adminProductsModal" class="modal-overlay" onclick="handleOverlayClick(event, 'adminProductsModal')">
+    <div class="modal-box modal-box--wide">
+      <div class="modal-header">
+        <h2>MANAJEMEN PRODUK (CMS)</h2>
+        <button class="modal-close" onclick="closeModal('adminProductsModal')">X</button>
+      </div>
+      <div class="modal-body">
+        <div class="members-section">
+          <p>Tambah, ubah, atau hapus menu jus yang ditampilkan di halaman beranda.</p>
+
+          <div class="admin-po-section"
+            style="margin-bottom: 20px; background: #E8F5E9; border: 4px solid var(--black); padding: 15px;">
+            <h3 style="margin-bottom: 10px; border-bottom: 2px solid var(--black); padding-bottom: 5px;">TAMBAH / UBAH
+              PRODUK</h3>
+            <form id="adminProductForm" onsubmit="saveAdminProduct(event)"
+              style="display: flex; flex-direction: column; gap: 10px;">
+              <input type="hidden" id="prodDocId">
+              <input type="hidden" id="prodId">
+
+              <div style="display: flex; gap: 10px;">
+                <input type="text" id="prodName" placeholder="Nama Produk (Cth: Nanamango)" required style="flex: 2;">
+                <input type="number" id="prodPrice" placeholder="Harga (Cth: 17000)" required style="flex: 1;">
+              </div>
+
+              <input type="text" id="prodDesc" placeholder="Deskripsi pendek produk" required>
+
+              <!-- Notes on Image URL to avoid Firebase Storage setup -->
+              <input type="text" id="prodImage"
+                placeholder="URL Foto (Cth: assets/images/Nanamango.jpeg ATAU https://imgur.com/...)" required>
+
+              <div style="display: flex; gap: 10px;">
+                <input type="text" id="prodTagText" placeholder="Teks Label (Cth: BEST SELLER)" style="flex: 1;">
+                <input type="text" id="prodTagColor" placeholder="Class Warna Tag (Cth: menu-tag--blue)"
+                  style="flex: 1;">
+              </div>
+
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <input type="text" id="prodHexColor" placeholder="Warna Tema Hex (Cth: #C41E5E)" required
+                  style="flex: 2;">
+                <label style="flex: 1; display:flex; gap:5px; align-items:center; font-weight:bold;">
+                  <input type="checkbox" id="prodIsActive" checked> Aktif?
+                </label>
+                <input type="number" id="prodOrder" placeholder="Urutan (1,2,3)" required style="flex: 1; width:50px;">
+              </div>
+
+              <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button type="submit" class="btn btn-primary" id="prodSaveBtn" style="flex:2;">SIMPAN PRODUK</button>
+                <button type="button" class="btn" style="background:#ccc; color:#000; flex:1;"
+                  onclick="resetProductForm()">RESET FORM</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="members-table-wrapper">
+            <table class="members-table">
+              <thead>
+                <tr>
+                  <th style="width:5%">Urut</th>
+                  <th style="width:15%">Foto</th>
+                  <th style="width:25%">Nama Produk</th>
+                  <th style="width:15%">Harga</th>
+                  <th style="width:10%">Status</th>
+                  <th style="width:30%">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="adminProductsBody">
+                <!-- Admin Product CMS List renders here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL: Keranjang Belanja (Cart) -->
   <div id="cartModal" class="modal-overlay" onclick="handleOverlayClick(event, 'cartModal')">
     <div class="modal-box"
@@ -661,6 +703,7 @@
   <script src="js/services/memberService.js"></script>
   <script src="js/services/cartService.js"></script>
   <script src="js/services/preorderService.js"></script>
+  <script src="js/services/productService.js"></script>
   <script src="js/main.js"></script>
 </body>
 
