@@ -595,6 +595,134 @@ section h2 {
   background: var(--purple);
 }
 
+.section-card--mystery .section-card-header {
+  background: var(--black);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-card--mystery .section-card-header::after {
+  content: '? ? ? ? ? ? ?';
+  position: absolute;
+  top: 50%;
+  left: -10px;
+  transform: translateY(-50%);
+  font-family: var(--font-hero);
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: rgba(255,255,255,0.1);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ---- Mystery panel ---- */
+.mystery-panel {
+  width: 100%;
+  height: 150px;
+  border-bottom: var(--b4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: #111;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.04) 1.5px, transparent 1.5px);
+  background-size: 10px 10px;
+}
+
+/* Giant faded ? behind everything */
+.mystery-bg-char {
+  position: absolute;
+  font-family: var(--font-hero);
+  font-size: 160px;
+  color: rgba(255, 255, 255, 0.04);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Main big ? */
+.mystery-mark {
+  font-family: var(--font-hero);
+  font-size: 72px;
+  color: var(--white);
+  -webkit-text-stroke: 3px var(--black);
+  text-shadow: 4px 4px 0 rgba(255,255,255,0.15), 0 0 30px rgba(255,255,255,0.4);
+  line-height: 1;
+  z-index: 1;
+  position: relative;
+  animation: mystery-pulse 2.4s ease-in-out infinite;
+}
+
+.mystery-sub {
+  font-family: var(--font-title);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.5);
+  text-align: center;
+  margin-top: 4px;
+  z-index: 1;
+  position: relative;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.08);
+  padding: 2px 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* Glitch-pulse animation */
+@keyframes mystery-pulse {
+  0%, 100% {
+    text-shadow: 4px 4px 0 rgba(255,255,255,0.15), 0 0 30px rgba(255,255,255,0.4);
+    transform: scaleY(1);
+  }
+  30% {
+    text-shadow: -3px 0 0 rgba(255,0,80,0.6), 3px 0 0 rgba(0,200,255,0.6), 0 0 40px rgba(255,255,255,0.6);
+    transform: scaleY(1.05) skewX(-3deg);
+  }
+  60% {
+    text-shadow: 4px 4px 0 rgba(255,255,255,0.15), 0 0 20px rgba(255,255,255,0.3);
+    transform: scaleY(0.97);
+  }
+}
+
+/* Quick links override for mystery card */
+.section-card--mystery .quick-links {
+  background-color: #1a1a1a;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.04) 28%, transparent 29%);
+  background-size: 10px 10px;
+}
+
+.section-card--mystery .quick-links strong {
+  color: rgba(255,255,255,0.6);
+  border-top-color: rgba(255,255,255,0.2);
+  border-bottom-color: rgba(255,255,255,0.1);
+  background: linear-gradient(transparent 45%, rgba(255,255,255,0.06) 45%, rgba(255,255,255,0.06) 55%, transparent 55%);
+}
+
+.section-card--mystery .quick-links a {
+  color: rgba(255,255,255,0.35);
+  cursor: not-allowed;
+  letter-spacing: 0.5px;
+}
+
+.section-card--mystery .quick-links a:hover {
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+.section-card--mystery .quick-links a::before {
+  content: '? ';
+  color: inherit;
+}
+
 /* Equal-height content areas — Quick Links align across all cards */
 .section-card-img {
   width: 100%;
