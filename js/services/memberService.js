@@ -390,9 +390,9 @@ async function syncPOToMembers() {
     // Gunakan customConfirm agar UI konsisten dan tidak diblokir browser popup jika memungkinkan
     const confirmed = await new Promise(resolve => {
         if (typeof customConfirm === 'function') {
-            customConfirm("Sinkronisasi ini akan mengecek SEMUA data riwayat Pre-Order (PO) lama, lalu menambahkannya sebagai member baru atau menambahkan poin pada member yang sudah ada berdasarkan nomor WhatsApp. Proses ini mungkin memakan waktu. Lanjutkan?").then(resolve);
+            customConfirm("Sinkronisasi ini akan menghitung ulang poin semua member berdasarkan TOTAL QTY riwayat Pre-Order (PO). Member baru akan didaftarkan otomatis, member lama akan di-update nilainya. Aman dijalankan berulang kali. Lanjutkan?").then(resolve);
         } else {
-            resolve(confirm("Sinkronisasi ini akan mengecek SEMUA data riwayat PO lama... Lanjutkan?"));
+            resolve(confirm("Sinkronisasi ini akan menghitung ulang poin berdasarkan total qty PO lama... Lanjutkan?"));
         }
     });
 
@@ -440,7 +440,7 @@ async function syncPOToMembers() {
             const memberSnap = await db.collection(MEMBERS_COLLECTION).where('phone', '==', phone).get();
 
             if (memberSnap.empty) {
-                // Buat member baru dengan total poin yang diakumulasi
+                // Buat member baru dengan total poin yang diakumulasi dari QTY
                 await db.collection(MEMBERS_COLLECTION).add({
                     name: data.name,
                     phone: data.phone,
@@ -452,14 +452,19 @@ async function syncPOToMembers() {
                 });
                 newCount++;
             } else {
-                // Jika member sudah ada, kita lewati update poin otomatis dari script ini, 
-                // untuk mencegah manipulasi double points jika disinkronisasi berulang kali.
-                console.log(`Member ${phone} sudah ada. Dilewati dari sinkronisasi untuk mencegah dobel poin.`);
+                // Member sudah ada → SET ulang poin & purchases berdasarkan kalkulasi total QTY dari PO
+                // Aman dari double-count karena kita SET bukan increment
+                const existingDoc = memberSnap.docs[0];
+                await db.collection(MEMBERS_COLLECTION).doc(existingDoc.id).update({
+                    points: data.points,
+                    purchases: data.purchases
+                });
+                console.log(`Member ${phone} diupdate: ${data.purchases} purchases, ${data.points} poin.`);
                 updateCount++;
             }
         }
 
-        const msg = `✅ Sinkronisasi Selesai! Berhasil mendaftarkan ${newCount} member baru dari riwayat PO. (${updateCount} member lama dilewati)`;
+        const msg = `✅ Sinkronisasi Selesai! ${newCount} member baru didaftarkan, ${updateCount} member lama diperbarui poin-nya berdasarkan total qty PO.`;
         showStatus(msg, false);
         alert(msg);
     } catch (e) {
