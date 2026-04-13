@@ -183,18 +183,56 @@ class MemberManager {
         if (!isAdmin()) { showStatus('⚠️ Login admin dulu!', true); return; }
         if (this.members.length === 0) { alert(MESSAGES.EXPORT_EMPTY); return; }
 
-        let csv = 'No,Nama Member,WhatsApp,Poin,Total Pembelian,Total Reward,Tanggal Bergabung\n';
-        this.members.forEach((member, index) => {
-            csv += `${index + 1},"${member.name}","${member.phone}",${member.points},${member.purchases},"${member.rewards || 0}","${member.joinDate}"\n`;
-        });
+        // Ambil semua PO orders untuk men-join data menu ke member
+        db.collection('po_orders').get().then(poSnapshot => {
+            // Kelompokkan menu per nomor HP
+            const menuByPhone = {};
+            poSnapshot.forEach(doc => {
+                const po = doc.data();
+                const phone = po.phone || '';
+                if (!phone) return;
+                if (!menuByPhone[phone]) menuByPhone[phone] = [];
+                if (Array.isArray(po.items) && po.items.length > 0) {
+                    po.items.forEach(item => {
+                        menuByPhone[phone].push(`${item.name}(${item.qty}x)`);
+                    });
+                } else if (po.productName) {
+                    menuByPhone[phone].push(po.productName);
+                }
+            });
 
-        const element = document.createElement('a');
-        element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv));
-        element.setAttribute('download', `fruttein_members_${new Date().getTime()}.csv`);
-        element.style.display = 'none';
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
+            let csv = 'No,Nama Member,WhatsApp,Poin,Total Pembelian (Qty),Total Reward,Tanggal Bergabung,Menu Pernah Dipesan\n';
+            this.members.forEach((member, index) => {
+                const menuRaw = menuByPhone[member.phone] || [];
+                // Hitung frekuensi per menu
+                const freq = {};
+                menuRaw.forEach(m => { freq[m] = (freq[m] || 0) + 1; });
+                const menuStr = Object.entries(freq).map(([m, c]) => c > 1 ? `${m}x${c}` : m).join(' | ') || '-';
+                csv += `${index + 1},"${member.name}","${member.phone}",${member.points},${member.purchases},"${member.rewards || 0}","${member.joinDate}","${menuStr.replace(/"/g, '""')}"\n`;
+            });
+
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv));
+            element.setAttribute('download', `fruttein_members_${new Date().getTime()}.csv`);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }).catch(err => {
+            // Fallback export tanpa data menu jika gagal fetch PO
+            console.warn('Gagal ambil PO untuk menu, export tanpa kolom menu:', err);
+            let csv = 'No,Nama Member,WhatsApp,Poin,Total Pembelian (Qty),Total Reward,Tanggal Bergabung\n';
+            this.members.forEach((member, index) => {
+                csv += `${index + 1},"${member.name}","${member.phone}",${member.points},${member.purchases},"${member.rewards || 0}","${member.joinDate}"\n`;
+            });
+            const element = document.createElement('a');
+            element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv));
+            element.setAttribute('download', `fruttein_members_${new Date().getTime()}.csv`);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        });
     }
 
     /**
@@ -378,6 +416,9 @@ async function syncPOToMembers() {
             const phone = po.phone ? po.phone.trim() : null;
             if (!phone) return;
 
+            // Poin berdasarkan qty item per PO, bukan per PO
+            const poQty = po.qty || 1;
+
             if (!grouped[phone]) {
                 grouped[phone] = {
                     name: po.name || 'Pelanggan',
@@ -386,8 +427,8 @@ async function syncPOToMembers() {
                     points: 0
                 };
             }
-            grouped[phone].purchases += 1;
-            grouped[phone].points += (typeof LOYALTY_CONFIG !== 'undefined' ? LOYALTY_CONFIG.POINTS_PER_PURCHASE : 1);
+            grouped[phone].purchases += poQty;
+            grouped[phone].points += poQty;
         });
 
         const uniquePhones = Object.keys(grouped);
