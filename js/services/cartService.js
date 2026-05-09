@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    CART SYSTEM FUNCTIONS
    ============================================ */
 
@@ -122,7 +122,7 @@ function renderCartModalList() {
     if (!container || !totalInfo) return;
 
     if (cart.length === 0) {
-        container.innerHTML = '<p style="text-align: center; font-style: italic; color: var(--grey);">Keranjang masih kosong.</p>';
+        container.innerHTML = '<p style="text-align: center; font-style: italic; color: var(--subtle);">Keranjang masih kosong.</p>';
         totalInfo.innerText = formatRupiah(0);
         return;
     }
@@ -140,20 +140,20 @@ function renderCartModalList() {
         let textShadow = isLight ? 'none' : '1px 1px 0 var(--black)';
 
         html += `
-        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #ccc;">
-            <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
-                <div style="width: 50px; height: 50px; border-radius: 8px; border: 3px solid var(--black); background: ${blockColor}; color: ${textColor}; box-shadow: 2px 2px 0 var(--black); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; text-shadow: ${textShadow};">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--glass-border);">
+            <div style="display: flex; align-items: center; gap: 14px; flex: 1;">
+                <div style="width: 50px; height: 50px; border-radius: 12px; border: 1px solid var(--glass-border); background: ${blockColor}; color: ${textColor}; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 22px; font-weight: 800; text-shadow: ${textShadow}; box-shadow: inset 0 0 10px rgba(0,0,0,0.2);">
                     ${item.name.charAt(0)}
                 </div>
                 <div>
-                    <div style="font-weight: 800; font-size: 14px;">${item.name}</div>
-                    <div style="color: var(--red); font-size: 13px; font-weight: 700;">${formatRupiah(item.price)}</div>
+                    <div style="font-family: var(--font-display); font-weight: 700; font-size: 15px; color: var(--white); letter-spacing: 0.5px;">${item.name}</div>
+                    <div style="font-family: var(--font-mono); color: var(--neon); font-size: 13px; font-weight: 700;">${formatRupiah(item.price)}</div>
                 </div>
             </div>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <button type="button" onclick="updateCartQty(${item.id}, -1)" style="width: 28px; height: 28px; border: 2px solid var(--black); background: #f0f0f0; border-radius: 4px; font-weight: 800; cursor: pointer;">-</button>
-                <div style="font-weight: 800; font-size: 14px; width: 20px; text-align: center;">${item.qty}</div>
-                <button type="button" onclick="updateCartQty(${item.id}, 1)" style="width: 28px; height: 28px; border: 2px solid var(--black); background: var(--green); color: white; border-radius: 4px; font-weight: 800; cursor: pointer;">+</button>
+                <button type="button" onclick="updateCartQty(${item.id}, -1)" style="width: 32px; height: 32px; border: 1px solid var(--subtle); background: rgba(255,255,255,0.05); color: var(--white); border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s;">-</button>
+                <div style="font-family: var(--font-mono); font-weight: 700; font-size: 14px; color: var(--white); width: 24px; text-align: center;">${item.qty}</div>
+                <button type="button" onclick="updateCartQty(${item.id}, 1)" style="width: 32px; height: 32px; border: 1px solid var(--neon-dim); background: rgba(13,255,0,0.1); color: var(--neon); border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.2s;">+</button>
             </div>
         </div>
         `;
@@ -183,3 +183,4 @@ if (typeof originalOpenModal === 'function') {
 document.addEventListener('DOMContentLoaded', () => {
     initCart();
 });
+
