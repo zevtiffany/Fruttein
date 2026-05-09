@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    MAIN INITIALIZATION SCRIPT
    ============================================ */
 
@@ -125,4 +125,22 @@ function setupAdminPoTableListener() {
                 tbody.appendChild(tr);
             });
         });
+}
+
+/* Hamburger Menu Logic */
+function toggleMobileMenu() {
+    const drawer = document.getElementById('navDrawer');
+    const overlay = document.getElementById('navOverlay');
+    if (drawer && overlay) {
+        drawer.classList.toggle('active');
+        overlay.classList.toggle('active');
+    }
+}
+function closeMobileMenu() {
+    const drawer = document.getElementById('navDrawer');
+    const overlay = document.getElementById('navOverlay');
+    if (drawer && overlay) {
+        drawer.classList.remove('active');
+        overlay.classList.remove('active');
+    }
 }

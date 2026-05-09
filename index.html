@@ -9,15 +9,15 @@
   <meta name="author" content="Fruttein Juice Shop">
   <meta name="theme-color" content="#090b7a">
   <title>FRUTTEIN — Premium Smoothies</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/styles.css?v=6">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/styles.css?v=11">
 </head>
 
 <body>
 
   <!-- Navigation Header -->
   <header>
-    <div class="header-content">
-      <div class="logo-block">
+        <div class="header-content">
+      <a href="#home" class="logo-block" style="text-decoration:none;">
         <span class="logo-icon">
           <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="44" height="44" rx="11" fill="#090b7a"/>
@@ -29,16 +29,29 @@
         </span>
         <h1>FRUTTEIN</h1>
       </a>
-      <ul class="nav-links">
-        <li><a href="#home">Beranda</a></li>
-        <li><a href="#about">Tentang</a></li>
-        <li><a href="#pilihan-menu">Menu</a></li>
-        <li><a href="javascript:void(0)" onclick="openModal('membersModal')">Member</a></li>
-        <li><a href="javascript:void(0)" onclick="openModal('adminProductsModal')" class="admin-only"
-            style="display:none; background:rgba(13,255,0,0.1); border:1px solid rgba(13,255,0,0.4); color:var(--neon);">Admin Produk</a></li>
-        <li><a href="javascript:void(0)" onclick="openModal('adminPoModal')" class="admin-only"
-            style="display:none; background:rgba(242,63,26,0.1); border:1px solid rgba(242,63,26,0.4); color:var(--flame);">Admin PO</a></li>
-      </ul>
+      
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+
+      <div class="nav-overlay" id="navOverlay" onclick="toggleMobileMenu()"></div>
+      
+      <nav class="nav-drawer" id="navDrawer">
+        <div class="nav-drawer-header">
+          <h2>MENU</h2>
+          <button class="close-drawer-btn" onclick="toggleMobileMenu()">X</button>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#home" onclick="closeMobileMenu()">Beranda</a></li>
+          <li><a href="#about" onclick="closeMobileMenu()">Tentang</a></li>
+          <li><a href="#pilihan-menu" onclick="closeMobileMenu()">Menu</a></li>
+          <li><a href="javascript:void(0)" onclick="closeMobileMenu(); openModal('membersModal')">Member</a></li>
+          <li><a href="javascript:void(0)" onclick="closeMobileMenu(); openModal('adminProductsModal')" class="admin-only"
+              style="display:none; background:rgba(13,255,0,0.1); border:1px solid rgba(13,255,0,0.4); color:var(--neon);">Admin Produk</a></li>
+          <li><a href="javascript:void(0)" onclick="closeMobileMenu(); openModal('adminPoModal')" class="admin-only"
+              style="display:none; background:rgba(242,63,26,0.1); border:1px solid rgba(242,63,26,0.4); color:var(--flame);">Admin PO</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
@@ -586,6 +599,12 @@
 </body>
 
 </html>
+
+
+
+
+
+
 
 
 

@@ -163,7 +163,7 @@ label{font-size:13px;color:var(--muted);font-weight:500;}
 .admin-po-section{background:rgba(255,255,255,0.03);border:1px solid var(--subtle);border-radius:12px;padding:20px;margin-bottom:20px;}
 .admin-po-section h3{font-family:var(--font-display);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--neon);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--subtle);}
 .admin-only{display:none;}
-.floating-cart-badge{position:fixed;bottom:100px;right:20px;background:var(--flame);color:var(--white);border-radius:100px;padding:12px 20px;font-family:var(--font-display);font-size:13px;font-weight:800;letter-spacing:1px;cursor:pointer;z-index:900;box-shadow:var(--glow-flame);transition:all 0.3s ease;display:flex;align-items:center;gap:8px;}
+.floating-cart-badge{position:fixed;bottom:100px;right:20px;background:var(--flame);color:var(--white);border-radius:100px;padding:12px 20px;font-family:var(--font-display);font-size:13px;font-weight:800;letter-spacing:1px;cursor:pointer;z-index:1001;box-shadow:var(--glow-flame);transition:all 0.3s ease;display:flex;align-items:center;gap:8px;}
 .floating-cart-badge:hover{transform:scale(1.05);box-shadow:0 0 30px rgba(242,63,26,0.6);}
 .floating-buttons{position:fixed;bottom:20px;right:20px;display:flex;flex-direction:column;gap:10px;z-index:900;}
 .fb-wa,.fb-ig{display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;transition:all 0.3s ease;background:rgba(6,8,79,0.9);border:1px solid var(--glass-border);backdrop-filter:blur(10px);}
@@ -187,7 +187,7 @@ footer{background:linear-gradient(180deg,rgba(6,8,79,0) 0%,var(--navy-deep) 8%);
 .about-image{height:200px;}
 .values-grid{grid-template-columns:repeat(2,1fr);}
 .section-cards{grid-template-columns:1fr;}
-.contact-grid{grid-template-columns:1fr;}
+.contact-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
 .location-grid{grid-template-columns:1fr;}
 }
 @media(max-width:768px){
@@ -209,7 +209,7 @@ header h1{font-size:18px;}
 }
 @media(max-width:480px){
 .hero h2{font-size:clamp(36px,12vw,60px);}
-.values-grid{grid-template-columns:1fr;}
+.values-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
 }
 ::-webkit-scrollbar{width:6px;}
 ::-webkit-scrollbar-track{background:var(--navy-deep);}
@@ -258,3 +258,60 @@ header h1{font-size:18px;}
 .fb-wa:hover{box-shadow:0 0 25px rgba(37,211,102,0.6)!important;transform:scale(1.1)!important;background:rgba(255,255,255,0.25)!important;}
 .fb-ig:hover{box-shadow:0 0 25px rgba(225,48,108,0.6)!important;transform:scale(1.1)!important;background:rgba(255,255,255,0.25)!important;}
 
+
+/* Enhanced Mobile Menu Layout */
+@media(max-width:576px){
+    .menu-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+    .menu-item img{height:140px;}
+    .menu-item-content{padding:12px;}
+    .menu-item-content h3{font-size:16px;margin-bottom:4px;}
+    .menu-price{font-size:14px!important;margin-bottom:8px!important;}
+    .menu-item-content p{font-size:11px;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+    .order-link{padding:8px 6px;font-size:10px;letter-spacing:1px;}
+    .menu-tag{font-size:9px;padding:3px 8px;margin-bottom:6px;}
+}
+
+
+
+
+/* Hamburger Drawer Styling */
+.mobile-menu-btn { display: none; background: transparent; border: none; color: var(--white); cursor: pointer; }
+.nav-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); z-index: 999; backdrop-filter: blur(4px); }
+.nav-drawer { display: flex; align-items: center; }
+.nav-drawer-header { display: none; }
+
+@media(max-width:768px){
+    .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
+    .nav-drawer {
+        position: fixed; top: 0; right: -280px; width: 280px; height: 100vh;
+        background: var(--navy-deep); z-index: 1000; flex-direction: column; align-items: stretch;
+        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+        border-left: 1px solid var(--glass-border);
+    }
+    .nav-drawer.active { right: 0; }
+    .nav-overlay.active { display: block; }
+    
+    .nav-drawer-header {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 20px; border-bottom: 1px solid var(--glass-border); margin-bottom: 20px;
+    }
+    .nav-drawer-header h2 { font-size: 16px; font-weight: 800; color: var(--white); margin: 0; letter-spacing: 2px; }
+    .close-drawer-btn { background: transparent; border: none; color: var(--white); font-size: 20px; font-weight: bold; cursor: pointer; }
+    
+    .nav-links { flex-direction: column; width: 100%; padding: 0 20px; gap: 12px; align-items: stretch; }
+    .nav-links li { width: 100%; }
+    .nav-links a { width: 100%; padding: 12px 16px; font-size: 14px; text-align: left; border-radius: 8px; }
+}
+@media(max-width:480px) {
+    .header-content { flex-direction: row; padding: 0 16px; justify-content: space-between; align-items: center; }
+}
+
+
+
+/* Mobile Card Fixes */
+@media(max-width:480px){
+    .value-card{padding:16px;}
+    .value-card h3{font-size:14px;margin-bottom:8px;}
+    .value-card p{font-size:11px;}
+    .contact-card{padding:16px;}
+}
