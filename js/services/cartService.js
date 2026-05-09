@@ -110,9 +110,7 @@ function renderCartBadge() {
                 <span class="cart-badge-text">${totalItems} Item - ${formatRupiah(totalPrice)}</span>
             </div>
         `;
-    } else {
-        badge.style.display = 'none';
-    }
+    } else { badge.style.display = 'flex'; badge.innerHTML = <div class="cart-badge-info"><span class="cart-badge-icon">🛒</span><span class="cart-badge-text">Keranjang Kosong</span></div>; }
 }
 
 function renderCartModalList() {
@@ -183,4 +181,5 @@ if (typeof originalOpenModal === 'function') {
 document.addEventListener('DOMContentLoaded', () => {
     initCart();
 });
+
 
