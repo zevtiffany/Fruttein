@@ -1,4 +1,4 @@
-﻿/* ============================================
+/* ============================================
    CART SYSTEM FUNCTIONS
    ============================================ */
 
@@ -96,21 +96,18 @@ function clearCart() {
 }
 
 function renderCartBadge() {
-    const badge = document.getElementById('floatingCartBadge');
+    const badge = document.getElementById('headerCartBadge');
     if (!badge) return;
 
     const totalItems = getCartTotalItems();
-    const totalPrice = getCartTotalPrice();
 
     if (totalItems > 0) {
         badge.style.display = 'flex';
-        badge.innerHTML = `
-            <div class="cart-badge-info">
-                <span class="cart-badge-icon">🛒</span>
-                <span class="cart-badge-text">${totalItems} Item - ${formatRupiah(totalPrice)}</span>
-            </div>
-        `;
-    } else { badge.style.display = 'flex'; badge.innerHTML = <div class="cart-badge-info"><span class="cart-badge-icon">🛒</span><span class="cart-badge-text">Keranjang Kosong</span></div>; }
+        badge.innerHTML = `<span class="header-cart-icon">🛒</span><span>${totalItems}</span>`;
+    } else { 
+        badge.style.display = 'flex'; 
+        badge.innerHTML = `<span class="header-cart-icon">🛒</span>`; 
+    }
 }
 
 function renderCartModalList() {

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 
 <head>
@@ -30,9 +30,14 @@
         <h1>FRUTTEIN</h1>
       </a>
       
-      <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-      </button>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div id="headerCartBadge" class="header-cart-badge" onclick="openModal('cartModal')" style="display:none;">
+          <!-- Content populated by cartService.js -->
+        </div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
 
       <div class="nav-overlay" id="navOverlay" onclick="toggleMobileMenu()"></div>
       
@@ -215,8 +220,7 @@
     <section id="contact">
       <h2>HUBUNGI KAMI</h2>
       <div class="contact-section">
-        <p class="contact-sub">Kami hanya berjualan secara <strong>ONLINE</strong>. Pesan sekarang melalui WhatsApp dan
-          kami siap melayani kamu!</p>
+        <p class="contact-sub">Pesan secara <strong>ONLINE</strong> melalui WhatsApp, atau kunjungi kami langsung di <strong>GKM FEB UB</strong>!</p>
         <div class="contact-grid">
           <a href="https://wa.me/6285204575882" target="_blank" class="contact-card contact-card--wa">
             <div class="contact-card-icon">💬</div>
@@ -535,22 +539,7 @@
     </div>
   </div>
 
-  <!-- Floating Cart Badge -->
-  <div id="floatingCartBadge" class="floating-cart-badge" onclick="openModal('cartModal')" style="display:flex;">
-    <!-- Content populated by cartService.js -->
-  </div>
 
-  <!-- Floating Buttons -->
-  <div class="floating-buttons">
-    <a class="fb-wa" href="https://wa.me/6285204575882" target="_blank" title="WhatsApp">
-      <img src="assets/images/walogo.png" alt="WhatsApp"
-        onerror="this.style.display='none';this.parentElement.innerHTML='WA'">
-    </a>
-    <a class="fb-ig" href="https://www.instagram.com/fruttein" target="_blank" title="Instagram">
-      <img src="assets/images/instalogo.png" alt="Instagram"
-        onerror="this.style.display='none';this.parentElement.innerHTML='IG'">
-    </a>
-  </div>
 
   <!-- Footer -->
   <footer>
